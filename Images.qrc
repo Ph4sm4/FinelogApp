@@ -1,0 +1,10 @@
+<RCC>
+    <qresource prefix="/logos">
+        <file>content/paneco-logo.webp</file>
+        <file>content/finelog-logo.png</file>
+    </qresource>
+    <qresource prefix="/icons">
+        <file>content/eye_opened.svg</file>
+        <file>content/eye_closed.svg</file>
+    </qresource>
+</RCC>
