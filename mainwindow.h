@@ -3,8 +3,10 @@
 
 #include <QMainWindow>
 #include <QDebug>
-#include "stylesheetmanipulator.h"
 #include "databasehandler.h"
+#include <QLineEdit>
+#include <QJsonObject>
+#include "inputmanager.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -37,11 +39,13 @@ private slots:
 
     void on_loginGoTo_5_clicked();
 
+    void on_registerButton_clicked();
+
 private:
     Ui::MainWindow *ui;
 
     DatabaseHandler dbHandler;
-    void setErrorBorder(class QLineEdit* e);
-    void deleteErrorBorder(class QLineEdit* e);
+
+    class FinelogUser* registrationUser = nullptr;
 };
 #endif // MAINWINDOW_H

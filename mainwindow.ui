@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>848</width>
-    <height>735</height>
+    <width>638</width>
+    <height>742</height>
    </rect>
   </property>
   <property name="font">
@@ -25,7 +25,7 @@
    <bool>false</bool>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QVBoxLayout" name="verticalLayout_12">
+   <layout class="QVBoxLayout" name="verticalLayout_6">
     <property name="spacing">
      <number>0</number>
     </property>
@@ -42,6 +42,39 @@
      <number>0</number>
     </property>
     <item>
+     <widget class="QLabel" name="finelogLogo">
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>49</height>
+       </size>
+      </property>
+      <property name="baseSize">
+       <size>
+        <width>304</width>
+        <height>49</height>
+       </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QLabel {
+background-color: white;
+padding-left: 20px;
+padding-right: 20px;
+}
+</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="pixmap">
+       <pixmap resource="Images.qrc">:/logos/content/finelog-logo.png</pixmap>
+      </property>
+      <property name="scaledContents">
+       <bool>false</bool>
+      </property>
+     </widget>
+    </item>
+    <item>
      <widget class="QStackedWidget" name="pagination">
       <property name="minimumSize">
        <size>
@@ -56,7 +89,7 @@ height: 100%;
 }</string>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>4</number>
       </property>
       <widget class="QWidget" name="login_page">
        <property name="styleSheet">
@@ -82,36 +115,6 @@ background-color: #202020
         </property>
         <item>
          <layout class="QVBoxLayout" name="verticalLayout_2">
-          <item>
-           <widget class="QLabel" name="finelogLogo">
-            <property name="minimumSize">
-             <size>
-              <width>0</width>
-              <height>49</height>
-             </size>
-            </property>
-            <property name="baseSize">
-             <size>
-              <width>304</width>
-              <height>49</height>
-             </size>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">QLabel {
-background-color: white;
-padding-left: 20px;
-padding-right: 20px;
-}
-</string>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-            <property name="scaledContents">
-             <bool>false</bool>
-            </property>
-           </widget>
-          </item>
           <item>
            <spacer name="verticalSpacer">
             <property name="orientation">
@@ -152,7 +155,7 @@ margin-bottom: 20px;
            </widget>
           </item>
           <item>
-           <widget class="QLineEdit" name="idEdit">
+           <widget class="QLineEdit" name="emailEdit">
             <property name="styleSheet">
              <string notr="true">QLineEdit {
 border: 2px solid rgb(37, 39, 48);
@@ -175,7 +178,7 @@ background-color: rgb(43, 45, 56);
              <string/>
             </property>
             <property name="placeholderText">
-             <string>ID</string>
+             <string>Email</string>
             </property>
            </widget>
           </item>
@@ -384,36 +387,6 @@ background-color: #202020
            <number>5</number>
           </property>
           <item>
-           <widget class="QLabel" name="finelogLogo2">
-            <property name="minimumSize">
-             <size>
-              <width>0</width>
-              <height>49</height>
-             </size>
-            </property>
-            <property name="baseSize">
-             <size>
-              <width>304</width>
-              <height>49</height>
-             </size>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">QLabel {
-background-color: white;
-padding-left: 20px;
-padding-right: 20px;
-}
-</string>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-            <property name="scaledContents">
-             <bool>false</bool>
-            </property>
-           </widget>
-          </item>
-          <item>
            <spacer name="verticalSpacer_6">
             <property name="orientation">
              <enum>Qt::Vertical</enum>
@@ -453,7 +426,7 @@ margin-bottom: 20px;
            </widget>
           </item>
           <item>
-           <widget class="QLineEdit" name="idInput">
+           <widget class="QLineEdit" name="idRegistration">
             <property name="styleSheet">
              <string notr="true">QLineEdit {
 border: 2px solid rgb(37, 39, 48);
@@ -672,36 +645,6 @@ background-color: #202020
           <property name="spacing">
            <number>5</number>
           </property>
-          <item>
-           <widget class="QLabel" name="finelogLogo2_3">
-            <property name="minimumSize">
-             <size>
-              <width>0</width>
-              <height>49</height>
-             </size>
-            </property>
-            <property name="baseSize">
-             <size>
-              <width>304</width>
-              <height>49</height>
-             </size>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">QLabel {
-background-color: white;
-padding-left: 20px;
-padding-right: 20px;
-}
-</string>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-            <property name="scaledContents">
-             <bool>false</bool>
-            </property>
-           </widget>
-          </item>
           <item>
            <spacer name="verticalSpacer_16">
             <property name="orientation">
@@ -977,36 +920,6 @@ background-color: #202020
            <number>5</number>
           </property>
           <item>
-           <widget class="QLabel" name="finelogLogo2_4">
-            <property name="minimumSize">
-             <size>
-              <width>0</width>
-              <height>49</height>
-             </size>
-            </property>
-            <property name="baseSize">
-             <size>
-              <width>304</width>
-              <height>49</height>
-             </size>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">QLabel {
-background-color: white;
-padding-left: 20px;
-padding-right: 20px;
-}
-</string>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-            <property name="scaledContents">
-             <bool>false</bool>
-            </property>
-           </widget>
-          </item>
-          <item>
            <spacer name="verticalSpacer_21">
             <property name="orientation">
              <enum>Qt::Vertical</enum>
@@ -1046,7 +959,7 @@ margin-bottom: 20px;
            </widget>
           </item>
           <item>
-           <widget class="QLineEdit" name="emailInput">
+           <widget class="QLineEdit" name="emailRegister">
             <property name="styleSheet">
              <string notr="true">QLineEdit {
 border: 2px solid rgb(37, 39, 48);
@@ -1096,7 +1009,7 @@ background-color: rgb(43, 45, 56);
            </spacer>
           </item>
           <item>
-           <widget class="QLineEdit" name="phoneNumberInput">
+           <widget class="QLineEdit" name="phoneNumberRegister">
             <property name="styleSheet">
              <string notr="true">QLineEdit {
 border: 2px solid rgb(37, 39, 48);
@@ -1281,36 +1194,6 @@ background-color: #202020
            <number>5</number>
           </property>
           <item>
-           <widget class="QLabel" name="finelogLogo2_5">
-            <property name="minimumSize">
-             <size>
-              <width>0</width>
-              <height>49</height>
-             </size>
-            </property>
-            <property name="baseSize">
-             <size>
-              <width>304</width>
-              <height>49</height>
-             </size>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">QLabel {
-background-color: white;
-padding-left: 20px;
-padding-right: 20px;
-}
-</string>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-            <property name="scaledContents">
-             <bool>false</bool>
-            </property>
-           </widget>
-          </item>
-          <item>
            <spacer name="verticalSpacer_26">
             <property name="orientation">
              <enum>Qt::Vertical</enum>
@@ -1350,7 +1233,7 @@ margin-bottom: 20px;
            </widget>
           </item>
           <item>
-           <widget class="QLineEdit" name="nameRegister_3">
+           <widget class="QLineEdit" name="passwordRegister">
             <property name="styleSheet">
              <string notr="true">QLineEdit {
 border: 2px solid rgb(37, 39, 48);
@@ -1400,7 +1283,7 @@ background-color: rgb(43, 45, 56);
            </spacer>
           </item>
           <item>
-           <widget class="QLineEdit" name="surnameRegister_3">
+           <widget class="QLineEdit" name="confirmPassword">
             <property name="styleSheet">
              <string notr="true">QLineEdit {
 border: 2px solid rgb(37, 39, 48);
@@ -1562,6 +1445,8 @@ color: rgb(249, 115, 22);
    </layout>
   </widget>
  </widget>
- <resources/>
+ <resources>
+  <include location="Images.qrc"/>
+ </resources>
  <connections/>
 </ui>

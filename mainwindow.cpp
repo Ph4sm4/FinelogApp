@@ -1,7 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "fineloguser.h"
-#include <QLineEdit>
+#include <type_traits>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -9,8 +9,8 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     ui->finelogLogo->setPixmap(QPixmap(":/logos/content/finelog-logo.png"));
-    ui->finelogLogo2->setPixmap(QPixmap(":/logos/content/finelog-logo.png"));
 
+    ui->pagination->setCurrentIndex(0); // always start off with the login page
 
 //    foreach(QWidget* widget, QApplication::allWidgets()) {
 //        const int pSize = widget->font().pointSize();
@@ -27,88 +27,110 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_loginButton_clicked()
 {
-    const QString id = ui->idEdit->text();
+    const QString id = ui->emailEdit->text();
     const QString pass = ui->passwordEdit->text();
 
-    if(!id.length()) {
-        setErrorBorder(ui->idEdit);
-    }
-    else {
-        deleteErrorBorder(ui->idEdit);
-    }
-    if(!pass.length()){
-        setErrorBorder( ui->passwordEdit);
-    }
-    else {
-         deleteErrorBorder( ui->passwordEdit);
-    }
-    if(!id.length() || !pass.length()) return;
+    bool result = InputManager::validateInputs(ui->emailEdit, ui->passwordEdit);
+    if(!result) return;
 
     qDebug() << dbHandler.getReponseJson("Pets").value("One");
     dbHandler.addNewUser(new FinelogUser("Olaf", "Dalach", "dalach.olaf@gmail.com"));
 }
 
-void MainWindow::setErrorBorder(QLineEdit *e)
-{
-    e->setStyleSheet(
-        StylesheetManipulator::updateStylesheetProperty(
-            e->styleSheet(), "#idEdit", "border", "2px solid red;"));
-}
-
-void MainWindow::deleteErrorBorder(QLineEdit *e)
-{
-    e->setStyleSheet(
-        StylesheetManipulator::updateStylesheetProperty(
-            e->styleSheet(), "#idEdit", "border", "2px solid rgb(37, 39, 48);"));
-}
-
-
-void MainWindow::on_loginGoTo_clicked()
-{
-    ui->pagination->setCurrentIndex(0);
-}
-
-
 void MainWindow::on_registerGoTo_clicked()
 {
+    registrationUser = new FinelogUser();
+    if(!registrationUser) {
+         qFatal("failed to instantiate registration user object");
+         return;
+    }
     ui->pagination->setCurrentIndex(1);
 }
 
 
 void MainWindow::on_idNext_clicked()
 {
+    QString id = ui->idRegistration->text();
+    bool result = InputManager::validateInputs(ui->idRegistration);
+    if(!result) return;
+
+    // check somehow that the id exists
+
     ui->pagination->setCurrentIndex(2);
 }
 
 
 void MainWindow::on_nextName_clicked()
 {
-    ui->pagination->setCurrentIndex(3);
+    QString name = ui->nameRegister->text();
+    QString surname = ui->surnameRegister->text();
 
+    bool result = InputManager::validateInputs(ui->nameRegister, ui->surnameRegister);
+    if(!result) return;
+
+    registrationUser->setName(name);
+    registrationUser->setSurname(surname);
+
+    ui->pagination->setCurrentIndex(3);
 }
 
 
 void MainWindow::on_nextEmail_clicked()
 {
-    ui->pagination->setCurrentIndex(4);
+    QString email = ui->emailRegister->text();
+    QString phoneNumber = ui->phoneNumberRegister->text();
 
+    bool result = InputManager::validateInputs(ui->emailRegister, ui->phoneNumberRegister);
+
+    if(!result) return;
+
+    registrationUser->setEmail(email);
+    registrationUser->setPhoneNumber(phoneNumber);
+
+    ui->pagination->setCurrentIndex(4);
+}
+
+void MainWindow::on_loginGoTo_clicked()
+{
+    delete registrationUser;
+    InputManager::clearInputs(ui->idRegistration, ui->emailRegister,
+                              ui->nameRegister, ui->surnameRegister, ui->phoneNumberRegister,
+                              ui->passwordRegister, ui->confirmPassword);
+    ui->pagination->setCurrentIndex(0);
 }
 
 
 void MainWindow::on_loginGoTo_3_clicked()
 {
+    delete registrationUser;
+    InputManager::clearInputs(ui->idRegistration, ui->emailRegister,
+                              ui->nameRegister, ui->surnameRegister, ui->phoneNumberRegister,
+                              ui->passwordRegister, ui->confirmPassword);
     ui->pagination->setCurrentIndex(0);
 }
 
 
 void MainWindow::on_loginGoTo_4_clicked()
 {
+    delete registrationUser;
+    InputManager::clearInputs(ui->idRegistration, ui->emailRegister,
+                              ui->nameRegister, ui->surnameRegister, ui->phoneNumberRegister,
+                              ui->passwordRegister, ui->confirmPassword);
     ui->pagination->setCurrentIndex(0);
 }
 
 
 void MainWindow::on_loginGoTo_5_clicked()
 {
+    delete registrationUser;
+    InputManager::clearInputs(ui->idRegistration, ui->emailRegister,
+                              ui->nameRegister, ui->surnameRegister, ui->phoneNumberRegister,
+                              ui->passwordRegister, ui->confirmPassword);
     ui->pagination->setCurrentIndex(0);
 }
 
+
+void MainWindow::on_registerButton_clicked()
+{
+
+}

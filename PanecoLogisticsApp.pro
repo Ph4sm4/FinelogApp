@@ -12,6 +12,7 @@ CONFIG += c++17
 SOURCES += \
     databasehandler.cpp \
     fineloguser.cpp \
+    inputmanager.cpp \
     main.cpp \
     mainwindow.cpp \
     stylesheetmanipulator.cpp
@@ -19,6 +20,7 @@ SOURCES += \
 HEADERS += \
     databasehandler.h \
     fineloguser.h \
+    inputmanager.h \
     mainwindow.h \
     stylesheetmanipulator.h
 
