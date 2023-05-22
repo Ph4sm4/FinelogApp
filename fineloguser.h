@@ -23,18 +23,21 @@ public:
     explicit FinelogUser() {}
 
 
-    QString getName() { return name; } const;
-    QString getSurname() { return surname; } const;
-    QString getEmail() { return email; } const;
-    QString getPhoneNumber() { return phoneNumber; } const;
-    QString getPassword() { return password; } const;
+    QString getName() const { return name; }
+    QString getSurname() const { return surname; }
+    QString getEmail() const { return email; }
+    QString getPhoneNumber() const { return phoneNumber; }
+    QString getPassword() const { return password; }
+    QString getUserId() const { return userId; }
+    QString getIdToken() const { return idToken; }
 
-
-    void setName(QString newName) { name = newName; }
-    void setEmail(QString newEmail) { email = newEmail; }
-    void setPhoneNumber(QString newPhoneNumber) { phoneNumber = newPhoneNumber; }
-    void setSurname(QString newSurname) { surname = newSurname; }
-    void setPassword(QString newPassword) { password = newPassword; }
+    void setName(const QString& newName) { name = newName; }
+    void setEmail(const QString& newEmail) { email = newEmail; }
+    void setPhoneNumber(const QString& newPhoneNumber) { phoneNumber = newPhoneNumber; }
+    void setSurname(const QString& newSurname) { surname = newSurname; }
+    void setPassword(const QString& newPassword) { password = newPassword; }
+    void setIdToken(const QString& newIdToken) { idToken = newIdToken;}
+    void setUserID(const QString& newUserId) { userId = newUserId; }
 
 private:
     QString name;
@@ -42,6 +45,10 @@ private:
     QString email;
     QString phoneNumber;
     QString password;
+
+    //database related
+    QString idToken;
+    QString userId;
 };
 
 #endif // FINELOGUSER_H

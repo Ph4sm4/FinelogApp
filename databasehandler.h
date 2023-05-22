@@ -12,10 +12,10 @@ class DatabaseHandler : public QObject
 public:
     explicit DatabaseHandler(QObject* parent = nullptr);
     ~DatabaseHandler();
-    class QJsonObject getReponseJson(QString databasePath);
-    void addNewUser(class FinelogUser* user);
+    class QJsonObject performAuthenticatedGET(const QString& databasePath, const QString& userIdToken);
+    class FinelogUser* registerNewUser(class FinelogUser* user, class QLabel* errorLabel = nullptr);
+    class FinelogUser* logInWithEmailAndPassword(const QString& email, const QString& password);
     //void changeUserCredentials
-    void signUpWithEmailAndPassword(QString email, QString password);
 
 public slots:
     //void networkReplyReadyRead();
@@ -23,10 +23,11 @@ public slots:
 signals:
 
 private:
-    QNetworkAccessManager* m_networkManager;
-    QNetworkReply* m_networkReply;
-
-    QString m_networkResponseString;
+    QNetworkAccessManager* networkManager;
+    QNetworkReply* networkReply;
+    QJsonObject performPOST(const QString& url, const QJsonDocument& payload);
+    QString api_key = "AIzaSyA--DNxqDYjviNPHl7qrZ0GiQM9A5c2_Bg";
+    QJsonObject signUpWithEmailAndPassword(const QString email, const QString password);
 };
 
 #endif // DATABASEHANDLER_H

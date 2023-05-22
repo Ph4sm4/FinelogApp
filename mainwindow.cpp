@@ -37,8 +37,7 @@ void MainWindow::on_loginButton_clicked()
     bool result = InputManager::validateInputs(ui->emailEdit, ui->passwordEdit);
     if(!result) return;
 
-    qDebug() << dbHandler.getReponseJson("Pets").value("One");
-    dbHandler.addNewUser(new FinelogUser("Olaf", "Dalach", "dalach.olaf@gmail.com"));
+    //qDebug() << dbHandler.performAuthenticatedGET("Pets", ).value("One");
 }
 
 void MainWindow::on_registerGoTo_clicked()
@@ -82,7 +81,7 @@ void MainWindow::on_nextName_clicked()
 
 void MainWindow::on_nextEmail_clicked()
 {
-    QString email = ui->emailRegister->text();
+    QString email = ui->emailRegister->text().toLower();
     QString phoneNumber = ui->phoneNumberRegister->text();
 
     bool result = InputManager::validateInputs(ui->emailRegister, ui->phoneNumberRegister);
@@ -156,7 +155,7 @@ void MainWindow::on_registerButton_clicked()
 
     registrationUser->setPassword(password1);
 
-    // go on with registration and authentication
+    dbHandler.registerNewUser(registrationUser);
 }
 
 void MainWindow::on_confirmPassword_textChanged(const QString &arg1)
