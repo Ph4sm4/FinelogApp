@@ -6,5 +6,7 @@
     <qresource prefix="/icons">
         <file>content/eye_opened.svg</file>
         <file>content/eye_closed.svg</file>
+        <file>content/settings.svg</file>
+        <file>content/arrow_back.svg</file>
     </qresource>
 </RCC>

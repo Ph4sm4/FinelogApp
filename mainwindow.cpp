@@ -2,6 +2,10 @@
 #include "ui_mainwindow.h"
 #include "fineloguser.h"
 #include <type_traits>
+#include <QPropertyAnimation>
+#include <QIntValidator>
+#include <QMessageBox>
+#include "stylesheetmanipulator.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -44,6 +48,7 @@ void MainWindow::on_registerGoTo_clicked()
          qFatal("failed to instantiate registration user object");
          return;
     }
+    InputManager::clearInputs(ui->emailEdit, ui->passwordEdit);
     ui->pagination->setCurrentIndex(1);
 }
 
@@ -81,8 +86,19 @@ void MainWindow::on_nextEmail_clicked()
     QString phoneNumber = ui->phoneNumberRegister->text();
 
     bool result = InputManager::validateInputs(ui->emailRegister, ui->phoneNumberRegister);
-
     if(!result) return;
+
+    bool emailOk = InputManager::validateEmail(email);
+    if(!emailOk) {
+         InputManager::setErrorBorder(ui->emailRegister);
+         qDebug() << "email not ok";
+         return;
+    }
+    if(phoneNumber.length() > 13) {
+         InputManager::setErrorBorder(ui->phoneNumberRegister);
+         qDebug() << "phone number not ok";
+         return;
+    }
 
     registrationUser->setEmail(email);
     registrationUser->setPhoneNumber(phoneNumber);
@@ -132,5 +148,63 @@ void MainWindow::on_loginGoTo_5_clicked()
 
 void MainWindow::on_registerButton_clicked()
 {
+    QString password1 = ui->passwordRegister->text();
+    QString password2 = ui->confirmPassword->text();
 
+    if(!InputManager::validatePassword(password1) || !InputManager::validatePassword(password2)
+        || password1 != password2) return;
+
+    registrationUser->setPassword(password1);
+
+    // go on with registration and authentication
 }
+
+void MainWindow::on_confirmPassword_textChanged(const QString &arg1)
+{
+    if(arg1.length() < 6) {
+         ui->errorLabel->setStyleSheet(StylesheetManipulator::updateStylesheetProperty(ui->errorLabel->styleSheet(),
+                                                                                       "QLabel", "color", "red"));
+         ui->errorLabel->setText("Password must be at least 6 characters long");
+    }
+    else if(!InputManager::validatePassword(arg1)) {
+         ui->errorLabel->setStyleSheet(StylesheetManipulator::updateStylesheetProperty(ui->errorLabel->styleSheet(),
+                                                                                       "QLabel", "color", "red"));
+         ui->errorLabel->setText("Password must consist of a big and small letter and a number");
+    }
+    else if(arg1 == ui->passwordRegister->text()) {
+         ui->errorLabel->setStyleSheet(StylesheetManipulator::updateStylesheetProperty(ui->errorLabel->styleSheet(),
+                                                                                       "QLabel", "color", "green"));
+         ui->errorLabel->setText("Passwords match");
+    }
+    else {
+         ui->errorLabel->setStyleSheet(StylesheetManipulator::updateStylesheetProperty(ui->errorLabel->styleSheet(),
+                                                                                       "QLabel", "color", "red"));
+         ui->errorLabel->setText("Passwords do not match");
+    }
+}
+
+
+void MainWindow::on_passwordRegister_textChanged(const QString &arg1)
+{
+    if(arg1.length() < 6) {
+         ui->errorLabel->setStyleSheet(StylesheetManipulator::updateStylesheetProperty(ui->errorLabel->styleSheet(),
+                                                                                       "QLabel", "color", "red"));
+         ui->errorLabel->setText("Password must be at least 6 characters long");
+    }
+    else if(!InputManager::validatePassword(arg1)) {
+         ui->errorLabel->setStyleSheet(StylesheetManipulator::updateStylesheetProperty(ui->errorLabel->styleSheet(),
+                                                                                       "QLabel", "color", "red"));
+         ui->errorLabel->setText("Password must consist of a big and small letter and a number");
+    }
+    else if(arg1 == ui->confirmPassword->text()) {
+         ui->errorLabel->setStyleSheet(StylesheetManipulator::updateStylesheetProperty(ui->errorLabel->styleSheet(),
+                                                                                       "QLabel", "color", "green"));
+         ui->errorLabel->setText("Passwords match");
+    }
+    else {
+         ui->errorLabel->setStyleSheet(StylesheetManipulator::updateStylesheetProperty(ui->errorLabel->styleSheet(),
+                                                                                       "QLabel", "color", "red"));
+         ui->errorLabel->setText("Passwords do not match");
+    }
+}
+

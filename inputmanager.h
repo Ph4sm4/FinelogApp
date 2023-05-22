@@ -29,11 +29,14 @@ public:
     static typename std::enable_if<std::is_same<T, QLineEdit*>::value>::type
     clearInputs(T arg, Args... args) {
         arg->clear();
+        deleteErrorBorder(arg);
         clearInputs(args...);
     }
 
     static void setErrorBorder(QLineEdit* e);
     static void deleteErrorBorder(QLineEdit* e);
+    static bool validatePassword(QString password);
+    static bool validateEmail(QString email);
 
 private:
     // Base case for clearInputs: no arguments left

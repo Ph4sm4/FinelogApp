@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>638</width>
-    <height>742</height>
+    <width>1042</width>
+    <height>773</height>
    </rect>
   </property>
   <property name="font">
@@ -25,9 +25,12 @@
    <bool>false</bool>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QVBoxLayout" name="verticalLayout_6">
+   <layout class="QVBoxLayout" name="verticalLayout_12">
     <property name="spacing">
      <number>0</number>
+    </property>
+    <property name="sizeConstraint">
+     <enum>QLayout::SetMaximumSize</enum>
     </property>
     <property name="leftMargin">
      <number>0</number>
@@ -94,12 +97,15 @@ height: 100%;
       <widget class="QWidget" name="login_page">
        <property name="styleSheet">
         <string notr="true">QWidget {
-background-color: #202020	
+background-color: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #101010, stop:1 #252525);
 }</string>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_3">
         <property name="spacing">
          <number>0</number>
+        </property>
+        <property name="sizeConstraint">
+         <enum>QLayout::SetDefaultConstraint</enum>
         </property>
         <property name="leftMargin">
          <number>0</number>
@@ -147,6 +153,7 @@ background-color: #202020
 color: white;
 margin-left: 20px;
 margin-bottom: 20px;
+background: transparent;
 }</string>
             </property>
             <property name="text">
@@ -202,6 +209,12 @@ background-color: rgb(43, 45, 56);
            <layout class="QHBoxLayout" name="horizontalLayout">
             <item>
              <widget class="QLineEdit" name="passwordEdit">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
               <property name="styleSheet">
                <string notr="true">QLineEdit {
 border: 2px solid rgb(37, 39, 48);
@@ -298,6 +311,7 @@ background-color: rgb(126, 42, 0)
                <string notr="true">QLabel {
 margin-left: 20px;
 color: #FFF;
+background: transparent;
 }</string>
               </property>
               <property name="text">
@@ -362,7 +376,7 @@ color: rgb(249, 115, 22);
       <widget class="QWidget" name="registration_page1">
        <property name="styleSheet">
         <string notr="true">QWidget {
-background-color: #202020	
+background-color: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #101010, stop:1 #252525);
 }</string>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_5">
@@ -418,6 +432,7 @@ background-color: #202020
 color: white;
 margin-left: 20px;
 margin-bottom: 20px;
+background: transparent;
 }</string>
             </property>
             <property name="text">
@@ -427,6 +442,9 @@ margin-bottom: 20px;
           </item>
           <item>
            <widget class="QLineEdit" name="idRegistration">
+            <property name="autoFillBackground">
+             <bool>false</bool>
+            </property>
             <property name="styleSheet">
              <string notr="true">QLineEdit {
 border: 2px solid rgb(37, 39, 48);
@@ -487,7 +505,7 @@ background-color: rgb(43, 45, 56);
              <string notr="true">QLabel {
 margin-left: 20px;
 opacity:  0.5;
-color: white;
+color: white; background: transparent;
 }</string>
             </property>
             <property name="text">
@@ -557,7 +575,7 @@ background-color: rgb(126, 42, 0)
                <string notr="true">QLabel {
 margin-left: 20px;
 color: #FFF;
-}</string>
+background: transparent;}</string>
               </property>
               <property name="text">
                <string>Already have an account?</string>
@@ -621,7 +639,7 @@ color: rgb(249, 115, 22);
       <widget class="QWidget" name="registration_page2">
        <property name="styleSheet">
         <string notr="true">QWidget {
-background-color: #202020	
+background-color: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #101010, stop:1 #252525);
 }</string>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout">
@@ -677,7 +695,7 @@ background-color: #202020
 color: white;
 margin-left: 20px;
 margin-bottom: 20px;
-}</string>
+background: transparent;}</string>
             </property>
             <property name="text">
              <string>Registration</string>
@@ -831,7 +849,7 @@ background-color: rgb(126, 42, 0)
                <string notr="true">QLabel {
 margin-left: 20px;
 color: #FFF;
-}</string>
+background: transparent;}</string>
               </property>
               <property name="text">
                <string>Already have an account?</string>
@@ -895,7 +913,7 @@ color: rgb(249, 115, 22);
       <widget class="QWidget" name="registration_page3">
        <property name="styleSheet">
         <string notr="true">QWidget {
-background-color: #202020	
+background-color: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #101010, stop:1 #252525);
 }</string>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_9">
@@ -951,7 +969,7 @@ background-color: #202020
 color: white;
 margin-left: 20px;
 margin-bottom: 20px;
-}</string>
+background: transparent;}</string>
             </property>
             <property name="text">
              <string>Registration</string>
@@ -1035,7 +1053,7 @@ background-color: rgb(43, 45, 56);
              <enum>QLineEdit::Normal</enum>
             </property>
             <property name="placeholderText">
-             <string>Phone number</string>
+             <string>Phone number [+.... ......]</string>
             </property>
             <property name="clearButtonEnabled">
              <bool>false</bool>
@@ -1105,7 +1123,7 @@ background-color: rgb(126, 42, 0)
                <string notr="true">QLabel {
 margin-left: 20px;
 color: #FFF;
-}</string>
+background: transparent;}</string>
               </property>
               <property name="text">
                <string>Already have an account?</string>
@@ -1169,7 +1187,7 @@ color: rgb(249, 115, 22);
       <widget class="QWidget" name="registration_page4">
        <property name="styleSheet">
         <string notr="true">QWidget {
-background-color: #202020	
+background-color: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #101010, stop:1 #252525);
 }</string>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_11">
@@ -1225,7 +1243,7 @@ background-color: #202020
 color: white;
 margin-left: 20px;
 margin-bottom: 20px;
-}</string>
+background: transparent;}</string>
             </property>
             <property name="text">
              <string>Registration</string>
@@ -1333,12 +1351,14 @@ background-color: rgb(43, 45, 56);
            </spacer>
           </item>
           <item>
-           <widget class="QPushButton" name="registerButton">
-            <property name="styleSheet">
-             <string notr="true">QPushButton {
+           <layout class="QVBoxLayout" name="verticalLayout_6">
+            <item>
+             <widget class="QPushButton" name="registerButton">
+              <property name="styleSheet">
+               <string notr="true">QPushButton {
 border-radius: 4px;
-margin-right:  20px;
 margin-left: 140px;
+margin-right:  20px;
 background-color: rgb(249, 115, 22);
 height: 30px;
 color: white;
@@ -1346,11 +1366,48 @@ color: white;
 QPushButton:pressed {
 background-color: rgb(126, 42, 0)
 }</string>
-            </property>
-            <property name="text">
-             <string>Register</string>
-            </property>
-           </widget>
+              </property>
+              <property name="text">
+               <string>Register</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="errorLabel">
+              <property name="font">
+               <font>
+                <bold>true</bold>
+               </font>
+              </property>
+              <property name="autoFillBackground">
+               <bool>false</bool>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QLabel {
+color: red;
+margin-right: 20px;
+margin-left: 20px;
+background: transparent;
+}</string>
+              </property>
+              <property name="text">
+               <string>Password must be at least 6 characters long</string>
+              </property>
+              <property name="textFormat">
+               <enum>Qt::AutoText</enum>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+              </property>
+              <property name="wordWrap">
+               <bool>true</bool>
+              </property>
+              <property name="openExternalLinks">
+               <bool>false</bool>
+              </property>
+             </widget>
+            </item>
+           </layout>
           </item>
           <item>
            <spacer name="verticalSpacer_29">
@@ -1379,7 +1436,7 @@ background-color: rgb(126, 42, 0)
                <string notr="true">QLabel {
 margin-left: 20px;
 color: #FFF;
-}</string>
+background: transparent;}</string>
               </property>
               <property name="text">
                <string>Already have an account?</string>

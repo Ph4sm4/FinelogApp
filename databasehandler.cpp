@@ -40,6 +40,7 @@ void DatabaseHandler::addNewUser(FinelogUser* user)
     newUser["Name"] = user->getName();
     newUser["Surname"] = user->getSurname();
     newUser["Email"] = user->getEmail();
+    newUser[""]
 
     QJsonDocument jsonDoc = QJsonDocument::fromVariant(newUser);
     QNetworkRequest newUserReq(QUrl("https://finelogapp-default-rtdb.europe-west1.firebasedatabase.app/Pets.json"));

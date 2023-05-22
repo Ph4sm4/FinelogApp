@@ -13,19 +13,25 @@ SOURCES += \
     databasehandler.cpp \
     fineloguser.cpp \
     inputmanager.cpp \
+    listitem.cpp \
     main.cpp \
     mainwindow.cpp \
-    stylesheetmanipulator.cpp
+    stylesheetmanipulator.cpp \
+    userpanel.cpp
 
 HEADERS += \
     databasehandler.h \
     fineloguser.h \
     inputmanager.h \
+    listitem.h \
     mainwindow.h \
-    stylesheetmanipulator.h
+    stylesheetmanipulator.h \
+    userpanel.h
 
 FORMS += \
-    mainwindow.ui
+    listitem.ui \
+    mainwindow.ui \
+    userpanel.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

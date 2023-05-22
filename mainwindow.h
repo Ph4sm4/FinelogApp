@@ -41,6 +41,10 @@ private slots:
 
     void on_registerButton_clicked();
 
+    void on_confirmPassword_textChanged(const QString &arg1);
+
+    void on_passwordRegister_textChanged(const QString &arg1);
+
 private:
     Ui::MainWindow *ui;
 
