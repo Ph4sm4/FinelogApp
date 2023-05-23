@@ -1,0 +1,25 @@
+orange: rgb(249, 115, 22);
+gray: rgb(102, 102, 102);
+
+background-color: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #909090, stop:1 #ffffff);
+
+bialy input
+QLineEdit {\nborder: 1px solid black;\nborder-radius: 8px;\ncolor: black;\npadding-left: 10px;\npadding-right: 10px;\nbackground-color: rgb(230, 230, 230);\nheight: 30px;\nmargin-left: 20px;\nmargin-right: 20px;\n}\n\nQLineEdit:focus {\nborder: 2px solid black;\n}
+
+czarny input
+QLineEdit {\nborder: 2px solid rgb(37, 39, 48);\nborder-radius: 10px;\ncolor: #FFF;\npadding-left: 10px;\npadding-right: 10px;\nbackground-color: rgb(48, 50, 62);\nheight: 30px;\nmargin-left: 20px;\nmargin-right: 20px;\n}\n\nQLineEdit:focus {\nborder: 2px solid rgb(249, 115, 22);\nbackground-color: rgb(43, 45, 56);\n}
+
+bialy back
+QPushButton {\nbackground: transparent;\ncolor: white;\nborder: 2px solid white;\nborder-radius: 4px;\nborder-style:  none double;\nmargin-left: 20px; \nheight: 30px;\nmargin-right: 70%;\n}
+
+
+czarny back
+QPushButton {
+background: transparent;
+color: black;
+border: 2px solid black;
+border-radius: 8px;
+margin-left: 20px; 
+height: 30px;
+margin-right: 70%;
+}

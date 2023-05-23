@@ -21,7 +21,10 @@ MainWindow::MainWindow(QWidget *parent)
 //        widget->setFont(QFont("Bahnschrift", pSize));
 //        widget->update();
 //    }
-//!  label->setStyleSheet(StylesheetManipulator::updateStylesheetProperty(label->styleSheet(), "QLabel", "color", "green"));
+
+    uPanel = new UserPanel();
+    qDebug() << (uPanel == nullptr);
+    ui->pagination->insertWidget(5, uPanel);
 }
 
 MainWindow::~MainWindow()
@@ -158,8 +161,9 @@ void MainWindow::on_registerButton_clicked()
     FinelogUser* createdUser = dbHandler.registerNewUser(registrationUser);
     if(createdUser == nullptr) return;
 
-    uPanel = new UserPanel();
-    ui->pagination->addWidget(uPanel);
+
+    // change to the UserPanel
+    ui->pagination->setCurrentIndex(5);
 }
 
 void MainWindow::on_confirmPassword_textChanged(const QString &arg1)

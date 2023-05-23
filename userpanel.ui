@@ -16,10 +16,10 @@
   <widget class="QStackedWidget" name="pagination">
    <property name="geometry">
     <rect>
-     <x>20</x>
-     <y>80</y>
-     <width>361</width>
-     <height>561</height>
+     <x>0</x>
+     <y>0</y>
+     <width>371</width>
+     <height>581</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -78,7 +78,7 @@ padding-right: 20px;
    <widget class="QWidget" name="dashboard">
     <property name="styleSheet">
      <string notr="true">QWidget {
-background-color: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #101010, stop:1 #252525);
+background-color: white;
 }</string>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
@@ -100,22 +100,40 @@ background-color: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #101010, stop:1
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout">
        <item>
-        <widget class="QLabel" name="label">
-         <property name="font">
-          <font>
-           <family>Microsoft JhengHei</family>
-           <pointsize>18</pointsize>
-          </font>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">QLabel {
+        <layout class="QVBoxLayout" name="verticalLayout_2">
+         <item>
+          <widget class="QLabel" name="label">
+           <property name="font">
+            <font>
+             <family>Microsoft JhengHei</family>
+             <pointsize>18</pointsize>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">QLabel {
 background: transparent;
+color: rgb(102, 102, 102);
 }</string>
-         </property>
-         <property name="text">
-          <string>Hi {name}!</string>
-         </property>
-        </widget>
+           </property>
+           <property name="text">
+            <string>Hi {name}!</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_4">
+           <property name="styleSheet">
+            <string notr="true">QLabel {
+background: transparent;
+color: rgb(102, 102, 102);
+}</string>
+           </property>
+           <property name="text">
+            <string>Reports uploaded: { number }</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
        </item>
        <item>
         <widget class="QLabel" name="label_2">
@@ -126,6 +144,9 @@ background: transparent;
          </property>
          <property name="text">
           <string/>
+         </property>
+         <property name="pixmap">
+          <pixmap>../../QT/FinelogApp/content/settings.svg</pixmap>
          </property>
          <property name="alignment">
           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -168,6 +189,7 @@ height: 50px;
 margin-left: 40%;
 margin-right: 40%;
 border-radius: 5px;
+color: rgb(102, 102, 102);
 }</string>
        </property>
        <property name="text">
@@ -411,128 +433,7 @@ background: transparent;
     </layout>
    </widget>
   </widget>
-  <widget class="QLabel" name="finelogLogo">
-   <property name="geometry">
-    <rect>
-     <x>20</x>
-     <y>30</y>
-     <width>306</width>
-     <height>49</height>
-    </rect>
-   </property>
-   <property name="minimumSize">
-    <size>
-     <width>0</width>
-     <height>49</height>
-    </size>
-   </property>
-   <property name="baseSize">
-    <size>
-     <width>304</width>
-     <height>49</height>
-    </size>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">QLabel {
-background-color: white;
-padding-left: 20px;
-padding-right: 20px;
-}
-</string>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
-   <property name="pixmap">
-    <pixmap resource="Images.qrc">:/logos/content/finelog-logo.png</pixmap>
-   </property>
-   <property name="scaledContents">
-    <bool>false</bool>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="emailEdit">
-   <property name="geometry">
-    <rect>
-     <x>410</x>
-     <y>120</y>
-     <width>301</width>
-     <height>34</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">QLineEdit {
-border: 2px solid rgb(37, 39, 48);
-border-radius: 10px;
-color: #FFF;
-padding-left: 10px;
-padding-right: 10px;
-background-color: rgb(48, 50, 62);
-height: 30px;
-margin-left: 20px;
-margin-right: 20px;
-}
-
-QLineEdit:focus {
-border: 2px solid rgb(249, 115, 22);
-background-color: rgb(43, 45, 56);
-}</string>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
-   <property name="placeholderText">
-    <string>Email</string>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="passwordEdit">
-   <property name="geometry">
-    <rect>
-     <x>430</x>
-     <y>180</y>
-     <width>299</width>
-     <height>34</height>
-    </rect>
-   </property>
-   <property name="sizePolicy">
-    <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-     <horstretch>0</horstretch>
-     <verstretch>0</verstretch>
-    </sizepolicy>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">QLineEdit {
-border: 2px solid rgb(37, 39, 48);
-border-radius: 10px;
-color: #FFF;
-padding-left: 10px;
-padding-right: 10px;
-background-color: rgb(48, 50, 62);
-height: 30px;
-margin-left: 20px;
-margin-right: 20px;
-}
-
-QLineEdit:focus {
-border: 2px solid rgb(249, 115, 22);
-background-color: rgb(43, 45, 56);
-}</string>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
-   <property name="echoMode">
-    <enum>QLineEdit::Password</enum>
-   </property>
-   <property name="placeholderText">
-    <string>Password</string>
-   </property>
-   <property name="clearButtonEnabled">
-    <bool>false</bool>
-   </property>
-  </widget>
  </widget>
- <resources>
-  <include location="Images.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

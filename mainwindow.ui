@@ -89,12 +89,12 @@ height: 100%;
 }</string>
       </property>
       <property name="currentIndex">
-       <number>3</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="login_page">
        <property name="styleSheet">
         <string notr="true">QWidget {
-background-color: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #101010, stop:1 #252525);
+background-color: white;
 }</string>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -139,15 +139,16 @@ background-color: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #101010, stop:1
             <property name="font">
              <font>
               <family>Segoe UI</family>
-              <pointsize>28</pointsize>
+              <pointsize>36</pointsize>
               <italic>false</italic>
               <bold>true</bold>
+              <underline>false</underline>
               <kerning>true</kerning>
              </font>
             </property>
             <property name="styleSheet">
              <string notr="true">QLabel {
-color: white;
+color: rgb(102, 102, 102);
 margin-left: 20px;
 margin-bottom: 20px;
 background: transparent;
@@ -162,24 +163,26 @@ background: transparent;
            <widget class="QLineEdit" name="emailEdit">
             <property name="styleSheet">
              <string notr="true">QLineEdit {
-border: 2px solid rgb(37, 39, 48);
-border-radius: 10px;
-color: #FFF;
+border: 1px solid black;
+border-radius: 8px;
+color: black;
 padding-left: 10px;
 padding-right: 10px;
-background-color: rgb(48, 50, 62);
+background-color: rgb(230, 230, 230);
 height: 30px;
 margin-left: 20px;
 margin-right: 20px;
 }
 
 QLineEdit:focus {
-border: 2px solid rgb(249, 115, 22);
-background-color: rgb(43, 45, 56);
+border: 2px solid black;
 }</string>
             </property>
             <property name="text">
              <string/>
+            </property>
+            <property name="frame">
+             <bool>false</bool>
             </property>
             <property name="placeholderText">
              <string>Email</string>
@@ -214,20 +217,19 @@ background-color: rgb(43, 45, 56);
               </property>
               <property name="styleSheet">
                <string notr="true">QLineEdit {
-border: 2px solid rgb(37, 39, 48);
-border-radius: 10px;
-color: #FFF;
+border: 1px solid black;
+border-radius: 8px;
+color: black;
 padding-left: 10px;
 padding-right: 10px;
-background-color: rgb(48, 50, 62);
+background-color: rgb(230, 230, 230);
 height: 30px;
 margin-left: 20px;
 margin-right: 20px;
 }
 
 QLineEdit:focus {
-border: 2px solid rgb(249, 115, 22);
-background-color: rgb(43, 45, 56);
+border: 2px solid black;
 }</string>
               </property>
               <property name="text">
@@ -264,9 +266,17 @@ background-color: rgb(43, 45, 56);
           </item>
           <item>
            <widget class="QPushButton" name="loginButton">
+            <property name="font">
+             <font>
+              <pointsize>12</pointsize>
+              <italic>false</italic>
+              <bold>false</bold>
+              <underline>false</underline>
+             </font>
+            </property>
             <property name="styleSheet">
              <string notr="true">QPushButton {
-border-radius: 4px;
+border-radius: 8px;
 margin-right:  80px;
 margin-left: 80px;
 background-color: rgb(249, 115, 22);
@@ -307,7 +317,7 @@ background-color: rgb(126, 42, 0)
               <property name="styleSheet">
                <string notr="true">QLabel {
 margin-left: 20px;
-color: #FFF;
+color: black;
 background: transparent;
 }</string>
               </property>
@@ -373,7 +383,7 @@ color: rgb(249, 115, 22);
       <widget class="QWidget" name="registration_page1">
        <property name="styleSheet">
         <string notr="true">QWidget {
-background-color: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #101010, stop:1 #252525);
+background-color: white;
 }</string>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_5">
@@ -418,7 +428,7 @@ background-color: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #101010, stop:1
             <property name="font">
              <font>
               <family>Segoe UI</family>
-              <pointsize>28</pointsize>
+              <pointsize>36</pointsize>
               <italic>false</italic>
               <bold>true</bold>
               <kerning>true</kerning>
@@ -426,7 +436,7 @@ background-color: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #101010, stop:1
             </property>
             <property name="styleSheet">
              <string notr="true">QLabel {
-color: white;
+color: rgb(102, 102, 102);
 margin-left: 20px;
 margin-bottom: 20px;
 background: transparent;
@@ -444,20 +454,19 @@ background: transparent;
             </property>
             <property name="styleSheet">
              <string notr="true">QLineEdit {
-border: 2px solid rgb(37, 39, 48);
-border-radius: 10px;
-color: #FFF;
+border: 1px solid black;
+border-radius: 8px;
+color: black;
 padding-left: 10px;
 padding-right: 10px;
-background-color: rgb(48, 50, 62);
+background-color: rgb(230, 230, 230);
 height: 30px;
 margin-left: 20px;
 margin-right: 20px;
 }
 
 QLineEdit:focus {
-border: 2px solid rgb(249, 115, 22);
-background-color: rgb(43, 45, 56);
+border: 2px solid black;
 }</string>
             </property>
             <property name="text">
@@ -528,9 +537,14 @@ color: white; background: transparent;
           </item>
           <item>
            <widget class="QPushButton" name="idNext">
+            <property name="font">
+             <font>
+              <pointsize>12</pointsize>
+             </font>
+            </property>
             <property name="styleSheet">
              <string notr="true">QPushButton {
-border-radius: 4px;
+border-radius: 8px;
 margin-right:  20px;
 margin-left: 140px;
 background-color: rgb(249, 115, 22);
@@ -571,7 +585,7 @@ background-color: rgb(126, 42, 0)
               <property name="styleSheet">
                <string notr="true">QLabel {
 margin-left: 20px;
-color: #FFF;
+color: black;
 background: transparent;}</string>
               </property>
               <property name="text">
@@ -636,7 +650,7 @@ color: rgb(249, 115, 22);
       <widget class="QWidget" name="registration_page2">
        <property name="styleSheet">
         <string notr="true">QWidget {
-background-color: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #101010, stop:1 #252525);
+background-color: white;
 }</string>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout">
@@ -681,7 +695,7 @@ background-color: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #101010, stop:1
             <property name="font">
              <font>
               <family>Segoe UI</family>
-              <pointsize>28</pointsize>
+              <pointsize>36</pointsize>
               <italic>false</italic>
               <bold>true</bold>
               <kerning>true</kerning>
@@ -689,10 +703,11 @@ background-color: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #101010, stop:1
             </property>
             <property name="styleSheet">
              <string notr="true">QLabel {
-color: white;
+color: rgb(102, 102, 102);
 margin-left: 20px;
 margin-bottom: 20px;
-background: transparent;}</string>
+background: transparent;
+}</string>
             </property>
             <property name="text">
              <string>Registration</string>
@@ -703,20 +718,19 @@ background: transparent;}</string>
            <widget class="QLineEdit" name="nameRegister">
             <property name="styleSheet">
              <string notr="true">QLineEdit {
-border: 2px solid rgb(37, 39, 48);
-border-radius: 10px;
-color: #FFF;
+border: 1px solid black;
+border-radius: 8px;
+color: black;
 padding-left: 10px;
 padding-right: 10px;
-background-color: rgb(48, 50, 62);
+background-color: rgb(230, 230, 230);
 height: 30px;
 margin-left: 20px;
 margin-right: 20px;
 }
 
 QLineEdit:focus {
-border: 2px solid rgb(249, 115, 22);
-background-color: rgb(43, 45, 56);
+border: 2px solid black;
 }</string>
             </property>
             <property name="text">
@@ -753,20 +767,19 @@ background-color: rgb(43, 45, 56);
            <widget class="QLineEdit" name="surnameRegister">
             <property name="styleSheet">
              <string notr="true">QLineEdit {
-border: 2px solid rgb(37, 39, 48);
-border-radius: 10px;
-color: #FFF;
+border: 1px solid black;
+border-radius: 8px;
+color: black;
 padding-left: 10px;
 padding-right: 10px;
-background-color: rgb(48, 50, 62);
+background-color: rgb(230, 230, 230);
 height: 30px;
 margin-left: 20px;
 margin-right: 20px;
 }
 
 QLineEdit:focus {
-border: 2px solid rgb(249, 115, 22);
-background-color: rgb(43, 45, 56);
+border: 2px solid black;
 }</string>
             </property>
             <property name="text">
@@ -803,13 +816,16 @@ background-color: rgb(43, 45, 56);
            <layout class="QHBoxLayout" name="horizontalLayout_5">
             <item>
              <widget class="QPushButton" name="backName">
+              <property name="font">
+               <font>
+                <pointsize>12</pointsize>
+               </font>
+              </property>
               <property name="styleSheet">
                <string notr="true">QPushButton {
 background: transparent;
-color: white;
-border: 2px solid white;
-border-radius: 4px;
-border-style:  none double;
+color: black;
+border-radius: 8px;
 margin-left: 20px; 
 height: 30px;
 margin-right: 70%;
@@ -818,13 +834,28 @@ margin-right: 70%;
               <property name="text">
                <string>Back</string>
               </property>
+              <property name="icon">
+               <iconset resource="Images.qrc">
+                <normaloff>:/icons/content/arrow_back.svg</normaloff>:/icons/content/arrow_back.svg</iconset>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>20</width>
+                <height>20</height>
+               </size>
+              </property>
              </widget>
             </item>
             <item>
              <widget class="QPushButton" name="nextName">
+              <property name="font">
+               <font>
+                <pointsize>12</pointsize>
+               </font>
+              </property>
               <property name="styleSheet">
                <string notr="true">QPushButton {
-border-radius: 4px;
+border-radius: 8px;
 margin-right:  20px;
 background-color: rgb(249, 115, 22);
 height: 30px;
@@ -867,7 +898,7 @@ background-color: rgb(126, 42, 0)
               <property name="styleSheet">
                <string notr="true">QLabel {
 margin-left: 20px;
-color: #FFF;
+color: black;
 background: transparent;}</string>
               </property>
               <property name="text">
@@ -932,7 +963,7 @@ color: rgb(249, 115, 22);
       <widget class="QWidget" name="registration_page3">
        <property name="styleSheet">
         <string notr="true">QWidget {
-background-color: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #101010, stop:1 #252525);
+background-color: white;
 }</string>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_9">
@@ -977,7 +1008,7 @@ background-color: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #101010, stop:1
             <property name="font">
              <font>
               <family>Segoe UI</family>
-              <pointsize>28</pointsize>
+              <pointsize>36</pointsize>
               <italic>false</italic>
               <bold>true</bold>
               <kerning>true</kerning>
@@ -985,10 +1016,11 @@ background-color: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #101010, stop:1
             </property>
             <property name="styleSheet">
              <string notr="true">QLabel {
-color: white;
+color: rgb(102, 102, 102);
 margin-left: 20px;
 margin-bottom: 20px;
-background: transparent;}</string>
+background: transparent;
+}</string>
             </property>
             <property name="text">
              <string>Registration</string>
@@ -999,20 +1031,19 @@ background: transparent;}</string>
            <widget class="QLineEdit" name="emailRegister">
             <property name="styleSheet">
              <string notr="true">QLineEdit {
-border: 2px solid rgb(37, 39, 48);
-border-radius: 10px;
-color: #FFF;
+border: 1px solid black;
+border-radius: 8px;
+color: black;
 padding-left: 10px;
 padding-right: 10px;
-background-color: rgb(48, 50, 62);
+background-color: rgb(230, 230, 230);
 height: 30px;
 margin-left: 20px;
 margin-right: 20px;
 }
 
 QLineEdit:focus {
-border: 2px solid rgb(249, 115, 22);
-background-color: rgb(43, 45, 56);
+border: 2px solid black;
 }</string>
             </property>
             <property name="text">
@@ -1049,20 +1080,19 @@ background-color: rgb(43, 45, 56);
            <widget class="QLineEdit" name="phoneNumberRegister">
             <property name="styleSheet">
              <string notr="true">QLineEdit {
-border: 2px solid rgb(37, 39, 48);
-border-radius: 10px;
-color: #FFF;
+border: 1px solid black;
+border-radius: 8px;
+color: black;
 padding-left: 10px;
 padding-right: 10px;
-background-color: rgb(48, 50, 62);
+background-color: rgb(230, 230, 230);
 height: 30px;
 margin-left: 20px;
 margin-right: 20px;
 }
 
 QLineEdit:focus {
-border: 2px solid rgb(249, 115, 22);
-background-color: rgb(43, 45, 56);
+border: 2px solid black;
 }</string>
             </property>
             <property name="text">
@@ -1098,14 +1128,17 @@ background-color: rgb(43, 45, 56);
           <item>
            <layout class="QHBoxLayout" name="horizontalLayout_4">
             <item>
-             <widget class="QPushButton" name="backEmail">
+             <widget class="QPushButton" name="pushButton">
+              <property name="font">
+               <font>
+                <pointsize>12</pointsize>
+               </font>
+              </property>
               <property name="styleSheet">
                <string notr="true">QPushButton {
 background: transparent;
-color: white;
-border: 2px solid white;
-border-radius: 4px;
-border-style:  none double;
+color: black;
+border-radius: 8px;
 margin-left: 20px; 
 height: 30px;
 margin-right: 70%;
@@ -1114,13 +1147,28 @@ margin-right: 70%;
               <property name="text">
                <string>Back</string>
               </property>
+              <property name="icon">
+               <iconset resource="Images.qrc">
+                <normaloff>:/icons/content/arrow_back.svg</normaloff>:/icons/content/arrow_back.svg</iconset>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>20</width>
+                <height>20</height>
+               </size>
+              </property>
              </widget>
             </item>
             <item>
              <widget class="QPushButton" name="nextEmail">
+              <property name="font">
+               <font>
+                <pointsize>12</pointsize>
+               </font>
+              </property>
               <property name="styleSheet">
                <string notr="true">QPushButton {
-border-radius: 4px;
+border-radius: 8px;
 margin-right:  20px;
 background-color: rgb(249, 115, 22);
 height: 30px;
@@ -1163,7 +1211,7 @@ background-color: rgb(126, 42, 0)
               <property name="styleSheet">
                <string notr="true">QLabel {
 margin-left: 20px;
-color: #FFF;
+color: black;
 background: transparent;}</string>
               </property>
               <property name="text">
@@ -1228,7 +1276,7 @@ color: rgb(249, 115, 22);
       <widget class="QWidget" name="registration_page4">
        <property name="styleSheet">
         <string notr="true">QWidget {
-background-color: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #101010, stop:1 #252525);
+background-color: white;
 }</string>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_11">
@@ -1273,7 +1321,7 @@ background-color: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #101010, stop:1
             <property name="font">
              <font>
               <family>Segoe UI</family>
-              <pointsize>28</pointsize>
+              <pointsize>36</pointsize>
               <italic>false</italic>
               <bold>true</bold>
               <kerning>true</kerning>
@@ -1281,10 +1329,11 @@ background-color: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #101010, stop:1
             </property>
             <property name="styleSheet">
              <string notr="true">QLabel {
-color: white;
+color: rgb(102, 102, 102);
 margin-left: 20px;
 margin-bottom: 20px;
-background: transparent;}</string>
+background: transparent;
+}</string>
             </property>
             <property name="text">
              <string>Registration</string>
@@ -1295,20 +1344,19 @@ background: transparent;}</string>
            <widget class="QLineEdit" name="passwordRegister">
             <property name="styleSheet">
              <string notr="true">QLineEdit {
-border: 2px solid rgb(37, 39, 48);
-border-radius: 10px;
-color: #FFF;
+border: 1px solid black;
+border-radius: 8px;
+color: black;
 padding-left: 10px;
 padding-right: 10px;
-background-color: rgb(48, 50, 62);
+background-color: rgb(230, 230, 230);
 height: 30px;
 margin-left: 20px;
 margin-right: 20px;
 }
 
 QLineEdit:focus {
-border: 2px solid rgb(249, 115, 22);
-background-color: rgb(43, 45, 56);
+border: 2px solid black;
 }</string>
             </property>
             <property name="text">
@@ -1345,20 +1393,19 @@ background-color: rgb(43, 45, 56);
            <widget class="QLineEdit" name="confirmPassword">
             <property name="styleSheet">
              <string notr="true">QLineEdit {
-border: 2px solid rgb(37, 39, 48);
-border-radius: 10px;
-color: #FFF;
+border: 1px solid black;
+border-radius: 8px;
+color: black;
 padding-left: 10px;
 padding-right: 10px;
-background-color: rgb(48, 50, 62);
+background-color: rgb(230, 230, 230);
 height: 30px;
 margin-left: 20px;
 margin-right: 20px;
 }
 
 QLineEdit:focus {
-border: 2px solid rgb(249, 115, 22);
-background-color: rgb(43, 45, 56);
+border: 2px solid black;
 }</string>
             </property>
             <property name="text">
@@ -1395,13 +1442,16 @@ background-color: rgb(43, 45, 56);
            <layout class="QHBoxLayout" name="horizontalLayout_3">
             <item>
              <widget class="QPushButton" name="backPassword">
+              <property name="font">
+               <font>
+                <pointsize>12</pointsize>
+               </font>
+              </property>
               <property name="styleSheet">
                <string notr="true">QPushButton {
 background: transparent;
-color: white;
-border: 2px solid white;
-border-radius: 4px;
-border-style:  none double;
+color: black;
+border-radius: 8px;
 margin-left: 20px; 
 height: 30px;
 margin-right: 70%;
@@ -1410,13 +1460,28 @@ margin-right: 70%;
               <property name="text">
                <string>Back</string>
               </property>
+              <property name="icon">
+               <iconset resource="Images.qrc">
+                <normaloff>:/icons/content/arrow_back.svg</normaloff>:/icons/content/arrow_back.svg</iconset>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>20</width>
+                <height>20</height>
+               </size>
+              </property>
              </widget>
             </item>
             <item>
              <widget class="QPushButton" name="registerButton">
+              <property name="font">
+               <font>
+                <pointsize>12</pointsize>
+               </font>
+              </property>
               <property name="styleSheet">
                <string notr="true">QPushButton {
-border-radius: 4px;
+border-radius: 8px;
 margin-right:  20px;
 background-color: rgb(249, 115, 22);
 height: 30px;
@@ -1498,7 +1563,7 @@ background: transparent;
               <property name="styleSheet">
                <string notr="true">QLabel {
 margin-left: 20px;
-color: #FFF;
+color: black;
 background: transparent;}</string>
               </property>
               <property name="text">
