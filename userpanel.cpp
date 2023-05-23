@@ -10,8 +10,8 @@ UserPanel::UserPanel(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    //ListItem* x = new ListItem(QDate(2020, 4, 24), QTime(15, 13, 23), "Test project", "Test car name");
-   // ui->protocol_list->addWidget(x);
+    ListItem* x = new ListItem();
+    ui->protocol_list->insertWidget(0, x);
 }
 
 UserPanel::~UserPanel()

@@ -34,13 +34,17 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_loginButton_clicked()
 {
-    const QString id = ui->emailEdit->text();
-    const QString pass = ui->passwordEdit->text();
+    const QString email = ui->emailEdit->text();
+    const QString password = ui->passwordEdit->text();
 
     bool result = InputManager::validateInputs(ui->emailEdit, ui->passwordEdit);
     if(!result) return;
 
-    //qDebug() << dbHandler.performAuthenticatedGET("Pets", ).value("One");
+    FinelogUser* loggedInUser = dbHandler.logInWithEmailAndPassword(email, password);
+    if(loggedInUser == nullptr) return;
+
+    // change to user panel
+    ui->pagination->setCurrentIndex(5);
 }
 
 void MainWindow::on_registerGoTo_clicked()

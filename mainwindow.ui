@@ -89,7 +89,7 @@ height: 100%;
 }</string>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>4</number>
       </property>
       <widget class="QWidget" name="login_page">
        <property name="styleSheet">
@@ -161,6 +161,9 @@ background: transparent;
           </item>
           <item>
            <widget class="QLineEdit" name="emailEdit">
+            <property name="autoFillBackground">
+             <bool>false</bool>
+            </property>
             <property name="styleSheet">
              <string notr="true">QLineEdit {
 border: 1px solid black;
@@ -176,6 +179,7 @@ margin-right: 20px;
 
 QLineEdit:focus {
 border: 2px solid black;
+outline: none;
 }</string>
             </property>
             <property name="text">
@@ -215,6 +219,9 @@ border: 2px solid black;
                 <verstretch>0</verstretch>
                </sizepolicy>
               </property>
+              <property name="autoFillBackground">
+               <bool>false</bool>
+              </property>
               <property name="styleSheet">
                <string notr="true">QLineEdit {
 border: 1px solid black;
@@ -230,6 +237,7 @@ margin-right: 20px;
 
 QLineEdit:focus {
 border: 2px solid black;
+outline: none;
 }</string>
               </property>
               <property name="text">
@@ -1128,7 +1136,7 @@ border: 2px solid black;
           <item>
            <layout class="QHBoxLayout" name="horizontalLayout_4">
             <item>
-             <widget class="QPushButton" name="pushButton">
+             <widget class="QPushButton" name="backEmail">
               <property name="font">
                <font>
                 <pointsize>12</pointsize>

@@ -2,6 +2,8 @@
 #define LISTITEM_H
 
 #include <QWidget>
+#include <QTime>
+#include <QDate>
 
 namespace Ui {
 class ListItem;
@@ -15,10 +17,15 @@ public:
     explicit ListItem(QWidget *parent = nullptr);
     ~ListItem();
 
-    explicit ListItem(QDate date, QTime time, QString project, QString car_name);
+
 
 private:
     Ui::ListItem *ui;
+
+    QDate protocolDate;
+    QTime protocolTime;
+    QString projectName;
+    QString car_name;
 };
 
 #endif // LISTITEM_H
