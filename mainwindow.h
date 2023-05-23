@@ -7,6 +7,7 @@
 #include <QLineEdit>
 #include <QJsonObject>
 #include "inputmanager.h"
+#include "userpanel.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -45,11 +46,19 @@ private slots:
 
     void on_passwordRegister_textChanged(const QString &arg1);
 
+    void on_backEmail_clicked();
+
+    void on_backName_clicked();
+
+    void on_backPassword_clicked();
+
 private:
     Ui::MainWindow *ui;
 
     DatabaseHandler dbHandler;
 
     class FinelogUser* registrationUser = nullptr;
+
+    UserPanel* uPanel = nullptr;
 };
 #endif // MAINWINDOW_H

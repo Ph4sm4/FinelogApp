@@ -155,7 +155,11 @@ void MainWindow::on_registerButton_clicked()
 
     registrationUser->setPassword(password1);
 
-    dbHandler.registerNewUser(registrationUser);
+    FinelogUser* createdUser = dbHandler.registerNewUser(registrationUser);
+    if(createdUser == nullptr) return;
+
+    uPanel = new UserPanel();
+    ui->pagination->addWidget(uPanel);
 }
 
 void MainWindow::on_confirmPassword_textChanged(const QString &arg1)
@@ -205,5 +209,23 @@ void MainWindow::on_passwordRegister_textChanged(const QString &arg1)
                                                                                        "QLabel", "color", "red"));
          ui->errorLabel->setText("Passwords do not match");
     }
+}
+
+
+void MainWindow::on_backPassword_clicked()
+{
+    ui->pagination->setCurrentIndex(3);
+}
+
+
+void MainWindow::on_backEmail_clicked()
+{
+    ui->pagination->setCurrentIndex(2);
+}
+
+
+void MainWindow::on_backName_clicked()
+{
+    ui->pagination->setCurrentIndex(1);
 }
 

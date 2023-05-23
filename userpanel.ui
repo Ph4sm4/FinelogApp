@@ -127,9 +127,6 @@ background: transparent;
          <property name="text">
           <string/>
          </property>
-         <property name="pixmap">
-          <pixmap>content/settings.svg</pixmap>
-         </property>
          <property name="alignment">
           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
          </property>
@@ -254,9 +251,6 @@ max-height: 30px;
            </property>
            <property name="text">
             <string/>
-           </property>
-           <property name="pixmap">
-            <pixmap>content/arrow_back.svg</pixmap>
            </property>
            <property name="scaledContents">
             <bool>false</bool>

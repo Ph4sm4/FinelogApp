@@ -57,32 +57,22 @@ FinelogUser* DatabaseHandler::registerNewUser(FinelogUser* user, QLabel* errorLa
     // second we need to add the user into the database
     QVariantMap newUser;
 
-    newUser["Email"] = QJsonObject{
-        {"stringValue", user->getEmail()}
-    };
-    newUser["Name"] = QJsonObject{
-        {"stringValue", user->getName()}
-    };
-    newUser["Phone number"] = QJsonObject{
-        {"stringValue", user->getPhoneNumber()}
-    };
-    newUser["Surname"] = QJsonObject{
-        {"stringValue", user->getSurname()}
-    };
-    newUser["user_id"] = QJsonObject{
-        {"stringValue", user->getUserId()}
-    };
-    //newUser["email"] = "tutaj email";
-    //OnBackInvokedCallback: Set 'android:enableOnBackInvokedCallback="true"' in the application manifest.
+    newUser["email"] = "tutaj email";
+    newUser["Email"] =  user->getEmail();
+    newUser["Name"] = user->getName();
+    newUser["Phone number"] =user->getPhoneNumber();
+    newUser["Surname"] = user->getSurname();
+    newUser["user_id"] = user->getUserId();
 
+    //!OnBackInvokedCallback: Set 'android:enableOnBackInvokedCallback="true"' in the application manifest.
+
+    // this endpoint is going to create a document labeled as UserId (UId)
+    // idToken is required to perform an authorized database request
     QString endPoint = "https://finelogapp-default-rtdb.europe-west1.firebasedatabase.app/Users/" + UId + ".json?auth=" + idToken;
 
-    //QVariantMap actualPayload;
-    //actualPayload["fields"] = newUser;
     QJsonDocument jsonDoc = QJsonDocument::fromVariant(newUser);
     QJsonObject response = performPOST(endPoint, jsonDoc);
     qDebug() << response;
-// setup docs with uid
 
     return user;
 }
