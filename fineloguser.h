@@ -26,7 +26,7 @@ public:
     void setPassword(const QString& newPassword) { password = newPassword; }
     void setIdToken(const QString& newIdToken) {
         idToken = newIdToken;
-        getDBReportsData();
+        fetchReports();
     }
     void setUserID(const QString& newUserId) { userId = newUserId; }
 
@@ -43,7 +43,7 @@ private:
     QVector<UserReport> reports;
     DatabaseHandler dbHandler;
 
-    void getDBReportsData();
+    void fetchReports();
 };
 
 #endif // FINELOGUSER_H

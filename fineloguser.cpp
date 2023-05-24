@@ -9,10 +9,13 @@ FinelogUser::FinelogUser() {
 
 }
 
-void FinelogUser::getDBReportsData()
+void FinelogUser::fetchReports()
 {
-    const QString endPoint = "Reports/report1";
-    QJsonObject reportsData = dbHandler.performAuthenticatedGET(endPoint, idToken);
+    const QString endPoint = "Reports";
+    const QString queryParams = "orderBy=\"owner_id\"&equalTo=\"" + userId +"\"";
+    QJsonObject reportsData = dbHandler.performAuthenticatedGET(
+        endPoint, idToken, queryParams);
 
     qDebug() << "reportdata: " <<  reportsData;
+    // we have the report data, now we got to fill the report vector with them
 }

@@ -20,7 +20,8 @@ DatabaseHandler::~DatabaseHandler()
 
 QJsonObject DatabaseHandler::performAuthenticatedGET(const QString& databasePath, const QString& userIdToken, const QString& queryParams)
 {
-    QString endPoint = "https://finelogapp-default-rtdb.europe-west1.firebasedatabase.app/" + databasePath + ".json" + (queryParams.length()? "?" + queryParams : "") +"?auth=" + userIdToken;
+    QString endPoint = "https://finelogapp-default-rtdb.europe-west1.firebasedatabase.app/" + databasePath + ".json" + (queryParams.length()? "?" + queryParams : "") + (queryParams.length()? "&" : "?") + "auth=" + userIdToken;
+    qDebug() << "auth get endPoint: " << endPoint;
     QEventLoop loop;
     networkReply = networkManager->get(
         QNetworkRequest(QUrl(endPoint)));
