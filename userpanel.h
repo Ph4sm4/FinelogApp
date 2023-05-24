@@ -17,11 +17,17 @@ public:
     explicit UserPanel(QWidget *parent = nullptr);
     ~UserPanel();
 
-    void setCurrentUser(FinelogUser* newUser) { currentUser = newUser; }
+    void setCurrentUser(FinelogUser* newUser) {
+        currentUser = newUser;
+        setUserDisplayInfo();
+    }
 
 private slots:
-
     void on_logoutButton_clicked();
+
+    void on_settingsButton_clicked();
+
+    void on_newProtocolButton_clicked();
 
 signals:
     void logOutButtonClicked();
@@ -29,6 +35,7 @@ signals:
 private:
     Ui::UserPanel *ui;
 
+    void setUserDisplayInfo();
     DatabaseHandler dbHandler;
     FinelogUser* currentUser;
 };

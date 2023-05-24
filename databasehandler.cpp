@@ -18,16 +18,16 @@ DatabaseHandler::~DatabaseHandler()
     networkManager->deleteLater();
 }
 
-QJsonObject DatabaseHandler::performAuthenticatedGET(const QString& databasePath, const QString& userIdToken)
+QJsonObject DatabaseHandler::performAuthenticatedGET(const QString& databasePath, const QString& userIdToken, const QString& queryParams)
 {
-    QString endPoint = "https://finelogapp-default-rtdb.europe-west1.firebasedatabase.app/" + databasePath + ".json?auth=" + userIdToken;
+    QString endPoint = "https://finelogapp-default-rtdb.europe-west1.firebasedatabase.app/" + databasePath + ".json" + (queryParams.length()? "?" + queryParams : "") +"?auth=" + userIdToken;
     QEventLoop loop;
     networkReply = networkManager->get(
         QNetworkRequest(QUrl(endPoint)));
     connect(networkReply, &QNetworkReply::finished, &loop, &QEventLoop::quit);
     loop.exec();
 
-    qDebug() << "error: " << networkReply->errorString();
+    qDebug() << "error auth get: " << networkReply->errorString();
 
     QJsonDocument jsonDocument = QJsonDocument::fromJson(QString(networkReply->readAll()).toUtf8());
     QJsonObject jsonObject = jsonDocument.object();
@@ -138,6 +138,8 @@ QJsonObject DatabaseHandler::performPOST(const QString &url, const QJsonDocument
     connect(networkReply, &QNetworkReply::finished, &loop, &QEventLoop::quit);
     loop.exec();
 
+    qDebug() << "error post: " << networkReply->errorString();
+
     QJsonDocument jsonDocument = QJsonDocument::fromJson(QString(networkReply->readAll()).toUtf8());
     QJsonObject jsonObject = jsonDocument.object();
 
@@ -153,8 +155,28 @@ QJsonObject DatabaseHandler::performPUT(const QString &url, const QJsonDocument 
     connect(networkReply, &QNetworkReply::finished, &loop, &QEventLoop::quit);
     loop.exec();
 
+    qDebug() << "error put: " << networkReply->errorString();
+
     QJsonDocument jsonDocument = QJsonDocument::fromJson(QString(networkReply->readAll()).toUtf8());
     QJsonObject jsonObject = jsonDocument.object();
 
+    return jsonObject;
+}
+
+QJsonObject DatabaseHandler::performAuthenticatedPOST(const QString &databasePath, const QJsonDocument& payload, const QString &userIdToken)
+{
+    QString endPoint = "https://finelogapp-default-rtdb.europe-west1.firebasedatabase.app/" + databasePath + ".json?auth=" + userIdToken;
+    QEventLoop loop;
+    QNetworkRequest newReq((QUrl(endPoint)));
+    newReq.setHeader(QNetworkRequest::ContentTypeHeader, QString("application/json"));
+
+    networkReply = networkManager->post(newReq, payload.toJson());
+    connect(networkReply, &QNetworkReply::finished, &loop, &QEventLoop::quit);
+    loop.exec();
+
+    qDebug() << "error auth post: " << networkReply->errorString();
+
+    QJsonDocument jsonDocument = QJsonDocument::fromJson(QString(networkReply->readAll()).toUtf8());
+    QJsonObject jsonObject = jsonDocument.object();
     return jsonObject;
 }

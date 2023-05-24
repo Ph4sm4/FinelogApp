@@ -6,12 +6,15 @@
 #include <QJsonDocument>
 #include <QScroller>
 #include <QScrollerProperties>
+#include <QJsonObject>
 
 UserPanel::UserPanel(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::UserPanel)
 {
     ui->setupUi(this);
+
+    ui->pagination->setCurrentIndex(0);
 
     ui->scrollArea->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded); // Show vertical scroll bar as needed
     ui->scrollArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff); // Disable horizontal scroll bar
@@ -66,6 +69,32 @@ void UserPanel::on_logoutButton_clicked()
 {
     delete currentUser;
     emit logOutButtonClicked();
+
+}
+
+void UserPanel::setUserDisplayInfo()
+{
+    ui->hiLabel->setText("Hi" + currentUser->getName() + "!");
+    ui->phoneNumberLabel->setText("Phone number: " + currentUser->getPhoneNumber());
+    ui->emailLabel->setText("Email: " + currentUser->getEmail());
+
+}
+void UserPanel::on_settingsButton_clicked()
+{
+    ui->pagination->setCurrentIndex(1);
+}
+
+
+void UserPanel::on_newProtocolButton_clicked()
+{
+    QVariantMap payload;
+    payload["field1"] = "some value";
+    payload["field2"] = "some other value";
+    payload["owner_id"] = currentUser->getUserId();
+
+    QString path = "Reports";
+    QJsonObject res = dbHandler.performAuthenticatedPOST(path,
+                QJsonDocument::fromVariant(payload), currentUser->getIdToken());
 
 }
 

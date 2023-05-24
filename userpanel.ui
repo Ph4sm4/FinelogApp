@@ -117,7 +117,7 @@ background-color: white;
          <item>
           <layout class="QVBoxLayout" name="verticalLayout_2">
            <item>
-            <widget class="QLabel" name="label">
+            <widget class="QLabel" name="hiLabel">
              <property name="font">
               <font>
                <family>Microsoft JhengHei</family>
@@ -136,7 +136,7 @@ color: rgb(102, 102, 102);
             </widget>
            </item>
            <item>
-            <widget class="QLabel" name="label_5">
+            <widget class="QLabel" name="phoneNumberLabel">
              <property name="styleSheet">
               <string notr="true">QLabel {
 background: transparent;
@@ -149,7 +149,7 @@ color: rgb(102, 102, 102);
             </widget>
            </item>
            <item>
-            <widget class="QLabel" name="label_6">
+            <widget class="QLabel" name="emailLabel">
              <property name="styleSheet">
               <string notr="true">QLabel {
 background: transparent;
@@ -162,7 +162,7 @@ color: rgb(102, 102, 102);
             </widget>
            </item>
            <item>
-            <widget class="QLabel" name="label_4">
+            <widget class="QLabel" name="reportsNumberLabel">
              <property name="styleSheet">
               <string notr="true">QLabel {
 background: transparent;
@@ -224,11 +224,11 @@ border: none;
         </spacer>
        </item>
        <item>
-        <widget class="QPushButton" name="pushButton">
+        <widget class="QPushButton" name="newProtocolButton">
          <property name="font">
           <font>
            <family>Microsoft JhengHei</family>
-           <pointsize>14</pointsize>
+           <pointsize>18</pointsize>
            <italic>false</italic>
            <bold>true</bold>
           </font>
@@ -281,7 +281,7 @@ color: rgb(102, 102, 102);
          </property>
          <property name="styleSheet">
           <string notr="true">QScrollArea {
-background-color: rgb(189, 189, 189)
+background-color: white;
 }
 QScrollBar:vertical {
         border: none;
@@ -334,9 +334,7 @@ QScrollBar:vertical {
            </rect>
           </property>
           <property name="styleSheet">
-           <string notr="true">QWidget {
-background-color: rgb(189, 189, 189)
-}</string>
+           <string notr="true"/>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_5"/>
          </widget>

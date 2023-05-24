@@ -178,6 +178,10 @@ void MainWindow::on_registerButton_clicked()
     if(createdUser == nullptr) return;
 
     uPanel->setCurrentUser(createdUser);
+    InputManager::clearInputs(ui->nameRegister, ui->surnameRegister,
+                              ui->emailRegister, ui->phoneNumberRegister,
+                              ui->passwordRegister, ui->confirmPassword,
+                              ui->idRegistration);
 
     // change to the UserPanel
     ui->pagination->setCurrentIndex(5);

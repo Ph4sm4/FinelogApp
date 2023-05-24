@@ -12,11 +12,12 @@ class DatabaseHandler : public QObject
 public:
     explicit DatabaseHandler(QObject* parent = nullptr);
     ~DatabaseHandler();
-    QJsonObject performAuthenticatedGET(const QString& databasePath, const QString& userIdToken);
+    QJsonObject performAuthenticatedGET(const QString& databasePath, const QString& userIdToken, const QString& queryParams = "");
     class FinelogUser* registerNewUser(class FinelogUser* user, class QLabel* errorLabel = nullptr);
     class FinelogUser* logInWithEmailAndPassword(const QString& email, const QString& password, class QLabel* errorLabel = nullptr);
     QJsonObject performPOST(const QString& url, const QJsonDocument& payload);
     QJsonObject performPUT(const QString& url, const QJsonDocument& payload);
+    QJsonObject performAuthenticatedPOST(const QString &databasePath, const QJsonDocument& payload, const QString &userIdToken);
     //void changeUserCredentials
 
 public slots:

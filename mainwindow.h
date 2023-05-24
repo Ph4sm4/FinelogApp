@@ -24,6 +24,9 @@ public:
 public slots:
     void loggedOutOfUserPanel();
 
+signals:
+    void userChanged();
+
 private slots:
     void on_loginButton_clicked();
 
