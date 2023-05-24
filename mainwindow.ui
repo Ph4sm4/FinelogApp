@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>647</width>
-    <height>702</height>
+    <width>507</width>
+    <height>570</height>
    </rect>
   </property>
   <property name="font">
@@ -58,8 +58,7 @@
       <property name="styleSheet">
        <string notr="true">QLabel {
 background-color: white;
-padding-left: 20px;
-padding-right: 20px;
+padding: 20px 20px;
 }
 </string>
       </property>
@@ -89,7 +88,7 @@ height: 100%;
 }</string>
       </property>
       <property name="currentIndex">
-       <number>4</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="login_page">
        <property name="styleSheet">
@@ -255,6 +254,34 @@ outline: none;
              </widget>
             </item>
            </layout>
+          </item>
+          <item>
+           <widget class="QLabel" name="loginErrorLabel">
+            <property name="font">
+             <font>
+              <family>Segoe UI</family>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">QLabel {
+color: red;
+margin-right: 20px;
+margin-left: 20px;
+background: transparent;
+margin-top: 5px;
+}</string>
+            </property>
+            <property name="text">
+             <string>Invalid email or password</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+            <property name="wordWrap">
+             <bool>true</bool>
+            </property>
+           </widget>
           </item>
           <item>
            <spacer name="verticalSpacer_3">
@@ -1509,7 +1536,7 @@ background-color: rgb(126, 42, 0)
           <item>
            <layout class="QVBoxLayout" name="verticalLayout_6">
             <item>
-             <widget class="QLabel" name="errorLabel">
+             <widget class="QLabel" name="registerErrorLabel">
               <property name="font">
                <font>
                 <bold>true</bold>

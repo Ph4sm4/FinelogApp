@@ -1,26 +1,14 @@
 #ifndef FINELOGUSER_H
 #define FINELOGUSER_H
+#include "databasehandler.h"
 #include <QString>
+#include <QVector>
+#include "userreport.h"
 
 class FinelogUser
 {
 public:
-    explicit FinelogUser(QString name, QString surname, QString email, QString phoneNumber, QString password) :
-        name(name), surname(surname), email(email), phoneNumber(phoneNumber), password(password) {}
-
-    explicit FinelogUser(QString name, QString surname, QString email, QString phoneNumber) :
-        name(name), surname(surname), email(email), phoneNumber(phoneNumber) {}
-
-    explicit FinelogUser(QString name, QString surname, QString email) :
-        name(name), surname(surname), email(email) {}
-
-    explicit FinelogUser(QString name, QString surname) :
-        name(name), surname(surname) {}
-
-    explicit FinelogUser(QString name) :
-        name(name) {}
-
-    explicit FinelogUser() {}
+    explicit FinelogUser();
 
 
     QString getName() const { return name; }
@@ -36,7 +24,10 @@ public:
     void setPhoneNumber(const QString& newPhoneNumber) { phoneNumber = newPhoneNumber; }
     void setSurname(const QString& newSurname) { surname = newSurname; }
     void setPassword(const QString& newPassword) { password = newPassword; }
-    void setIdToken(const QString& newIdToken) { idToken = newIdToken;}
+    void setIdToken(const QString& newIdToken) {
+        idToken = newIdToken;
+        getDBReportsData();
+    }
     void setUserID(const QString& newUserId) { userId = newUserId; }
 
 private:
@@ -49,6 +40,10 @@ private:
     //database related
     QString idToken;
     QString userId;
+    QVector<UserReport> reports;
+    DatabaseHandler dbHandler;
+
+    void getDBReportsData();
 };
 
 #endif // FINELOGUSER_H

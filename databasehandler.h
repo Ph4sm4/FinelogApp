@@ -12,9 +12,11 @@ class DatabaseHandler : public QObject
 public:
     explicit DatabaseHandler(QObject* parent = nullptr);
     ~DatabaseHandler();
-    class QJsonObject performAuthenticatedGET(const QString& databasePath, const QString& userIdToken);
+    QJsonObject performAuthenticatedGET(const QString& databasePath, const QString& userIdToken);
     class FinelogUser* registerNewUser(class FinelogUser* user, class QLabel* errorLabel = nullptr);
-    class FinelogUser* logInWithEmailAndPassword(const QString& email, const QString& password);
+    class FinelogUser* logInWithEmailAndPassword(const QString& email, const QString& password, class QLabel* errorLabel = nullptr);
+    QJsonObject performPOST(const QString& url, const QJsonDocument& payload);
+    QJsonObject performPUT(const QString& url, const QJsonDocument& payload);
     //void changeUserCredentials
 
 public slots:
@@ -25,8 +27,7 @@ signals:
 private:
     QNetworkAccessManager* networkManager;
     QNetworkReply* networkReply;
-    QJsonObject performPOST(const QString& url, const QJsonDocument& payload);
-    QString api_key = "AIzaSyA--DNxqDYjviNPHl7qrZ0GiQM9A5c2_Bg";
+    const QString api_key = "AIzaSyA--DNxqDYjviNPHl7qrZ0GiQM9A5c2_Bg";
     QJsonObject signUpWithEmailAndPassword(const QString email, const QString password);
 };
 

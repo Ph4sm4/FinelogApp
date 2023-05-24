@@ -11,10 +11,6 @@
 DatabaseHandler::DatabaseHandler(QObject* parent) : QObject(parent)
 {
     networkManager = new QNetworkAccessManager(this);
-
-//    m_networkReply = m_networkManager->get(
-//        QNetworkRequest(QUrl("https://finelogapp-default-rtdb.europe-west1.firebasedatabase.app/Pets.json")));
-//connect(m_networkReply, &QNetworkReply::readyRead, this, &DatabaseHandler::networkReplyReadyRead);
 }
 
 DatabaseHandler::~DatabaseHandler()
@@ -24,13 +20,14 @@ DatabaseHandler::~DatabaseHandler()
 
 QJsonObject DatabaseHandler::performAuthenticatedGET(const QString& databasePath, const QString& userIdToken)
 {
-    QString endPoint = "https://finelogapp-default-rtdb.europe-west1.firebasedatabase.app/"
-                       + databasePath + ".json?auth=" + userIdToken;
+    QString endPoint = "https://finelogapp-default-rtdb.europe-west1.firebasedatabase.app/" + databasePath + ".json?auth=" + userIdToken;
     QEventLoop loop;
     networkReply = networkManager->get(
-        QNetworkRequest(QUrl()));
+        QNetworkRequest(QUrl(endPoint)));
     connect(networkReply, &QNetworkReply::finished, &loop, &QEventLoop::quit);
     loop.exec();
+
+    qDebug() << "error: " << networkReply->errorString();
 
     QJsonDocument jsonDocument = QJsonDocument::fromJson(QString(networkReply->readAll()).toUtf8());
     QJsonObject jsonObject = jsonDocument.object();
@@ -57,7 +54,6 @@ FinelogUser* DatabaseHandler::registerNewUser(FinelogUser* user, QLabel* errorLa
     // second we need to add the user into the database
     QVariantMap newUser;
 
-    newUser["email"] = "tutaj email";
     newUser["Email"] =  user->getEmail();
     newUser["Name"] = user->getName();
     newUser["Phone number"] =user->getPhoneNumber();
@@ -71,15 +67,13 @@ FinelogUser* DatabaseHandler::registerNewUser(FinelogUser* user, QLabel* errorLa
     QString endPoint = "https://finelogapp-default-rtdb.europe-west1.firebasedatabase.app/Users/" + UId + ".json?auth=" + idToken;
 
     QJsonDocument jsonDoc = QJsonDocument::fromVariant(newUser);
-    QJsonObject response = performPOST(endPoint, jsonDoc);
+    QJsonObject response = performPUT(endPoint, jsonDoc);
     qDebug() << response;
 
     return user;
 }
-//curl -X POST -d '{"user_id" : "jack", "text" : "Ahoy!"}' \
-//'https://[PROJECT_ID].firebaseio.com/message_list.json'
 
-FinelogUser* DatabaseHandler::logInWithEmailAndPassword(const QString &email, const QString &password)
+FinelogUser* DatabaseHandler::logInWithEmailAndPassword(const QString &email, const QString &password, class QLabel* errorLabel)
 {
     QString endPoint = "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=" + api_key;
     QVariantMap variantPayload;
@@ -89,8 +83,35 @@ FinelogUser* DatabaseHandler::logInWithEmailAndPassword(const QString &email, co
 
     QJsonDocument jsonPayload = QJsonDocument::fromVariant(variantPayload);
     QJsonObject reply = performPOST(endPoint, jsonPayload);
+    qDebug() << "login reply: " << reply;
 
-    return new FinelogUser();
+    if(reply.contains("error") && errorLabel) {
+        errorLabel->setText("Invalid email or password");
+        return nullptr;
+    }
+
+    QString uId = reply.value("localId").toString();
+    QString idToken = reply.value("idToken").toString();
+
+    qDebug() << "uid and token: " << uId << " " << idToken ;
+
+    QString userEndPoint = "Users/" + uId;
+    QJsonObject userData = performAuthenticatedGET(userEndPoint, idToken);
+    qDebug() << "logged in user data: " << userData;
+
+    FinelogUser* loggedInUser = new FinelogUser();
+    loggedInUser->setEmail(userData.value("Email").toString());
+    loggedInUser->setUserID(uId);
+    loggedInUser->setIdToken(idToken);
+    loggedInUser->setName(userData.value("Name").toString());
+    loggedInUser->setSurname(userData.value("Surname").toString());
+    loggedInUser->setPhoneNumber(userData.value("Phone number").toString());
+    loggedInUser->setPassword(password);
+
+    if(errorLabel)
+        errorLabel->setText("");
+
+    return loggedInUser;
 }
 
 QJsonObject DatabaseHandler::signUpWithEmailAndPassword(const QString email, const QString password)
@@ -123,3 +144,17 @@ QJsonObject DatabaseHandler::performPOST(const QString &url, const QJsonDocument
     return jsonObject;
 }
 
+QJsonObject DatabaseHandler::performPUT(const QString &url, const QJsonDocument &payload)
+{
+    QNetworkRequest newReq((QUrl(url)));
+    newReq.setHeader(QNetworkRequest::ContentTypeHeader, QString("application/json"));
+    QEventLoop loop;
+    networkReply = networkManager->put(newReq, payload.toJson());
+    connect(networkReply, &QNetworkReply::finished, &loop, &QEventLoop::quit);
+    loop.exec();
+
+    QJsonDocument jsonDocument = QJsonDocument::fromJson(QString(networkReply->readAll()).toUtf8());
+    QJsonObject jsonObject = jsonDocument.object();
+
+    return jsonObject;
+}

@@ -21,6 +21,9 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+public slots:
+    void loggedOutOfUserPanel();
+
 private slots:
     void on_loginButton_clicked();
 

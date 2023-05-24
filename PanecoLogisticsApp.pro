@@ -17,7 +17,8 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     stylesheetmanipulator.cpp \
-    userpanel.cpp
+    userpanel.cpp \
+    userreport.cpp
 
 HEADERS += \
     databasehandler.h \
@@ -26,7 +27,8 @@ HEADERS += \
     listitem.h \
     mainwindow.h \
     stylesheetmanipulator.h \
-    userpanel.h
+    userpanel.h \
+    userreport.h
 
 FORMS += \
     listitem.ui \
@@ -45,3 +47,4 @@ RESOURCES += \
     Images.qrc
 
 android: include(C:/Users/I9/AppData/Local/Android/Sdk/android_openssl/openssl.pri)
+android: include(C:/Users/dalac/AppData/Local/Android/Sdk/android_openssl/openssl.pri)
