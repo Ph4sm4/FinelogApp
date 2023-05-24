@@ -21,7 +21,7 @@
   </property>
   <property name="styleSheet">
    <string notr="true">QWidget {
-background: green;
+background: transparent;
 }</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -50,6 +50,11 @@ background: green;
           <layout class="QVBoxLayout" name="verticalLayout">
            <item>
             <widget class="QLabel" name="dateLabel">
+             <property name="styleSheet">
+              <string notr="true">QLabel {
+color:  rgb(249, 115, 22);
+}</string>
+             </property>
              <property name="text">
               <string>{date}</string>
              </property>
@@ -57,6 +62,11 @@ background: green;
            </item>
            <item>
             <widget class="QLabel" name="hourLabel">
+             <property name="styleSheet">
+              <string notr="true">QLabel {
+color:  rgb(249, 115, 22);
+}</string>
+             </property>
              <property name="text">
               <string>{hour}</string>
              </property>
@@ -84,6 +94,17 @@ background: green;
        </item>
        <item>
         <widget class="QLabel" name="car_nameLabel">
+         <property name="font">
+          <font>
+           <italic>true</italic>
+           <bold>false</bold>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QLabel {
+color:  rgb(249, 115, 22);
+}</string>
+         </property>
          <property name="text">
           <string>{car name}</string>
          </property>
@@ -91,6 +112,17 @@ background: green;
        </item>
        <item>
         <widget class="QLabel" name="projectLabel">
+         <property name="font">
+          <font>
+           <italic>true</italic>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QLabel {
+color:  rgb(249, 115, 22);
+}</string>
+         </property>
          <property name="text">
           <string>{project}</string>
          </property>
