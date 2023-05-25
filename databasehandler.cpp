@@ -65,10 +65,10 @@ FinelogUser* DatabaseHandler::registerNewUser(FinelogUser* user, QLabel* errorLa
 
     // this endpoint is going to create a document labeled as UserId (UId)
     // idToken is required to perform an authorized database request
-    QString endPoint = "https://finelogapp-default-rtdb.europe-west1.firebasedatabase.app/Users/" + UId + ".json?auth=" + idToken;
+    QString path = "Users/" + UId;
 
     QJsonDocument jsonDoc = QJsonDocument::fromVariant(newUser);
-    QJsonObject response = performPUT(endPoint, jsonDoc);
+    QJsonObject response = performAuthenticatedPUT(path, jsonDoc, idToken);
     qDebug() << response;
 
     return user;
@@ -147,16 +147,18 @@ QJsonObject DatabaseHandler::performPOST(const QString &url, const QJsonDocument
     return jsonObject;
 }
 
-QJsonObject DatabaseHandler::performPUT(const QString &url, const QJsonDocument &payload)
+QJsonObject DatabaseHandler::performAuthenticatedPUT(const QString &databasePath, const QJsonDocument &payload, const QString& userIdToken)
 {
-    QNetworkRequest newReq((QUrl(url)));
+    QString endPoint = "https://finelogapp-default-rtdb.europe-west1.firebasedatabase.app/" + databasePath + ".json?auth=" + userIdToken;
+
+    QNetworkRequest newReq((QUrl(endPoint)));
     newReq.setHeader(QNetworkRequest::ContentTypeHeader, QString("application/json"));
     QEventLoop loop;
     networkReply = networkManager->put(newReq, payload.toJson());
     connect(networkReply, &QNetworkReply::finished, &loop, &QEventLoop::quit);
     loop.exec();
 
-    qDebug() << "error put: " << networkReply->errorString();
+    qDebug() << "error auth put: " << networkReply->errorString();
 
     QJsonDocument jsonDocument = QJsonDocument::fromJson(QString(networkReply->readAll()).toUtf8());
     QJsonObject jsonObject = jsonDocument.object();

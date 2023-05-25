@@ -95,13 +95,13 @@ background-color: white;
         <number>0</number>
        </property>
        <property name="leftMargin">
-        <number>20</number>
+        <number>0</number>
        </property>
        <property name="topMargin">
         <number>20</number>
        </property>
        <property name="rightMargin">
-        <number>20</number>
+        <number>0</number>
        </property>
        <property name="bottomMargin">
         <number>20</number>
@@ -109,10 +109,10 @@ background-color: white;
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout">
          <property name="leftMargin">
-          <number>0</number>
+          <number>20</number>
          </property>
          <property name="rightMargin">
-          <number>0</number>
+          <number>20</number>
          </property>
          <item>
           <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -280,9 +280,17 @@ color: rgb(102, 102, 102);
           </size>
          </property>
          <property name="styleSheet">
-          <string notr="true">QScrollArea {
-background-color: white;
+          <string notr="true">QScrollArea#CustomScrollArea {
+    background-color: transparent;
+    border: none;
+     border-radius: 5px;
+     padding: 0;
 }
+QWidget#CustomScrollContent {
+   background-color: white;
+    border-radius: 5px;
+}
+
 QScrollBar:vertical {
         border: none;
         background-color: #F5F5F5;
@@ -313,10 +321,10 @@ QScrollBar:vertical {
     }</string>
          </property>
          <property name="frameShape">
-          <enum>QFrame::Box</enum>
+          <enum>QFrame::NoFrame</enum>
          </property>
          <property name="frameShadow">
-          <enum>QFrame::Raised</enum>
+          <enum>QFrame::Plain</enum>
          </property>
          <property name="lineWidth">
           <number>1</number>
@@ -329,14 +337,21 @@ QScrollBar:vertical {
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>447</width>
-            <height>126</height>
+            <width>491</width>
+            <height>130</height>
            </rect>
           </property>
           <property name="styleSheet">
            <string notr="true"/>
           </property>
-          <layout class="QVBoxLayout" name="verticalLayout_5"/>
+          <layout class="QVBoxLayout" name="verticalLayout_5">
+           <property name="leftMargin">
+            <number>20</number>
+           </property>
+           <property name="rightMargin">
+            <number>20</number>
+           </property>
+          </layout>
          </widget>
         </widget>
        </item>

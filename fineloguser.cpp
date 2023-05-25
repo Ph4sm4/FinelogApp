@@ -9,13 +9,32 @@ FinelogUser::FinelogUser() {
 
 }
 
-void FinelogUser::fetchReports()
+UserReport FinelogUser::getReportContent(const QString &name) const
 {
-    const QString endPoint = "Reports";
+
+}
+
+void FinelogUser::fetchHeadlines()
+{
+    const QString endPoint = "Reports/Headlines";
     const QString queryParams = "orderBy=\"owner_id\"&equalTo=\"" + userId +"\"";
-    QJsonObject reportsData = dbHandler.performAuthenticatedGET(
+    QJsonObject headlinesData = dbHandler.performAuthenticatedGET(
         endPoint, idToken, queryParams);
 
-    qDebug() << "reportdata: " <<  reportsData;
-    // we have the report data, now we got to fill the report vector with them
+    qDebug() << "headline data: " <<  headlinesData;
+
+    for (QJsonObject::iterator it = headlinesData.begin(); it != headlinesData.end(); ++it) {
+        QJsonObject val = it.value().toObject();
+
+        ReportHeadline headline;
+        headline.projectName = val.value("ProjectName").toString();
+        headline.carName = val.value("CarName").toString();
+        headline.uploadTime = QTime::fromString(val.value("Time").toString());
+        headline.uploadDate = QDate::fromString(val.value("Date").toString());
+        headline.contentName = val.value("ContentName").toString();
+
+        if(!headlines.contains(headline))
+            headlines.append(headline);
+    }
+    qDebug() << "headlines size: " << headlines.size();
 }

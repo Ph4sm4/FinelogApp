@@ -1,4 +1,5 @@
 #include "userpanel.h"
+#include "qgraphicseffect.h"
 #include "ui_userpanel.h"
 #include "listitem.h"
 #include <QDate>
@@ -19,7 +20,7 @@ UserPanel::UserPanel(QWidget *parent) :
     ui->scrollArea->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded); // Show vertical scroll bar as needed
     ui->scrollArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff); // Disable horizontal scroll bar
 
-    QWidget *central = new QWidget;
+    QWidget *central = ui->scrollAreaWidgetContents;
     QVBoxLayout *layout = new QVBoxLayout(central);
     ui->scrollArea->setWidget(central);
     ui->scrollArea->setWidgetResizable(true);
@@ -30,10 +31,6 @@ UserPanel::UserPanel(QWidget *parent) :
     ListItem* x4 = new ListItem();
     ListItem* x5 = new ListItem();
     ListItem* x6 = new ListItem();
-    ListItem* x7 = new ListItem();
-    ListItem* x8 = new ListItem();
-    ListItem* x9 = new ListItem();
-    ListItem* x10 = new ListItem();
 
     layout->addWidget(x1);
     layout->addWidget(x2);
@@ -41,10 +38,6 @@ UserPanel::UserPanel(QWidget *parent) :
     layout->addWidget(x4);
     layout->addWidget(x5);
     layout->addWidget(x6);
-    layout->addWidget(x7);
-    layout->addWidget(x8);
-    layout->addWidget(x9);
-    layout->addWidget(x10);
 
     QScroller::grabGesture(ui->scrollArea->viewport(), QScroller::TouchGesture); // Enable touch scrolling
 
@@ -56,6 +49,12 @@ UserPanel::UserPanel(QWidget *parent) :
     scrollerProperties.setScrollMetric(QScrollerProperties::MaximumVelocity, 0.6);
     scrollerProperties.setScrollMetric(QScrollerProperties::AcceleratingFlickMaximumTime, 0.4);
     QScroller::scroller(ui->scrollArea->viewport())->setScrollerProperties(scrollerProperties);
+
+    QGraphicsDropShadowEffect* shadowEffect = new QGraphicsDropShadowEffect;
+    shadowEffect->setBlurRadius(20);
+    shadowEffect->setColor(QColor(0, 0, 0, 80));
+    shadowEffect->setOffset(0, 0);
+    ui->scrollArea->setGraphicsEffect(shadowEffect);
 }
 
 UserPanel::~UserPanel()
@@ -68,16 +67,51 @@ UserPanel::~UserPanel()
 void UserPanel::on_logoutButton_clicked()
 {
     delete currentUser;
+    currentUser = nullptr;
     emit logOutButtonClicked();
 
 }
 
 void UserPanel::setUserDisplayInfo()
 {
-    ui->hiLabel->setText("Hi" + currentUser->getName() + "!");
+    ui->hiLabel->setText("Hi " + currentUser->getName() + "!");
     ui->phoneNumberLabel->setText("Phone number: " + currentUser->getPhoneNumber());
     ui->emailLabel->setText("Email: " + currentUser->getEmail());
 
+    QVector<ReportHeadline> reports = currentUser->getHeadlines();
+    QWidget* w = ui->scrollAreaWidgetContents;
+    if(!w) {
+        qCritical() << "SCROLL AREA widget DOES NOT EXIST";
+        return;
+    }
+    QVBoxLayout* existingLayout = qobject_cast<QVBoxLayout*>(w->layout());
+    if(!existingLayout){
+        qCritical() << "SCROLL AREA LAYOUT DOES NOT EXIST";
+        return;
+    }
+
+    while (QLayoutItem* item = existingLayout->takeAt(0))
+    {
+        if (QWidget* widget = item->widget())
+            widget->deleteLater();
+
+        delete item;
+    }
+
+    foreach(ReportHeadline headline, reports) {
+        ListItem* newItem = new ListItem();
+        newItem->setCarName(headline.carName);
+        newItem->setProjectName(headline.projectName);
+        newItem->setDate(headline.uploadDate);
+        newItem->setTime(headline.uploadTime);
+        newItem->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+        newItem->setParent(ui->scrollAreaWidgetContents);
+        newItem->setContentName(headline.contentName);
+
+        existingLayout->addWidget(newItem);
+    }
+    // Add a stretch at the end to push the widgets to the top
+    existingLayout->addStretch();
 }
 void UserPanel::on_settingsButton_clicked()
 {
@@ -87,14 +121,43 @@ void UserPanel::on_settingsButton_clicked()
 
 void UserPanel::on_newProtocolButton_clicked()
 {
+    // uploading report headline and report content data to db
     QVariantMap payload;
-    payload["field1"] = "some value";
-    payload["field2"] = "some other value";
+    payload["CarName"] = "Toyota";
+    payload["ProjectName"] = "Paneco-Something";
+    payload["Date"] = QDate::currentDate().toString();
+    payload["Time"] = QTime::currentTime().toString();
+    payload["WindowCondition"] = "Shattered";
     payload["owner_id"] = currentUser->getUserId();
 
-    QString path = "Reports";
+    QString path = "Reports/Content";
     QJsonObject res = dbHandler.performAuthenticatedPOST(path,
                 QJsonDocument::fromVariant(payload), currentUser->getIdToken());
 
+    qDebug() << "added content: " << res;
+
+    if(res.contains("error")) {
+        // something went wrong, maybe a message box?
+        return;
+    }
+
+    QString contentName = res.value("name").toString();
+
+    QVariantMap headlinePayload;
+    headlinePayload["CarName"] = "Toyota";
+    headlinePayload["ProjectName"] = "Paneco-Something";
+    headlinePayload["Date"] = QDate::currentDate().toString();
+    headlinePayload["Time"] = QTime::currentTime().toString();
+    headlinePayload["owner_id"] = currentUser->getUserId();
+    headlinePayload["ContentName"] = contentName;
+
+    path = "Reports/Headlines/" + contentName;
+    res = dbHandler.performAuthenticatedPUT(path,
+                 QJsonDocument::fromVariant(headlinePayload), currentUser->getIdToken());
+
+    qDebug() << "headline put res: " << res;
+
+    currentUser->fetchHeadlines();
+    setUserDisplayInfo();
 }
 

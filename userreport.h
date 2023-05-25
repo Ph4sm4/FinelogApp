@@ -2,6 +2,8 @@
 #define USERREPORT_H
 
 #include <QString>
+#include <QDate>
+#include <QTime>
 
 class UserReport
 {
@@ -9,8 +11,11 @@ public:
     UserReport();
 
     QString ownerId;
-    QString field1;
-    QString field2;
+    QString carName;
+    QDate uploadDate;
+    QTime uploadTime;
+    QString projectName;
+    QString windowCondition;
 
 };
 

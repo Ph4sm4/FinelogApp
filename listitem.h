@@ -17,7 +17,15 @@ public:
     explicit ListItem(QWidget *parent = nullptr);
     ~ListItem();
 
+    void setDate(const QDate& dateOfUpload);
+    void setTime(const QTime& timeOfUpload);
+    void setProjectName(const QString& newName);
+    void setCarName(const QString& newCarName);
+    void setContentName(const QString& newContentName) { contentName = newContentName; }
 
+    bool operator==(const ListItem& other) {
+        return contentName == other.contentName;
+    }
 
 private:
     Ui::ListItem *ui;
@@ -25,7 +33,8 @@ private:
     QDate protocolDate;
     QTime protocolTime;
     QString projectName;
-    QString car_name;
+    QString carName;
+    QString contentName; // required to properly display newly created items
 };
 
 #endif // LISTITEM_H

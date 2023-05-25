@@ -16,7 +16,7 @@ public:
     class FinelogUser* registerNewUser(class FinelogUser* user, class QLabel* errorLabel = nullptr);
     class FinelogUser* logInWithEmailAndPassword(const QString& email, const QString& password, class QLabel* errorLabel = nullptr);
     QJsonObject performPOST(const QString& url, const QJsonDocument& payload);
-    QJsonObject performPUT(const QString& url, const QJsonDocument& payload);
+    QJsonObject performAuthenticatedPUT(const QString &databasePath, const QJsonDocument &payload, const QString& userIdToken);
     QJsonObject performAuthenticatedPOST(const QString &databasePath, const QJsonDocument& payload, const QString &userIdToken);
     //void changeUserCredentials
 

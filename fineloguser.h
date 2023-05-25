@@ -3,6 +3,7 @@
 #include "databasehandler.h"
 #include <QString>
 #include <QVector>
+#include "reportheadline.h"
 #include "userreport.h"
 
 class FinelogUser
@@ -18,6 +19,8 @@ public:
     QString getPassword() const { return password; }
     QString getUserId() const { return userId; }
     QString getIdToken() const { return idToken; }
+    QVector<ReportHeadline> getHeadlines() const { return headlines; }
+    UserReport getReportContent(const QString& name) const;
 
     void setName(const QString& newName) { name = newName; }
     void setEmail(const QString& newEmail) { email = newEmail; }
@@ -26,8 +29,9 @@ public:
     void setPassword(const QString& newPassword) { password = newPassword; }
     void setIdToken(const QString& newIdToken) {
         idToken = newIdToken;
-        fetchReports();
+        fetchHeadlines();
     }
+    void fetchHeadlines();
     void setUserID(const QString& newUserId) { userId = newUserId; }
 
 private:
@@ -40,10 +44,8 @@ private:
     //database related
     QString idToken;
     QString userId;
-    QVector<UserReport> reports;
+    QVector<ReportHeadline> headlines;
     DatabaseHandler dbHandler;
-
-    void fetchReports();
 };
 
 #endif // FINELOGUSER_H
