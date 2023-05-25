@@ -8,6 +8,7 @@
 #include <QScroller>
 #include <QScrollerProperties>
 #include <QJsonObject>
+#include <QScrollBar>
 
 UserPanel::UserPanel(QWidget *parent) :
     QWidget(parent),
@@ -20,9 +21,6 @@ UserPanel::UserPanel(QWidget *parent) :
     ui->scrollArea->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded); // Show vertical scroll bar as needed
     ui->scrollArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff); // Disable horizontal scroll bar
 
-    QWidget *central = ui->scrollAreaWidgetContents;
-    QVBoxLayout *layout = new QVBoxLayout(central);
-    ui->scrollArea->setWidget(central);
     ui->scrollArea->setWidgetResizable(true);
     ui->scrollArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     ui->scrollArea->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
@@ -36,6 +34,7 @@ UserPanel::UserPanel(QWidget *parent) :
     scrollerProperties.setScrollMetric(QScrollerProperties::MinimumVelocity, 0.0);
     scrollerProperties.setScrollMetric(QScrollerProperties::MaximumVelocity, 0.6);
     scrollerProperties.setScrollMetric(QScrollerProperties::AcceleratingFlickMaximumTime, 0.4);
+    scrollerProperties.setScrollMetric(QScrollerProperties::HorizontalOvershootPolicy, QScrollerProperties::OvershootAlwaysOff);
     QScroller::scroller(ui->scrollArea->viewport())->setScrollerProperties(scrollerProperties);
 
     QGraphicsDropShadowEffect* shadowEffect = new QGraphicsDropShadowEffect;
@@ -82,6 +81,7 @@ void UserPanel::setUserDisplayInfo()
         return;
     }
 
+    // clearing out any remaining widgets
     while (QLayoutItem* item = existingLayout->takeAt(0))
     {
         if (QWidget* widget = item->widget())
@@ -90,20 +90,38 @@ void UserPanel::setUserDisplayInfo()
         delete item;
     }
 
-    foreach(ReportHeadline headline, reports) {
-        ListItem* newItem = new ListItem();
-        newItem->setCarName(headline.carName);
-        newItem->setProjectName(headline.projectName);
-        newItem->setDate(headline.uploadDate);
-        newItem->setTime(headline.uploadTime);
-        newItem->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
-        newItem->setParent(ui->scrollAreaWidgetContents);
-        newItem->setContentName(headline.contentName);
+    if(reports.size() == 0) {
+        QLabel* reportsEmpty = new QLabel();
+        QFont font;
+        font.setBold(true);
+        font.capitalization();
+        font.setFamily("Microsoft JhengHei");
+        font.setPointSize(36);
+        font.setItalic(true);
+        font.setLetterSpacing(QFont::AbsoluteSpacing, 5);
+        reportsEmpty->setFont(font);
+        reportsEmpty->setText("EMPTY");
+        reportsEmpty->setStyleSheet("QLabel {background: transparent;color: rgb(102, 102, 102);}");
+        reportsEmpty->setAlignment(Qt::AlignCenter);
 
-        existingLayout->addWidget(newItem);
+        existingLayout->addWidget(reportsEmpty);
     }
-    // Add a stretch at the end to push the widgets to the top
-    existingLayout->addStretch();
+    else {
+        foreach(ReportHeadline headline, reports) {
+            ListItem* newItem = new ListItem();
+            newItem->setCarName(headline.carName);
+            newItem->setProjectName(headline.projectName);
+            newItem->setDate(headline.uploadDate);
+            newItem->setTime(headline.uploadTime);
+            newItem->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+            newItem->setParent(ui->scrollAreaWidgetContents);
+            newItem->setContentName(headline.contentName);
+
+            existingLayout->addWidget(newItem);
+        }
+        // Add a stretch at the end to push the widgets to the top
+        existingLayout->addStretch();
+    }
 }
 void UserPanel::on_settingsButton_clicked()
 {

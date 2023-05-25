@@ -293,14 +293,14 @@ color: rgb(102, 102, 102);
           </size>
          </property>
          <property name="styleSheet">
-          <string notr="true">QScrollArea#CustomScrollArea {
+          <string notr="true">QScrollArea {
     background-color: transparent;
     border: none;
      border-radius: 5px;
      padding: 0;
 }
-QWidget#CustomScrollContent {
-   background-color: white;
+QWidget {
+   background-color: rgb(243, 244, 246);
     border-radius: 5px;
 }
 
@@ -394,7 +394,7 @@ QScrollBar:vertical {
             <string notr="true">QPushButton {
 height: 30px;
 color: rgb(249, 115, 22);
-background: white;
+background: transparent;
 border: none;
 }</string>
            </property>
