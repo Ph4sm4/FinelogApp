@@ -128,23 +128,35 @@ background-color: white;
               <string notr="true">QLabel {
 background: transparent;
 color: rgb(102, 102, 102);
+border-bottom: 3px solid rgb(249, 115, 22);
+padding-bottom: 10px;
 }</string>
              </property>
              <property name="text">
               <string>Hi {name}!</string>
              </property>
+             <property name="alignment">
+              <set>Qt::AlignJustify|Qt::AlignVCenter</set>
+             </property>
             </widget>
            </item>
            <item>
             <widget class="QLabel" name="phoneNumberLabel">
+             <property name="layoutDirection">
+              <enum>Qt::LeftToRight</enum>
+             </property>
              <property name="styleSheet">
               <string notr="true">QLabel {
 background: transparent;
 color: rgb(102, 102, 102);
+margin-top: 5px;
 }</string>
              </property>
              <property name="text">
               <string>Phone number: { phoneNumber }</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignJustify|Qt::AlignVCenter</set>
              </property>
             </widget>
            </item>
@@ -199,8 +211,9 @@ color: rgb(102, 102, 102);
            </property>
            <property name="styleSheet">
             <string notr="true">QPushButton {
-background-color: white;
+background-color: transparent;
 border: none;
+outline: none;
 }</string>
            </property>
            <property name="text">
@@ -351,7 +364,7 @@ QScrollBar:vertical {
             <x>0</x>
             <y>0</y>
             <width>471</width>
-            <height>89</height>
+            <height>80</height>
            </rect>
           </property>
           <property name="styleSheet">
