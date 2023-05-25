@@ -17,6 +17,7 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     reportheadline.cpp \
+    settingspanel.cpp \
     stylesheetmanipulator.cpp \
     userpanel.cpp \
     userreport.cpp
@@ -28,6 +29,7 @@ HEADERS += \
     listitem.h \
     mainwindow.h \
     reportheadline.h \
+    settingspanel.h \
     stylesheetmanipulator.h \
     userpanel.h \
     userreport.h
@@ -35,6 +37,7 @@ HEADERS += \
 FORMS += \
     listitem.ui \
     mainwindow.ui \
+    settingspanel.ui \
     userpanel.ui
 
 # Default rules for deployment.
