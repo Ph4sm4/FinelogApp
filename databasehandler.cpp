@@ -60,6 +60,7 @@ FinelogUser* DatabaseHandler::registerNewUser(FinelogUser* user, QLabel* errorLa
     newUser["Phone number"] =user->getPhoneNumber();
     newUser["Surname"] = user->getSurname();
     newUser["user_id"] = user->getUserId();
+    newUser["finelog_id"] = user->getFinelogId();
 
     //!OnBackInvokedCallback: Set 'android:enableOnBackInvokedCallback="true"' in the application manifest.
 
@@ -108,6 +109,7 @@ FinelogUser* DatabaseHandler::logInWithEmailAndPassword(const QString &email, co
     loggedInUser->setSurname(userData.value("Surname").toString());
     loggedInUser->setPhoneNumber(userData.value("Phone number").toString());
     loggedInUser->setPassword(password);
+    loggedInUser->setFinelogId(userData.value("finelog_id").toString());
 
     if(errorLabel)
         errorLabel->setText("");

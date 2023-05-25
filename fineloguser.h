@@ -19,6 +19,7 @@ public:
     QString getPassword() const { return password; }
     QString getUserId() const { return userId; }
     QString getIdToken() const { return idToken; }
+    QString getFinelogId() const { return finelogId; }
     QVector<ReportHeadline> getHeadlines() const { return headlines; }
     UserReport getReportContent(const QString& name) const;
 
@@ -31,6 +32,7 @@ public:
         idToken = newIdToken;
         fetchHeadlines();
     }
+    void setFinelogId(const QString& newFinelogId) { finelogId = newFinelogId; }
     void fetchHeadlines();
     void setUserID(const QString& newUserId) { userId = newUserId; }
 
@@ -40,6 +42,7 @@ private:
     QString email;
     QString phoneNumber;
     QString password;
+    QString finelogId;
 
     //database related
     QString idToken;

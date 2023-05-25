@@ -79,6 +79,7 @@ void MainWindow::on_idNext_clicked()
 
     // check somehow that the id exists
 
+    registrationUser->setFinelogId(id);
     ui->pagination->setCurrentIndex(2);
 }
 

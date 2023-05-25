@@ -24,20 +24,8 @@ UserPanel::UserPanel(QWidget *parent) :
     QVBoxLayout *layout = new QVBoxLayout(central);
     ui->scrollArea->setWidget(central);
     ui->scrollArea->setWidgetResizable(true);
-
-    ListItem* x1 = new ListItem();
-    ListItem* x2 = new ListItem();
-    ListItem* x3 = new ListItem();
-    ListItem* x4 = new ListItem();
-    ListItem* x5 = new ListItem();
-    ListItem* x6 = new ListItem();
-
-    layout->addWidget(x1);
-    layout->addWidget(x2);
-    layout->addWidget(x3);
-    layout->addWidget(x4);
-    layout->addWidget(x5);
-    layout->addWidget(x6);
+    ui->scrollArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    ui->scrollArea->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
 
     QScroller::grabGesture(ui->scrollArea->viewport(), QScroller::TouchGesture); // Enable touch scrolling
 
@@ -74,11 +62,15 @@ void UserPanel::on_logoutButton_clicked()
 
 void UserPanel::setUserDisplayInfo()
 {
+    QVector<ReportHeadline> reports = currentUser->getHeadlines();
+
     ui->hiLabel->setText("Hi " + currentUser->getName() + "!");
     ui->phoneNumberLabel->setText("Phone number: " + currentUser->getPhoneNumber());
     ui->emailLabel->setText("Email: " + currentUser->getEmail());
+    ui->idNumberLabel->setText("Finelog ID: " + currentUser->getFinelogId());
+    ui->reportsNumberLabel->setText("Reports uploaded: " + QString::number(reports.size()));
 
-    QVector<ReportHeadline> reports = currentUser->getHeadlines();
+
     QWidget* w = ui->scrollAreaWidgetContents;
     if(!w) {
         qCritical() << "SCROLL AREA widget DOES NOT EXIST";

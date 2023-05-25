@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>491</width>
-    <height>599</height>
+    <width>471</width>
+    <height>544</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -158,6 +158,19 @@ color: rgb(102, 102, 102);
              </property>
              <property name="text">
               <string>Email: { email }</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="idNumberLabel">
+             <property name="styleSheet">
+              <string notr="true">QLabel {
+background: transparent;
+color: rgb(102, 102, 102);
+}</string>
+             </property>
+             <property name="text">
+              <string>Finelog ID: {id number}</string>
              </property>
             </widget>
            </item>
@@ -337,8 +350,8 @@ QScrollBar:vertical {
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>491</width>
-            <height>130</height>
+            <width>471</width>
+            <height>89</height>
            </rect>
           </property>
           <property name="styleSheet">
