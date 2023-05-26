@@ -23,6 +23,7 @@ public:
     }
 
     void clearUser();
+    FinelogUser* getCurrentUser() const { return currentUser; }
 
 private slots:
     void on_settingsButton_clicked();

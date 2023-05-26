@@ -2,17 +2,8 @@
 #include "ui_settingspanel.h"
 #include <QPropertyAnimation>
 #include "overlaywidget.h"
-
-void SettingsPanel::performAnimation(const int& duration, const QPoint& endPoint, QObject* parent)
-{
-    // Create a property animation for the panel's position
-    QPropertyAnimation *animation = new QPropertyAnimation(this, "pos", parent);
-    animation->setDuration(duration);
-    animation->setEasingCurve(QEasingCurve::InOutQuad);
-    // Set the animation's target value (the final position of the panel)
-    animation->setEndValue(endPoint);
-    animation->start();
-}
+#include "fineloguser.h"
+#include "inputmanager.h"
 
 SettingsPanel::SettingsPanel(QWidget *parent) :
     QWidget(parent),
@@ -29,6 +20,17 @@ SettingsPanel::SettingsPanel(QWidget *parent) :
     this->move(parent->width(), 0);
     // Add the panel to the main window
     this->show();
+}
+
+void SettingsPanel::performAnimation(const int& duration, const QPoint& endPoint, QObject* parent)
+{
+    // Create a property animation for the panel's position
+    QPropertyAnimation *animation = new QPropertyAnimation(this, "pos", parent);
+    animation->setDuration(duration);
+    animation->setEasingCurve(QEasingCurve::InOutQuad);
+    // Set the animation's target value (the final position of the panel)
+    animation->setEndValue(endPoint);
+    animation->start();
 }
 
 SettingsPanel::~SettingsPanel()

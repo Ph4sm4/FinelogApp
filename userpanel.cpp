@@ -65,7 +65,7 @@ void UserPanel::setUserDisplayInfo()
     ui->emailLabel->setText("Email: " + currentUser->getEmail());
     ui->idNumberLabel->setText("Finelog ID: " + currentUser->getFinelogId());
     ui->reportsNumberLabel->setText("Reports uploaded: " + QString::number(reports.size()));
-
+    ui->joinedOnLabel->setText("Joined on: " + currentUser->getAccountCreatedAt().toString());
 
     QWidget* w = ui->scrollAreaWidgetContents;
     if(!w) {

@@ -22,6 +22,8 @@ public:
     QString getFinelogId() const { return finelogId; }
     QVector<ReportHeadline> getHeadlines() const { return headlines; }
     UserReport getReportContent(const QString& name) const;
+    bool getEmailVerified() const { return emailVerified; }
+    QDate getAccountCreatedAt() const { return accountCreatedAt; }
 
     void setName(const QString& newName) { name = newName; }
     void setEmail(const QString& newEmail) { email = newEmail; }
@@ -35,6 +37,8 @@ public:
     void setFinelogId(const QString& newFinelogId) { finelogId = newFinelogId; }
     void fetchHeadlines();
     void setUserID(const QString& newUserId) { userId = newUserId; }
+    void setAccountCreatedAt(QDate creation) { accountCreatedAt = creation; }
+    void setEmailVerified(bool verified) { emailVerified = verified; }
 
 private:
     QString name;
@@ -43,6 +47,8 @@ private:
     QString phoneNumber;
     QString password;
     QString finelogId;
+    bool emailVerified;
+    QDate accountCreatedAt;
 
     //database related
     QString idToken;

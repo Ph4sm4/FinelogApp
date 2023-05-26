@@ -1,6 +1,6 @@
 #include "mainwindow.h"
-#include "overlaywidget.h".h"
-#include "qgraphicseffect.h"
+#include "overlaywidget.h"
+#include <QGraphicsEffect>
 #include "settingspanel.h"
 #include "ui_mainwindow.h"
 #include "fineloguser.h"
@@ -72,6 +72,7 @@ void MainWindow::showUserPanel()
     overlay->show();
 
     settingsPanel->raise();
+    settingsPanel->setCurrentUser(uPanel->getCurrentUser());
 
     settingsPanel->performAnimation(200, QPoint(width() - settingsPanel->width(), 0), this);
 }

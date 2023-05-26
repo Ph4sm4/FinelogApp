@@ -21,7 +21,7 @@ void FinelogUser::fetchHeadlines()
     QJsonObject headlinesData = dbHandler.performAuthenticatedGET(
         endPoint, idToken, queryParams);
 
-    qDebug() << "headline data: " <<  headlinesData;
+    //qDebug() << "headline data: " <<  headlinesData;
 
     for (QJsonObject::iterator it = headlinesData.begin(); it != headlinesData.end(); ++it) {
         QJsonObject val = it.value().toObject();

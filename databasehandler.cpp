@@ -7,6 +7,7 @@
 #include <QVariantMap>
 #include "fineloguser.h"
 #include <QLabel>
+#include <QJsonArray>
 
 DatabaseHandler::DatabaseHandler(QObject* parent) : QObject(parent)
 {
@@ -21,7 +22,6 @@ DatabaseHandler::~DatabaseHandler()
 QJsonObject DatabaseHandler::performAuthenticatedGET(const QString& databasePath, const QString& userIdToken, const QString& queryParams)
 {
     QString endPoint = "https://finelogapp-default-rtdb.europe-west1.firebasedatabase.app/" + databasePath + ".json" + (queryParams.length()? "?" + queryParams : "") + (queryParams.length()? "&" : "?") + "auth=" + userIdToken;
-    qDebug() << "auth get endPoint: " << endPoint;
     QEventLoop loop;
     networkReply = networkManager->get(
         QNetworkRequest(QUrl(endPoint)));
@@ -40,6 +40,12 @@ FinelogUser* DatabaseHandler::registerNewUser(FinelogUser* user, QLabel* errorLa
     //first we need to create authentication for the user
     QJsonObject newUserData = signUpWithEmailAndPassword(user->getEmail(), user->getPassword());
 
+    // check for errors here
+
+
+
+    // check for errors later !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
     const QString UId = newUserData.value("localId").toString();
     const QString idToken = newUserData.value("idToken").toString();
 
@@ -47,9 +53,22 @@ FinelogUser* DatabaseHandler::registerNewUser(FinelogUser* user, QLabel* errorLa
     qDebug() << "obtained user id: " << UId;
     user->setIdToken(idToken);
     user->setUserID(UId);
-    // check for errors later !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
+    QJsonObject accountInfo = getAccountInfo(idToken);
+    if(accountInfo.contains("error") && errorLabel) {
+        errorLabel->setText("Could not get account info");
+        return nullptr;
+    }
+    user->setEmailVerified(accountInfo.value("emailVerified").toBool());
 
+    // "created at" manipulations since the response is given as a string of milliseconds
+    QString timestamp = accountInfo.value("createdAt").toString();
+    long long milliseconds = timestamp.toLongLong();
+    QDateTime time;
+    time.setMSecsSinceEpoch(milliseconds);
+    QDate date = time.date();
+    qDebug() << "created at: " << date;
+    user->setAccountCreatedAt(date);
 
 
     // second we need to add the user into the database
@@ -61,8 +80,6 @@ FinelogUser* DatabaseHandler::registerNewUser(FinelogUser* user, QLabel* errorLa
     newUser["Surname"] = user->getSurname();
     newUser["user_id"] = user->getUserId();
     newUser["finelog_id"] = user->getFinelogId();
-
-    //!OnBackInvokedCallback: Set 'android:enableOnBackInvokedCallback="true"' in the application manifest.
 
     // this endpoint is going to create a document labeled as UserId (UId)
     // idToken is required to perform an authorized database request
@@ -85,7 +102,6 @@ FinelogUser* DatabaseHandler::logInWithEmailAndPassword(const QString &email, co
 
     QJsonDocument jsonPayload = QJsonDocument::fromVariant(variantPayload);
     QJsonObject reply = performPOST(endPoint, jsonPayload);
-    qDebug() << "login reply: " << reply;
 
     if(reply.contains("error") && errorLabel) {
         errorLabel->setText("Invalid email or password");
@@ -99,7 +115,13 @@ FinelogUser* DatabaseHandler::logInWithEmailAndPassword(const QString &email, co
 
     QString userEndPoint = "Users/" + uId;
     QJsonObject userData = performAuthenticatedGET(userEndPoint, idToken);
-    qDebug() << "logged in user data: " << userData;
+    //qDebug() << "logged in user data: " << userData;
+
+    QJsonObject accountInfo = getAccountInfo(idToken);
+    if(accountInfo.contains("error") && errorLabel) {
+        errorLabel->setText("Could not get account info");
+        return nullptr;
+    }
 
     FinelogUser* loggedInUser = new FinelogUser();
     loggedInUser->setEmail(userData.value("Email").toString());
@@ -110,6 +132,16 @@ FinelogUser* DatabaseHandler::logInWithEmailAndPassword(const QString &email, co
     loggedInUser->setPhoneNumber(userData.value("Phone number").toString());
     loggedInUser->setPassword(password);
     loggedInUser->setFinelogId(userData.value("finelog_id").toString());
+    loggedInUser->setEmailVerified(accountInfo.value("emailVerified").toBool());
+
+    // "created at" manipulations since the response is given as a string of milliseconds
+    QString timestamp = accountInfo.value("createdAt").toString();
+    long long milliseconds = timestamp.toLongLong();
+    QDateTime time;
+    time.setMSecsSinceEpoch(milliseconds);
+    QDate date = time.date();
+    qDebug() << "timestamp created at: " << date;
+    loggedInUser->setAccountCreatedAt(date);
 
     if(errorLabel)
         errorLabel->setText("");
@@ -130,6 +162,22 @@ QJsonObject DatabaseHandler::signUpWithEmailAndPassword(const QString email, con
     QJsonObject reply = performPOST(endPoint, jsonPayload);
 
     return reply;
+}
+
+QJsonObject DatabaseHandler::getAccountInfo(const QString &idToken)
+{
+    QString endPoint = "https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=" + api_key;
+    QVariantMap payload;
+    payload["idToken"] = idToken;
+    QJsonDocument doc = QJsonDocument::fromVariant(payload);
+    QJsonObject accountInfo = performPOST(endPoint, doc);
+    qDebug() << accountInfo;
+    QJsonArray users = accountInfo.value("users").toArray();
+
+    QJsonObject ourUser = users.at(0).toObject();
+    qDebug() << "our user: " << ourUser;
+
+    return ourUser;
 }
 
 QJsonObject DatabaseHandler::performPOST(const QString &url, const QJsonDocument &payload)
