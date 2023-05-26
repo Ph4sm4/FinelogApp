@@ -22,14 +22,16 @@ public:
         setUserDisplayInfo();
     }
 
-private slots:
-    void on_logoutButton_clicked();
+    void clearUser();
 
+private slots:
     void on_settingsButton_clicked();
 
     void on_newProtocolButton_clicked();
 
 signals:
+    void settingsButtonClicked();
+
     void logOutButtonClicked();
 
 private:

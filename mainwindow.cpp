@@ -1,11 +1,21 @@
 #include "mainwindow.h"
+#include "overlaywidget.h".h"
+#include "qgraphicseffect.h"
+#include "settingspanel.h"
 #include "ui_mainwindow.h"
 #include "fineloguser.h"
 #include <type_traits>
 #include <QPropertyAnimation>
 #include <QIntValidator>
 #include <QMessageBox>
+#include <QPropertyAnimation>
 #include "stylesheetmanipulator.h"
+
+/*
+ * https://cloud.google.com/identity-platform/docs/use-rest-api#section-confirm-email-verification
+ * https://cloud.google.com/identity-platform/docs/reference/rest/v1/accounts/resetPassword
+ *
+ */
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -27,8 +37,15 @@ MainWindow::MainWindow(QWidget *parent)
     ui->pagination->insertWidget(5, uPanel);
 
     connect(uPanel, &UserPanel::logOutButtonClicked, this, &MainWindow::loggedOutOfUserPanel);
+    connect(uPanel, &UserPanel::settingsButtonClicked, this, &MainWindow::showUserPanel);
 
     ui->loginErrorLabel->setText("");
+
+    QGraphicsDropShadowEffect* shadowEffect = new QGraphicsDropShadowEffect;
+    shadowEffect->setBlurRadius(5);
+    shadowEffect->setColor(QColor(0, 0, 0, 50));
+    shadowEffect->setOffset(0, 1);
+    ui->finelogLogo->setGraphicsEffect(shadowEffect);
 }
 
 MainWindow::~MainWindow()
@@ -38,7 +55,25 @@ MainWindow::~MainWindow()
 
 void MainWindow::loggedOutOfUserPanel()
 {
+    uPanel->clearUser();
     ui->pagination->setCurrentIndex(0);
+}
+
+void MainWindow::showUserPanel()
+{
+    // Create the settings panel widget here cause we need the whole window height
+    SettingsPanel *settingsPanel = new SettingsPanel(this);
+    OverlayWidget* overlay = new OverlayWidget(this);
+    settingsPanel->setOverlayWidget(overlay);
+    connect(settingsPanel, &SettingsPanel::logOutButtonClicked, this, &MainWindow::loggedOutOfUserPanel);
+    overlay->setStyleSheet("background-color: rgba(0, 0, 0, 0.5);");
+    overlay->setGeometry(0, 0, this->width(), this->height());
+    overlay->setPanel(settingsPanel);
+    overlay->show();
+
+    settingsPanel->raise();
+
+    settingsPanel->performAnimation(200, QPoint(width() - settingsPanel->width(), 0), this);
 }
 
 void MainWindow::on_loginButton_clicked()

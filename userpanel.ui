@@ -447,40 +447,6 @@ QScrollBar:vertical {
          <property name="rightMargin">
           <number>20</number>
          </property>
-         <item>
-          <widget class="QPushButton" name="logoutButton">
-           <property name="maximumSize">
-            <size>
-             <width>16777215</width>
-             <height>30</height>
-            </size>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">QPushButton {
-height: 30px;
-color: rgb(249, 115, 22);
-background: transparent;
-border: none;
-}</string>
-           </property>
-           <property name="text">
-            <string>Log out</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <spacer name="horizontalSpacer_2">
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>40</width>
-             <height>20</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
         </layout>
        </item>
       </layout>

@@ -16,6 +16,7 @@ SOURCES += \
     listitem.cpp \
     main.cpp \
     mainwindow.cpp \
+    overlaywidget.cpp \
     reportheadline.cpp \
     settingspanel.cpp \
     stylesheetmanipulator.cpp \
@@ -28,6 +29,7 @@ HEADERS += \
     inputmanager.h \
     listitem.h \
     mainwindow.h \
+    overlaywidget.h \
     reportheadline.h \
     settingspanel.h \
     stylesheetmanipulator.h \

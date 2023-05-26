@@ -24,6 +24,8 @@ public:
 public slots:
     void loggedOutOfUserPanel();
 
+    void showUserPanel();
+
 signals:
     void userChanged();
 

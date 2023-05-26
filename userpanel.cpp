@@ -10,7 +10,6 @@
 #include <QScrollerProperties>
 #include <QJsonObject>
 #include <QScrollBar>
-#include <QPropertyAnimation>
 
 UserPanel::UserPanel(QWidget *parent) :
     QWidget(parent),
@@ -51,14 +50,10 @@ UserPanel::~UserPanel()
     delete ui;
 }
 
-
-
-void UserPanel::on_logoutButton_clicked()
+void UserPanel::clearUser()
 {
     delete currentUser;
     currentUser = nullptr;
-    emit logOutButtonClicked();
-
 }
 
 void UserPanel::setUserDisplayInfo()
@@ -127,25 +122,7 @@ void UserPanel::setUserDisplayInfo()
 }
 void UserPanel::on_settingsButton_clicked()
 {
-    // Create the settings panel widget
-    SettingsPanel *settingsPanel = new SettingsPanel(this);
-
-    //settingsPanel->raise();
-    settingsPanel->setBaseSize(this->width() / 2, this->height());
-    // Set the initial position of the panel outside the visible area
-    settingsPanel->move(width(), 0);
-    // Add the panel to the main window
-    settingsPanel->show();
-
-    // Create a property animation for the panel's position
-    QPropertyAnimation *animation = new QPropertyAnimation(settingsPanel, "pos", this);
-    // Set the animation's duration and easing curve
-    animation->setDuration(500); // Adjust the duration as desired
-    animation->setEasingCurve(QEasingCurve::InOutQuad); // Adjust the easing curve as desired
-    // Set the animation's target value (the final position of the panel)
-    animation->setEndValue(QPoint(width() - settingsPanel->width(), 0));
-    // Start the animation
-    animation->start();
+    emit settingsButtonClicked();
 
     //ui->pagination->setCurrentIndex(1);
 }
@@ -192,4 +169,3 @@ void UserPanel::on_newProtocolButton_clicked()
     currentUser->fetchHeadlines();
     setUserDisplayInfo();
 }
-

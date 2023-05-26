@@ -8,5 +8,7 @@
         <file>content/eye_closed.svg</file>
         <file>content/settings.svg</file>
         <file>content/arrow_back.svg</file>
+        <file>content/check.svg</file>
+        <file>content/check-circle.svg</file>
     </qresource>
 </RCC>
