@@ -11,18 +11,13 @@ public:
     explicit OverlayWidget(QWidget* parent = nullptr);
 
     void setPanel(SettingsPanel* panel) { settingsPanel = panel; }
+    void closeSettingsPanel();
 
 protected:
     void mousePressEvent(QMouseEvent* event) override
     {
         qDebug() << "Widget clicked!";
-        if(settingsPanel) {
-            settingsPanel->performAnimation(200, QPoint(width(), 0), settingsPanel->parent());
-            this->hide();
-        }
-        else {
-            qWarning() << "SETTINGS PANEL NOT SET FOR THE OVERLAY, REMEMBER TO SET IT!";
-        }
+        closeSettingsPanel();
 
         // Let the base class handle the event as well
         QWidget::mousePressEvent(event);

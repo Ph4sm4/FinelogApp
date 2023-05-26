@@ -54,13 +54,7 @@ SettingsPanel::~SettingsPanel()
 
 void SettingsPanel::on_logoutButton_clicked()
 {
-    this->hide();
-    if(overlay) {
-        overlay->hide();
-    }
-    else {
-        qWarning() << "OVERLAY FOR THIS SETTINGS PANEL HAS NOT BEEN SET";
-    }
+    overlay->closeSettingsPanel(); // it will also hide the settings panel with the proper animation
 
     emit logOutButtonClicked();
 }
@@ -75,5 +69,11 @@ void SettingsPanel::on_sendVerifyEmail_clicked()
     }
 
     ui->sendErrorLabel->setText("There has been an error while sending the email");
+}
+
+
+void SettingsPanel::on_closePanel_clicked()
+{
+    overlay->closeSettingsPanel(); // it will also hide the settings panel with the proper animation
 }
 

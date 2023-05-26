@@ -61,19 +61,23 @@ void MainWindow::loggedOutOfUserPanel()
 
 void MainWindow::showUserPanel()
 {
-    // Create the settings panel widget here cause we need the whole window height
-    SettingsPanel *settingsPanel = new SettingsPanel(this);
-    OverlayWidget* overlay = new OverlayWidget(this);
+    // show the settings panel widget here cause we need the whole window height
+    // if we were to do this in the constructor it would not work
+    // because at the constructor stage the mainwindow size is not yet defined
+    settingsPanel = new SettingsPanel(this);
+    overlay = new OverlayWidget(this);
     settingsPanel->setOverlayWidget(overlay);
     connect(settingsPanel, &SettingsPanel::logOutButtonClicked, this, &MainWindow::loggedOutOfUserPanel);
+
+
     overlay->setStyleSheet("background-color: rgba(0, 0, 0, 0.5);");
     overlay->setGeometry(0, 0, this->width(), this->height());
+    overlay->hide();
     overlay->setPanel(settingsPanel);
-    overlay->show();
 
+    overlay->show();
     settingsPanel->raise();
     settingsPanel->setCurrentUser(uPanel->getCurrentUser());
-
     settingsPanel->performAnimation(200, QPoint(width() - settingsPanel->width(), 0), this);
 }
 
@@ -87,6 +91,11 @@ void MainWindow::on_loginButton_clicked()
 
     FinelogUser* loggedInUser = dbHandler.logInWithEmailAndPassword(email, password, ui->loginErrorLabel);
     if(loggedInUser == nullptr) return;
+
+    if(!loggedInUser->getEmailVerified()) {
+        ui->loginErrorLabel->setText("In order to login verify your email");
+        return;
+    }
 
     uPanel->setCurrentUser(loggedInUser);
     InputManager::clearInputs(ui->emailEdit, ui->passwordEdit);
@@ -211,16 +220,15 @@ void MainWindow::on_registerButton_clicked()
 
     registrationUser->setPassword(password1);
 
-    FinelogUser* createdUser = dbHandler.registerNewUser(registrationUser);
-    if(createdUser == nullptr) return;
+    bool success = dbHandler.registerNewUser(registrationUser);
+    if(!success) return;
 
-    uPanel->setCurrentUser(createdUser);
     InputManager::clearInputs(ui->nameRegister, ui->surnameRegister,
                               ui->emailRegister, ui->phoneNumberRegister,
                               ui->passwordRegister, ui->confirmPassword,
                               ui->idRegistration);
 
-    // change to the UserPanel
+    // change to user panel
     ui->pagination->setCurrentIndex(5);
 }
 

@@ -13,12 +13,13 @@ public:
     explicit DatabaseHandler(QObject* parent = nullptr);
     ~DatabaseHandler();
     QJsonObject performAuthenticatedGET(const QString& databasePath, const QString& userIdToken, const QString& queryParams = "");
-    class FinelogUser* registerNewUser(class FinelogUser* user, class QLabel* errorLabel = nullptr);
+    bool registerNewUser(class FinelogUser* user, class QLabel* errorLabel = nullptr);
     class FinelogUser* logInWithEmailAndPassword(const QString& email, const QString& password, class QLabel* errorLabel = nullptr);
     QJsonObject performPOST(const QString& url, const QJsonDocument& payload);
     QJsonObject performAuthenticatedPUT(const QString &databasePath, const QJsonDocument &payload, const QString& userIdToken);
     QJsonObject performAuthenticatedPOST(const QString &databasePath, const QJsonDocument& payload, const QString &userIdToken);
     bool sendEmailVerification(const QString& idToken);
+    bool changeAuthDisplayName(const QString& idToken, const QString &newName);
 
 public slots:
     //void networkReplyReadyRead();

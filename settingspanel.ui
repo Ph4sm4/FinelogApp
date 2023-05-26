@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>371</width>
-    <height>489</height>
+    <width>629</width>
+    <height>417</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -22,6 +22,9 @@
   <layout class="QVBoxLayout" name="verticalLayout">
    <property name="spacing">
     <number>0</number>
+   </property>
+   <property name="sizeConstraint">
+    <enum>QLayout::SetMinimumSize</enum>
    </property>
    <property name="leftMargin">
     <number>0</number>
@@ -77,8 +80,11 @@ outline: none;
       </property>
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout">
+        <property name="spacing">
+         <number>0</number>
+        </property>
         <item>
-         <widget class="QPushButton" name="pushButton">
+         <widget class="QPushButton" name="closePanel">
           <property name="styleSheet">
            <string notr="true">QPushButton {
 background: white;
@@ -94,8 +100,8 @@ border-radius: 9999px;
            <string/>
           </property>
           <property name="icon">
-           <iconset>
-            <normaloff>content/x.svg</normaloff>content/x.svg</iconset>
+           <iconset resource="Images.qrc">
+            <normaloff>:/icons/content/x.svg</normaloff>:/icons/content/x.svg</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -112,9 +118,12 @@ border-radius: 9999px;
          </widget>
         </item>
         <item>
-         <spacer name="horizontalSpacer">
+         <spacer name="horizontalSpacer_2">
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Expanding</enum>
           </property>
           <property name="sizeHint" stdset="0">
            <size>
@@ -139,6 +148,7 @@ color: rgb(249, 115, 22);
 background: transparent;
 padding-bottom: 2px;
 border-bottom: 2px solid rgb(249, 115, 22);
+margin-right: 24px;
 }</string>
           </property>
           <property name="frameShape">
@@ -150,7 +160,23 @@ border-bottom: 2px solid rgb(249, 115, 22);
           <property name="text">
            <string>Settings</string>
           </property>
+          <property name="alignment">
+           <set>Qt::AlignJustify|Qt::AlignVCenter</set>
+          </property>
          </widget>
+        </item>
+        <item>
+         <spacer name="horizontalSpacer">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
         </item>
        </layout>
       </item>
@@ -162,7 +188,7 @@ background: rgb(243, 244, 246);
 }</string>
         </property>
         <property name="currentIndex">
-         <number>0</number>
+         <number>1</number>
         </property>
         <widget class="QWidget" name="emailVerify1">
          <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -239,7 +265,7 @@ padding: 4px 0;
 }</string>
             </property>
             <property name="text">
-             <string>Send verification code</string>
+             <string>Send verification link</string>
             </property>
             <property name="iconSize">
              <size>
@@ -334,59 +360,20 @@ background: transparent;
            </spacer>
           </item>
           <item>
-           <widget class="QLineEdit" name="lineEdit">
-            <property name="placeholderText">
-             <string>Verification code</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <spacer name="verticalSpacer_4">
-            <property name="orientation">
-             <enum>Qt::Vertical</enum>
-            </property>
-            <property name="sizeType">
-             <enum>QSizePolicy::Fixed</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>20</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item>
-           <widget class="QPushButton" name="sendVerEmail_2">
-            <property name="font">
-             <font>
-              <family>Microsoft JhengHei</family>
-              <pointsize>9</pointsize>
-              <italic>false</italic>
-              <bold>true</bold>
-             </font>
-            </property>
-            <property name="layoutDirection">
-             <enum>Qt::LeftToRight</enum>
-            </property>
+           <widget class="QLabel" name="label_4">
             <property name="styleSheet">
-             <string notr="true">QPushButton {
-background-color:  rgb(249, 115, 22);
-height: 30px;
-border-radius: 10px;
-color: white;
-margin: 0 40%;
-padding: 4px 0;
+             <string notr="true">QLabel {
+color: red;
+margin-right: 20px;
+margin-left: 20px;
+background: transparent;
 }</string>
             </property>
             <property name="text">
-             <string>Verify</string>
+             <string>Not verified</string>
             </property>
-            <property name="iconSize">
-             <size>
-              <width>22</width>
-              <height>22</height>
-             </size>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
             </property>
            </widget>
           </item>

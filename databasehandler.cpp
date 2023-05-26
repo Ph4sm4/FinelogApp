@@ -28,14 +28,14 @@ QJsonObject DatabaseHandler::performAuthenticatedGET(const QString& databasePath
     connect(networkReply, &QNetworkReply::finished, &loop, &QEventLoop::quit);
     loop.exec();
 
-    qDebug() << "error auth get: " << networkReply->errorString();
+    qDebug() << "error auth get: " << networkReply->error();;
 
     QJsonDocument jsonDocument = QJsonDocument::fromJson(QString(networkReply->readAll()).toUtf8());
     QJsonObject jsonObject = jsonDocument.object();
     return jsonObject;
 }
 
-FinelogUser* DatabaseHandler::registerNewUser(FinelogUser* user, QLabel* errorLabel)
+bool DatabaseHandler::registerNewUser(FinelogUser* user, QLabel* errorLabel)
 {
     //first we need to create authentication for the user
     QJsonObject newUserData = signUpWithEmailAndPassword(user->getEmail(), user->getPassword());
@@ -54,24 +54,18 @@ FinelogUser* DatabaseHandler::registerNewUser(FinelogUser* user, QLabel* errorLa
     user->setIdToken(idToken);
     user->setUserID(UId);
 
-    QJsonObject accountInfo = getAccountInfo(idToken);
-    if(accountInfo.contains("error") && errorLabel) {
-        errorLabel->setText("Could not get account info");
-        return nullptr;
+    bool success = changeAuthDisplayName(idToken, user->getName() + " " + user->getSurname());
+    if(!success) {
+        errorLabel->setText("Unable to upload authentication data. Please try again");
+        return false;
     }
-    user->setEmailVerified(accountInfo.value("emailVerified").toBool());
+    success = sendEmailVerification(idToken);
+    if(!success) {
+        errorLabel->setText("Unable to send the verification email. Please try again");
+        return false;
+    }
 
-    // "created at" manipulations since the response is given as a string of milliseconds
-    QString timestamp = accountInfo.value("createdAt").toString();
-    long long milliseconds = timestamp.toLongLong();
-    QDateTime time;
-    time.setMSecsSinceEpoch(milliseconds);
-    QDate date = time.date();
-    qDebug() << "created at: " << date;
-    user->setAccountCreatedAt(date);
-
-
-    // second we need to add the user into the database
+    // add the user into the database
     QVariantMap newUser;
 
     newUser["Email"] =  user->getEmail();
@@ -89,7 +83,7 @@ FinelogUser* DatabaseHandler::registerNewUser(FinelogUser* user, QLabel* errorLa
     QJsonObject response = performAuthenticatedPUT(path, jsonDoc, idToken);
     qDebug() << response;
 
-    return user;
+    return response.contains("error") == false;
 }
 
 FinelogUser* DatabaseHandler::logInWithEmailAndPassword(const QString &email, const QString &password, class QLabel* errorLabel)
@@ -119,7 +113,7 @@ FinelogUser* DatabaseHandler::logInWithEmailAndPassword(const QString &email, co
 
     QJsonObject accountInfo = getAccountInfo(idToken);
     if(accountInfo.contains("error") && errorLabel) {
-        errorLabel->setText("Could not get account info");
+        errorLabel->setText("Could not get account info. Please try again");
         return nullptr;
     }
 
@@ -189,7 +183,7 @@ QJsonObject DatabaseHandler::performPOST(const QString &url, const QJsonDocument
     connect(networkReply, &QNetworkReply::finished, &loop, &QEventLoop::quit);
     loop.exec();
 
-    qDebug() << "error post: " << networkReply->errorString();
+    qDebug() << "status post: " << networkReply->error();
 
     QJsonDocument jsonDocument = QJsonDocument::fromJson(QString(networkReply->readAll()).toUtf8());
     QJsonObject jsonObject = jsonDocument.object();
@@ -208,7 +202,7 @@ QJsonObject DatabaseHandler::performAuthenticatedPUT(const QString &databasePath
     connect(networkReply, &QNetworkReply::finished, &loop, &QEventLoop::quit);
     loop.exec();
 
-    qDebug() << "error auth put: " << networkReply->errorString();
+    qDebug() << "error auth put: " << networkReply->error();
 
     QJsonDocument jsonDocument = QJsonDocument::fromJson(QString(networkReply->readAll()).toUtf8());
     QJsonObject jsonObject = jsonDocument.object();
@@ -227,7 +221,7 @@ QJsonObject DatabaseHandler::performAuthenticatedPOST(const QString &databasePat
     connect(networkReply, &QNetworkReply::finished, &loop, &QEventLoop::quit);
     loop.exec();
 
-    qDebug() << "error auth post: " << networkReply->errorString();
+    qDebug() << "error auth post: " << networkReply->error();
 
     QJsonDocument jsonDocument = QJsonDocument::fromJson(QString(networkReply->readAll()).toUtf8());
     QJsonObject jsonObject = jsonDocument.object();
@@ -241,6 +235,20 @@ bool DatabaseHandler::sendEmailVerification(const QString &idToken)
     QVariantMap payload;
     payload["idToken"] = idToken;
     payload["requestType"] = "VERIFY_EMAIL";
+    QJsonDocument doc = QJsonDocument::fromVariant(payload);
+    QJsonObject res = performPOST(endPoint, doc);
+
+    return res.contains("error") == false;
+}
+
+bool DatabaseHandler::changeAuthDisplayName(const QString& idToken, const QString &newName)
+{
+    QString endPoint = "https://identitytoolkit.googleapis.com/v1/accounts:update?key=" + api_key;
+
+    QVariantMap payload;
+    payload["idToken"] = idToken;
+    payload["displayName"] = newName;
+
     QJsonDocument doc = QJsonDocument::fromVariant(payload);
     QJsonObject res = performPOST(endPoint, doc);
 

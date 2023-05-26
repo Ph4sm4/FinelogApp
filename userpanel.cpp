@@ -1,6 +1,7 @@
 #include "userpanel.h"
 #include "qgraphicseffect.h"
 #include "settingspanel.h"
+#include "stylesheetmanipulator.h"
 #include "ui_userpanel.h"
 #include "listitem.h"
 #include <QDate>
@@ -131,6 +132,20 @@ void UserPanel::on_settingsButton_clicked()
 void UserPanel::on_newProtocolButton_clicked()
 {
     // uploading report headline and report content data to db
+    if(!currentUser->getEmailVerified()) {
+        ui->newProtocolButton->setEnabled(false);
+        ui->newProtocolButton->setText("Verify your email");
+        ui->newProtocolButton->setStyleSheet(
+            StylesheetManipulator::updateStylesheetProperty(
+                ui->newProtocolButton->styleSheet(),
+                "QPushButton", "color", "rgb(136, 136, 136);"));
+        ui->newProtocolButton->setStyleSheet(
+            StylesheetManipulator::updateStylesheetProperty(
+                ui->newProtocolButton->styleSheet(),
+                "QPushButton", "background-color", "rgb(102, 102, 102);"));
+        return;
+    }
+
     QVariantMap payload;
     payload["CarName"] = "Toyota";
     payload["ProjectName"] = "Paneco-Something";

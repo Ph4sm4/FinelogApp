@@ -10,5 +10,6 @@
         <file>content/arrow_back.svg</file>
         <file>content/check.svg</file>
         <file>content/check-circle.svg</file>
+        <file>content/x.svg</file>
     </qresource>
 </RCC>

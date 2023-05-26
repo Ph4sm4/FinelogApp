@@ -60,6 +60,7 @@ private slots:
 
     void on_backPassword_clicked();
 
+
 private:
     Ui::MainWindow *ui;
 
@@ -68,5 +69,7 @@ private:
     class FinelogUser* registrationUser = nullptr;
 
     UserPanel* uPanel = nullptr;
+    class SettingsPanel *settingsPanel;
+    class OverlayWidget* overlay;
 };
 #endif // MAINWINDOW_H

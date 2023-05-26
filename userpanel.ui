@@ -318,6 +318,9 @@ outline: none;
        </item>
        <item>
         <widget class="QPushButton" name="newProtocolButton">
+         <property name="enabled">
+          <bool>true</bool>
+         </property>
          <property name="font">
           <font>
            <family>Microsoft JhengHei</family>

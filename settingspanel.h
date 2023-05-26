@@ -28,6 +28,8 @@ private slots:
 
     void on_sendVerifyEmail_clicked();
 
+    void on_closePanel_clicked();
+
 private:
     Ui::SettingsPanel *ui;
     class OverlayWidget* overlay = nullptr;

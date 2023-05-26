@@ -27,7 +27,7 @@
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout_12">
     <property name="spacing">
-     <number>0</number>
+     <number>5</number>
     </property>
     <property name="leftMargin">
      <number>0</number>
@@ -89,7 +89,7 @@ height: 100%;
 }</string>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>4</number>
       </property>
       <widget class="QWidget" name="login_page">
        <property name="styleSheet">
