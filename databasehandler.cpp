@@ -233,3 +233,16 @@ QJsonObject DatabaseHandler::performAuthenticatedPOST(const QString &databasePat
     QJsonObject jsonObject = jsonDocument.object();
     return jsonObject;
 }
+
+bool DatabaseHandler::sendEmailVerification(const QString &idToken)
+{
+    QString endPoint = "https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=" + api_key;
+
+    QVariantMap payload;
+    payload["idToken"] = idToken;
+    payload["requestType"] = "VERIFY_EMAIL";
+    QJsonDocument doc = QJsonDocument::fromVariant(payload);
+    QJsonObject res = performPOST(endPoint, doc);
+
+    return res.contains("error") == false;
+}

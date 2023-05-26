@@ -20,6 +20,8 @@ SettingsPanel::SettingsPanel(QWidget *parent) :
     this->move(parent->width(), 0);
     // Add the panel to the main window
     this->show();
+
+    ui->sendErrorLabel->setText("");
 }
 
 void SettingsPanel::performAnimation(const int& duration, const QPoint& endPoint, QObject* parent)
@@ -31,6 +33,18 @@ void SettingsPanel::performAnimation(const int& duration, const QPoint& endPoint
     // Set the animation's target value (the final position of the panel)
     animation->setEndValue(endPoint);
     animation->start();
+}
+
+void SettingsPanel::setCurrentUser(FinelogUser *user)
+{
+    currentUser = user;
+    if(!currentUser->getEmailVerified()) {
+        ui->pagination->setCurrentIndex(0);
+    }
+    else {
+        // straight to the settings page
+        ui->pagination->setCurrentIndex(2);
+    }
 }
 
 SettingsPanel::~SettingsPanel()
@@ -49,5 +63,17 @@ void SettingsPanel::on_logoutButton_clicked()
     }
 
     emit logOutButtonClicked();
+}
+
+
+void SettingsPanel::on_sendVerifyEmail_clicked()
+{
+    bool success = dbHandler.sendEmailVerification(currentUser->getIdToken());
+    if(success) {
+        ui->pagination->setCurrentIndex(1);
+        return;
+    }
+
+    ui->sendErrorLabel->setText("There has been an error while sending the email");
 }
 

@@ -47,6 +47,10 @@ QPushButton {
 color: black;
 } 
 
+QLabel {
+border: none;
+}
+
 QLineEdit {
 border-radius: 4px;
 color: black;
@@ -79,6 +83,11 @@ outline: none;
            <string notr="true">QPushButton {
 background: white;
 outline: none;
+}
+
+QPushButton:hover {
+background-color: #808080;
+border-radius: 9999px;
 }</string>
           </property>
           <property name="text">
@@ -87,6 +96,12 @@ outline: none;
           <property name="icon">
            <iconset>
             <normaloff>content/x.svg</normaloff>content/x.svg</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>24</width>
+            <height>24</height>
+           </size>
           </property>
           <property name="default">
            <bool>false</bool>
@@ -122,7 +137,8 @@ outline: none;
            <string notr="true">QLabel {
 color: rgb(249, 115, 22);
 background: transparent;
-border: none;
+padding-bottom: 2px;
+border-bottom: 2px solid rgb(249, 115, 22);
 }</string>
           </property>
           <property name="frameShape">
@@ -139,7 +155,7 @@ border: none;
        </layout>
       </item>
       <item>
-       <widget class="QStackedWidget" name="stackedWidget">
+       <widget class="QStackedWidget" name="pagination">
         <property name="styleSheet">
          <string notr="true">QWidget {
 background: rgb(243, 244, 246);
@@ -148,10 +164,248 @@ background: rgb(243, 244, 246);
         <property name="currentIndex">
          <number>0</number>
         </property>
-        <widget class="QWidget" name="page">
-         <layout class="QVBoxLayout" name="verticalLayout_4"/>
+        <widget class="QWidget" name="emailVerify1">
+         <layout class="QVBoxLayout" name="verticalLayout_4">
+          <property name="spacing">
+           <number>7</number>
+          </property>
+          <property name="leftMargin">
+           <number>0</number>
+          </property>
+          <property name="rightMargin">
+           <number>0</number>
+          </property>
+          <property name="bottomMargin">
+           <number>0</number>
+          </property>
+          <item>
+           <widget class="QLabel" name="label_2">
+            <property name="font">
+             <font>
+              <pointsize>16</pointsize>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">QLabel {
+color: rgb(102, 102, 102);
+background: transparent;
+}</string>
+            </property>
+            <property name="text">
+             <string>You must verify your email to make any changes</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+            <property name="wordWrap">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="verticalSpacer_3">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeType">
+             <enum>QSizePolicy::Fixed</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>40</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QPushButton" name="sendVerifyEmail">
+            <property name="font">
+             <font>
+              <family>Microsoft JhengHei</family>
+              <pointsize>16</pointsize>
+              <italic>false</italic>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">QPushButton {
+background-color:  rgb(249, 115, 22);
+height: 30px;
+border-radius: 10px;
+color: white;
+margin: 0 10%;
+padding: 4px 0;
+}</string>
+            </property>
+            <property name="text">
+             <string>Send verification code</string>
+            </property>
+            <property name="iconSize">
+             <size>
+              <width>22</width>
+              <height>22</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="sendErrorLabel">
+            <property name="font">
+             <font>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">QLabel {
+color: red;
+margin-right: 20px;
+margin-left: 20px;
+background: transparent;
+margin-top: 5px;
+}</string>
+            </property>
+            <property name="text">
+             <string>There has been an error while sending the email</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+            <property name="wordWrap">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="verticalSpacer_2">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>40</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
         </widget>
-        <widget class="QWidget" name="page_2">
+        <widget class="QWidget" name="emailVerify2">
+         <layout class="QVBoxLayout" name="verticalLayout_5">
+          <item>
+           <widget class="QLabel" name="label_3">
+            <property name="font">
+             <font>
+              <pointsize>16</pointsize>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">QLabel {
+color: rgb(102, 102, 102);
+background: transparent;
+}</string>
+            </property>
+            <property name="text">
+             <string>The code has been sent to your email. Please check the inbox</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+            <property name="wordWrap">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="verticalSpacer_5">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeType">
+             <enum>QSizePolicy::Fixed</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>30</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="lineEdit">
+            <property name="placeholderText">
+             <string>Verification code</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="verticalSpacer_4">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeType">
+             <enum>QSizePolicy::Fixed</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QPushButton" name="sendVerEmail_2">
+            <property name="font">
+             <font>
+              <family>Microsoft JhengHei</family>
+              <pointsize>9</pointsize>
+              <italic>false</italic>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="layoutDirection">
+             <enum>Qt::LeftToRight</enum>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">QPushButton {
+background-color:  rgb(249, 115, 22);
+height: 30px;
+border-radius: 10px;
+color: white;
+margin: 0 40%;
+padding: 4px 0;
+}</string>
+            </property>
+            <property name="text">
+             <string>Verify</string>
+            </property>
+            <property name="iconSize">
+             <size>
+              <width>22</width>
+              <height>22</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="verticalSpacer_6">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>40</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </widget>
+        <widget class="QWidget" name="settings">
          <layout class="QVBoxLayout" name="verticalLayout_3">
           <property name="spacing">
            <number>11</number>

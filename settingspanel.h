@@ -2,6 +2,7 @@
 #define SETTINGSPANEL_H
 
 #include <QWidget>
+#include "databasehandler.h"
 
 namespace Ui {
 class SettingsPanel;
@@ -17,7 +18,7 @@ public:
 
     void performAnimation(const int& duration, const QPoint& endPoint, QObject* parent);
     void setOverlayWidget(class OverlayWidget* newOverlay) { overlay = newOverlay; }
-    void setCurrentUser(class FinelogUser* user) { currentUser = user; }
+    void setCurrentUser(class FinelogUser* user);
 
 signals:
     void logOutButtonClicked();
@@ -25,10 +26,13 @@ signals:
 private slots:
     void on_logoutButton_clicked();
 
+    void on_sendVerifyEmail_clicked();
+
 private:
     Ui::SettingsPanel *ui;
     class OverlayWidget* overlay = nullptr;
     class FinelogUser* currentUser = nullptr;
+    DatabaseHandler dbHandler;
 };
 
 #endif // SETTINGSPANEL_H

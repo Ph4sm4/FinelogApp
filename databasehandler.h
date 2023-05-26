@@ -18,7 +18,7 @@ public:
     QJsonObject performPOST(const QString& url, const QJsonDocument& payload);
     QJsonObject performAuthenticatedPUT(const QString &databasePath, const QJsonDocument &payload, const QString& userIdToken);
     QJsonObject performAuthenticatedPOST(const QString &databasePath, const QJsonDocument& payload, const QString &userIdToken);
-
+    bool sendEmailVerification(const QString& idToken);
 
 public slots:
     //void networkReplyReadyRead();
