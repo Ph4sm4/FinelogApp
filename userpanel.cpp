@@ -143,6 +143,9 @@ void UserPanel::on_newProtocolButton_clicked()
             StylesheetManipulator::updateStylesheetProperty(
                 ui->newProtocolButton->styleSheet(),
                 "QPushButton", "background-color", "rgb(102, 102, 102);"));
+
+        // make a qlabel that will explain to open settings
+
         return;
     }
 

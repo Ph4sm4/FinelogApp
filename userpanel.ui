@@ -377,7 +377,7 @@ color: white;
          <property name="maximumSize">
           <size>
            <width>99999</width>
-           <height>300</height>
+           <height>99999</height>
           </size>
          </property>
          <property name="styleSheet">

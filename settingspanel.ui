@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>628</width>
-    <height>485</height>
+    <width>496</width>
+    <height>454</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -61,7 +61,7 @@ padding-left: 10px;
 padding-right: 10px;
 background-color: rgb(150, 150, 150);
 border: 1px solid black;
-height: 30px;
+height: 40px;
 }
 
 QLineEdit:focus {
@@ -366,13 +366,14 @@ background: transparent;
              <widget class="QLabel" name="label_4">
               <property name="font">
                <font>
+                <pointsize>12</pointsize>
                 <italic>false</italic>
                 <bold>false</bold>
                </font>
               </property>
               <property name="styleSheet">
                <string notr="true">QLabel {
-color: rgb(102, 102, 102);
+color: rgb(46, 198, 0);
 background: transparent;
 }</string>
               </property>
@@ -388,13 +389,14 @@ background: transparent;
              <widget class="QLabel" name="label_5">
               <property name="font">
                <font>
+                <pointsize>12</pointsize>
                 <italic>false</italic>
                 <bold>false</bold>
                </font>
               </property>
               <property name="styleSheet">
                <string notr="true">QLabel {
-color: rgb(102, 102, 102);
+color: rgb(46, 198, 0);
 background: transparent;
 }</string>
               </property>
@@ -410,13 +412,14 @@ background: transparent;
              <widget class="QLabel" name="label_6">
               <property name="font">
                <font>
+                <pointsize>12</pointsize>
                 <italic>false</italic>
                 <bold>false</bold>
                </font>
               </property>
               <property name="styleSheet">
                <string notr="true">QLabel {
-color: rgb(102, 102, 102);
+color: rgb(46, 198, 0);
 background: transparent;
 }</string>
               </property>
@@ -445,7 +448,20 @@ background: transparent;
           </item>
          </layout>
         </widget>
-        <widget class="QWidget" name="settings">
+        <widget class="QWidget" name="settingsChoice">
+         <property name="font">
+          <font>
+           <pointsize>9</pointsize>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QPushButton {
+border-radius: 0;
+padding: 5px 0;
+background: transparent;
+color: black;
+}</string>
+         </property>
          <layout class="QVBoxLayout" name="verticalLayout_3">
           <property name="spacing">
            <number>11</number>
@@ -479,97 +495,131 @@ background: transparent;
            </spacer>
           </item>
           <item>
-           <widget class="QLineEdit" name="nameLabel">
-            <property name="autoFillBackground">
-             <bool>false</bool>
+           <widget class="QPushButton" name="nameSurnameButton">
+            <property name="font">
+             <font>
+              <pointsize>14</pointsize>
+              <bold>false</bold>
+              <underline>false</underline>
+             </font>
+            </property>
+            <property name="layoutDirection">
+             <enum>Qt::RightToLeft</enum>
             </property>
             <property name="styleSheet">
-             <string notr="true"/>
+             <string notr="true">QPushButton { text-align: right; }</string>
+            </property>
+            <property name="locale">
+             <locale language="English" country="UnitedStates"/>
             </property>
             <property name="text">
-             <string/>
+             <string>Name &amp;&amp; Surname</string>
             </property>
-            <property name="frame">
-             <bool>false</bool>
+            <property name="icon">
+             <iconset resource="Images.qrc">
+              <normaloff>:/icons/content/chevron-right.svg</normaloff>:/icons/content/chevron-right.svg</iconset>
             </property>
-            <property name="placeholderText">
-             <string>Name</string>
+            <property name="iconSize">
+             <size>
+              <width>26</width>
+              <height>26</height>
+             </size>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QLineEdit" name="surnameLabel">
-            <property name="autoFillBackground">
-             <bool>false</bool>
+           <widget class="QPushButton" name="emailButton">
+            <property name="font">
+             <font>
+              <pointsize>14</pointsize>
+              <bold>false</bold>
+              <underline>false</underline>
+             </font>
+            </property>
+            <property name="layoutDirection">
+             <enum>Qt::RightToLeft</enum>
             </property>
             <property name="styleSheet">
-             <string notr="true"/>
+             <string notr="true">QPushButton { text-align: right; }</string>
             </property>
             <property name="text">
-             <string/>
-            </property>
-            <property name="frame">
-             <bool>false</bool>
-            </property>
-            <property name="placeholderText">
-             <string>Surname</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLineEdit" name="emailLabel">
-            <property name="autoFillBackground">
-             <bool>false</bool>
-            </property>
-            <property name="styleSheet">
-             <string notr="true"/>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-            <property name="frame">
-             <bool>false</bool>
-            </property>
-            <property name="placeholderText">
              <string>Email</string>
             </property>
+            <property name="icon">
+             <iconset resource="Images.qrc">
+              <normaloff>:/icons/content/chevron-right.svg</normaloff>:/icons/content/chevron-right.svg</iconset>
+            </property>
+            <property name="iconSize">
+             <size>
+              <width>26</width>
+              <height>26</height>
+             </size>
+            </property>
            </widget>
           </item>
           <item>
-           <widget class="QLineEdit" name="phoneNumberLabel">
-            <property name="autoFillBackground">
-             <bool>false</bool>
+           <widget class="QPushButton" name="phoneButton">
+            <property name="font">
+             <font>
+              <pointsize>14</pointsize>
+              <bold>false</bold>
+              <underline>false</underline>
+             </font>
+            </property>
+            <property name="layoutDirection">
+             <enum>Qt::RightToLeft</enum>
             </property>
             <property name="styleSheet">
-             <string notr="true"/>
+             <string notr="true">QPushButton { text-align: right; }</string>
             </property>
             <property name="text">
-             <string/>
-            </property>
-            <property name="frame">
-             <bool>false</bool>
-            </property>
-            <property name="placeholderText">
              <string>Phone number</string>
             </property>
+            <property name="icon">
+             <iconset resource="Images.qrc">
+              <normaloff>:/icons/content/chevron-right.svg</normaloff>:/icons/content/chevron-right.svg</iconset>
+            </property>
+            <property name="iconSize">
+             <size>
+              <width>26</width>
+              <height>26</height>
+             </size>
+            </property>
            </widget>
           </item>
           <item>
-           <widget class="QLineEdit" name="passwordLabel">
-            <property name="autoFillBackground">
-             <bool>false</bool>
+           <widget class="QPushButton" name="passwordButton">
+            <property name="font">
+             <font>
+              <pointsize>14</pointsize>
+              <bold>false</bold>
+              <underline>false</underline>
+             </font>
+            </property>
+            <property name="layoutDirection">
+             <enum>Qt::RightToLeft</enum>
             </property>
             <property name="styleSheet">
-             <string notr="true"/>
+             <string notr="true">QPushButton { 
+text-align: right; 
+border-bottom: 2px solid rgb(249, 115, 22);
+}</string>
+            </property>
+            <property name="locale">
+             <locale language="English" country="UnitedStates"/>
             </property>
             <property name="text">
-             <string/>
-            </property>
-            <property name="frame">
-             <bool>false</bool>
-            </property>
-            <property name="placeholderText">
              <string>Password</string>
+            </property>
+            <property name="icon">
+             <iconset resource="Images.qrc">
+              <normaloff>:/icons/content/chevron-right.svg</normaloff>:/icons/content/chevron-right.svg</iconset>
+            </property>
+            <property name="iconSize">
+             <size>
+              <width>26</width>
+              <height>26</height>
+             </size>
             </property>
            </widget>
           </item>
@@ -578,49 +628,18 @@ background: transparent;
             <property name="orientation">
              <enum>Qt::Vertical</enum>
             </property>
-            <property name="sizeType">
-             <enum>QSizePolicy::Fixed</enum>
-            </property>
             <property name="sizeHint" stdset="0">
              <size>
               <width>20</width>
-              <height>20</height>
+              <height>40</height>
              </size>
             </property>
            </spacer>
           </item>
           <item>
-           <widget class="QPushButton" name="settingsSaveButton">
-            <property name="font">
-             <font>
-              <family>Microsoft JhengHei</family>
-              <pointsize>12</pointsize>
-              <italic>false</italic>
-              <bold>true</bold>
-             </font>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">QPushButton {
-background-color:  rgb(249, 115, 22);
-height: 30px;
-border-radius: 10px;
-color: white;
-margin: 0 40%;
-padding: 4px 0;
-}</string>
-            </property>
+           <widget class="QLabel" name="ivecoImage">
             <property name="text">
-             <string>Save</string>
-            </property>
-            <property name="icon">
-             <iconset resource="Images.qrc">
-              <normaloff>:/icons/content/check-circle.svg</normaloff>:/icons/content/check-circle.svg</iconset>
-            </property>
-            <property name="iconSize">
-             <size>
-              <width>22</width>
-              <height>22</height>
-             </size>
+             <string/>
             </property>
            </widget>
           </item>
@@ -638,6 +657,303 @@ padding: 4px 0;
            </spacer>
           </item>
          </layout>
+        </widget>
+        <widget class="QWidget" name="nameSurnameSetting">
+         <widget class="QLineEdit" name="surnameEdit">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>80</y>
+            <width>604</width>
+            <height>32</height>
+           </rect>
+          </property>
+          <property name="autoFillBackground">
+           <bool>false</bool>
+          </property>
+          <property name="styleSheet">
+           <string notr="true"/>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="frame">
+           <bool>false</bool>
+          </property>
+          <property name="placeholderText">
+           <string>Surname</string>
+          </property>
+         </widget>
+         <widget class="QLineEdit" name="nameEdit">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>37</y>
+            <width>604</width>
+            <height>32</height>
+           </rect>
+          </property>
+          <property name="autoFillBackground">
+           <bool>false</bool>
+          </property>
+          <property name="styleSheet">
+           <string notr="true"/>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="frame">
+           <bool>false</bool>
+          </property>
+          <property name="placeholderText">
+           <string>Name</string>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="settingsSaveButton_2">
+          <property name="geometry">
+           <rect>
+            <x>30</x>
+            <y>160</y>
+            <width>604</width>
+            <height>38</height>
+           </rect>
+          </property>
+          <property name="font">
+           <font>
+            <family>Microsoft JhengHei</family>
+            <pointsize>12</pointsize>
+            <italic>false</italic>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">QPushButton {
+background-color:  rgb(249, 115, 22);
+height: 30px;
+border-radius: 10px;
+color: white;
+margin: 0 40%;
+padding: 4px 0;
+}</string>
+          </property>
+          <property name="text">
+           <string>Save</string>
+          </property>
+          <property name="icon">
+           <iconset resource="Images.qrc">
+            <normaloff>:/icons/content/check-circle.svg</normaloff>:/icons/content/check-circle.svg</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>22</width>
+            <height>22</height>
+           </size>
+          </property>
+         </widget>
+        </widget>
+        <widget class="QWidget" name="emailSetting">
+         <widget class="QLineEdit" name="emailEdit">
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>30</y>
+            <width>604</width>
+            <height>32</height>
+           </rect>
+          </property>
+          <property name="autoFillBackground">
+           <bool>false</bool>
+          </property>
+          <property name="styleSheet">
+           <string notr="true"/>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="frame">
+           <bool>false</bool>
+          </property>
+          <property name="placeholderText">
+           <string>Email</string>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="settingsSaveButton">
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>120</y>
+            <width>604</width>
+            <height>38</height>
+           </rect>
+          </property>
+          <property name="font">
+           <font>
+            <family>Microsoft JhengHei</family>
+            <pointsize>12</pointsize>
+            <italic>false</italic>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">QPushButton {
+background-color:  rgb(249, 115, 22);
+height: 30px;
+border-radius: 10px;
+color: white;
+margin: 0 40%;
+padding: 4px 0;
+}</string>
+          </property>
+          <property name="text">
+           <string>Save</string>
+          </property>
+          <property name="icon">
+           <iconset resource="Images.qrc">
+            <normaloff>:/icons/content/check-circle.svg</normaloff>:/icons/content/check-circle.svg</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>22</width>
+            <height>22</height>
+           </size>
+          </property>
+         </widget>
+        </widget>
+        <widget class="QWidget" name="phoneNumberSetting">
+         <widget class="QLineEdit" name="phoneEdit">
+          <property name="geometry">
+           <rect>
+            <x>20</x>
+            <y>30</y>
+            <width>604</width>
+            <height>32</height>
+           </rect>
+          </property>
+          <property name="autoFillBackground">
+           <bool>false</bool>
+          </property>
+          <property name="styleSheet">
+           <string notr="true"/>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="frame">
+           <bool>false</bool>
+          </property>
+          <property name="placeholderText">
+           <string>Phone number</string>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="settingsSaveButton_3">
+          <property name="geometry">
+           <rect>
+            <x>-20</x>
+            <y>120</y>
+            <width>604</width>
+            <height>38</height>
+           </rect>
+          </property>
+          <property name="font">
+           <font>
+            <family>Microsoft JhengHei</family>
+            <pointsize>12</pointsize>
+            <italic>false</italic>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">QPushButton {
+background-color:  rgb(249, 115, 22);
+height: 30px;
+border-radius: 10px;
+color: white;
+margin: 0 40%;
+padding: 4px 0;
+}</string>
+          </property>
+          <property name="text">
+           <string>Save</string>
+          </property>
+          <property name="icon">
+           <iconset resource="Images.qrc">
+            <normaloff>:/icons/content/check-circle.svg</normaloff>:/icons/content/check-circle.svg</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>22</width>
+            <height>22</height>
+           </size>
+          </property>
+         </widget>
+        </widget>
+        <widget class="QWidget" name="passwordSetting">
+         <widget class="QLineEdit" name="passwordEdit">
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>30</y>
+            <width>604</width>
+            <height>32</height>
+           </rect>
+          </property>
+          <property name="autoFillBackground">
+           <bool>false</bool>
+          </property>
+          <property name="styleSheet">
+           <string notr="true"/>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="frame">
+           <bool>false</bool>
+          </property>
+          <property name="placeholderText">
+           <string>Password</string>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="settingsSaveButton_4">
+          <property name="geometry">
+           <rect>
+            <x>160</x>
+            <y>140</y>
+            <width>604</width>
+            <height>38</height>
+           </rect>
+          </property>
+          <property name="font">
+           <font>
+            <family>Microsoft JhengHei</family>
+            <pointsize>12</pointsize>
+            <italic>false</italic>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">QPushButton {
+background-color:  rgb(249, 115, 22);
+height: 30px;
+border-radius: 10px;
+color: white;
+margin: 0 40%;
+padding: 4px 0;
+}</string>
+          </property>
+          <property name="text">
+           <string>Save</string>
+          </property>
+          <property name="icon">
+           <iconset resource="Images.qrc">
+            <normaloff>:/icons/content/check-circle.svg</normaloff>:/icons/content/check-circle.svg</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>22</width>
+            <height>22</height>
+           </size>
+          </property>
+         </widget>
         </widget>
        </widget>
       </item>

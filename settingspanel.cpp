@@ -22,6 +22,11 @@ SettingsPanel::SettingsPanel(QWidget *parent) :
     this->show();
 
     ui->sendErrorLabel->setText("");
+
+    QPixmap pixmap(":/images/content/driver-min.jpeg");
+    ui->ivecoImage->setScaledContents(true);
+    ui->ivecoImage->setPixmap(pixmap.scaled(QSize(this->width() - 22, 300), Qt::KeepAspectRatio));
+
 }
 
 void SettingsPanel::performAnimation(const int& duration, const QPoint& endPoint, QObject* parent)
@@ -42,6 +47,11 @@ void SettingsPanel::setCurrentUser(FinelogUser *user)
         ui->pagination->setCurrentIndex(0);
     }
     else {
+        ui->nameEdit->setText(currentUser->getName());
+        ui->surnameEdit->setText(currentUser->getSurname());
+        ui->emailEdit->setText(currentUser->getEmail());
+        ui->phoneEdit->setText(currentUser->getPhoneNumber());
+        ui->passwordEdit->setText(currentUser->getPassword());
         // straight to the settings page
         ui->pagination->setCurrentIndex(2);
     }

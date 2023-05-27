@@ -22,7 +22,7 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    ui->finelogLogo->setPixmap(QPixmap(":/logos/content/finelog-logo.png"));
+    ui->finelogLogo->setPixmap(QPixmap(":/images/content/finelog-logo.png"));
 
     ui->pagination->setCurrentIndex(0); // always start off with the login page
 
@@ -87,12 +87,12 @@ void MainWindow::on_loginButton_clicked()
     if(!result) return;
 
     FinelogUser* loggedInUser = dbHandler.logInWithEmailAndPassword(email, password, ui->loginErrorLabel);
-    if(loggedInUser == nullptr) return;
+    if(loggedInUser == nullptr) {
+        InputManager::setErrorBorder(ui->emailEdit);
+        InputManager::setErrorBorder(ui->passwordEdit);
+        return;
+    }
 
-//    if(!loggedInUser->getEmailVerified()) {
-//        ui->loginErrorLabel->setText("In order to login verify your email");
-//        return;
-//    }
     uPanel = new UserPanel();
     ui->pagination->insertWidget(5, uPanel);
 

@@ -1,7 +1,9 @@
 <RCC>
-    <qresource prefix="/logos">
+    <qresource prefix="/images">
         <file>content/paneco-logo.webp</file>
         <file>content/finelog-logo.png</file>
+        <file>content/driver-min.jpeg</file>
+        <file>content/iveco.jpg</file>
     </qresource>
     <qresource prefix="/icons">
         <file>content/eye_opened.svg</file>
@@ -11,5 +13,7 @@
         <file>content/check.svg</file>
         <file>content/check-circle.svg</file>
         <file>content/x.svg</file>
+        <file>content/chevron-double-right.svg</file>
+        <file>content/chevron-right.svg</file>
     </qresource>
 </RCC>

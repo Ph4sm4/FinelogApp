@@ -8,6 +8,7 @@
 #include "fineloguser.h"
 #include <QLabel>
 #include <QJsonArray>
+#include "inputmanager.h"
 
 DatabaseHandler::DatabaseHandler(QObject* parent) : QObject(parent)
 {

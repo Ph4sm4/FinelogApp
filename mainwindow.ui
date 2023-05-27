@@ -67,7 +67,7 @@ padding-bottom: 5px;
        <string/>
       </property>
       <property name="pixmap">
-       <pixmap resource="Images.qrc">:/logos/content/finelog-logo.png</pixmap>
+       <pixmap>:/logos/content/finelog-logo.png</pixmap>
       </property>
       <property name="scaledContents">
        <bool>false</bool>
@@ -89,7 +89,7 @@ height: 100%;
 }</string>
       </property>
       <property name="currentIndex">
-       <number>4</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="login_page">
        <property name="styleSheet">
@@ -350,7 +350,7 @@ background-color: rgb(126, 42, 0)
               </property>
               <property name="styleSheet">
                <string notr="true">QPushButton {
-color: rgb(102, 102, 102);
+color: rgb(249, 115, 22);
 margin-top: 10px;
 }</string>
               </property>
@@ -927,7 +927,7 @@ margin-right: 70%;
 }</string>
               </property>
               <property name="text">
-               <string>Back</string>
+               <string/>
               </property>
               <property name="icon">
                <iconset resource="Images.qrc">
@@ -1245,7 +1245,7 @@ margin-right: 70%;
 }</string>
               </property>
               <property name="text">
-               <string>Back</string>
+               <string/>
               </property>
               <property name="icon">
                <iconset resource="Images.qrc">
@@ -1563,7 +1563,7 @@ margin-right: 70%;
 }</string>
               </property>
               <property name="text">
-               <string>Back</string>
+               <string/>
               </property>
               <property name="icon">
                <iconset resource="Images.qrc">
