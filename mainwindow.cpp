@@ -32,13 +32,6 @@ MainWindow::MainWindow(QWidget *parent)
 //        widget->update();
 //    }
 
-    uPanel = new UserPanel();
-    qDebug() << (uPanel == nullptr);
-    ui->pagination->insertWidget(5, uPanel);
-
-    connect(uPanel, &UserPanel::logOutButtonClicked, this, &MainWindow::loggedOutOfUserPanel);
-    connect(uPanel, &UserPanel::settingsButtonClicked, this, &MainWindow::showUserPanel);
-
     ui->loginErrorLabel->setText("");
 
     QGraphicsDropShadowEffect* shadowEffect = new QGraphicsDropShadowEffect;
@@ -56,6 +49,10 @@ MainWindow::~MainWindow()
 void MainWindow::loggedOutOfUserPanel()
 {
     uPanel->clearUser();
+    ui->pagination->removeWidget(uPanel);
+    uPanel->deleteLater();
+    uPanel = nullptr;
+
     ui->pagination->setCurrentIndex(0);
 }
 
@@ -92,15 +89,49 @@ void MainWindow::on_loginButton_clicked()
     FinelogUser* loggedInUser = dbHandler.logInWithEmailAndPassword(email, password, ui->loginErrorLabel);
     if(loggedInUser == nullptr) return;
 
-    if(!loggedInUser->getEmailVerified()) {
-        ui->loginErrorLabel->setText("In order to login verify your email");
-        return;
-    }
+//    if(!loggedInUser->getEmailVerified()) {
+//        ui->loginErrorLabel->setText("In order to login verify your email");
+//        return;
+//    }
+    uPanel = new UserPanel();
+    ui->pagination->insertWidget(5, uPanel);
 
     uPanel->setCurrentUser(loggedInUser);
     InputManager::clearInputs(ui->emailEdit, ui->passwordEdit);
 
+    connect(uPanel, &UserPanel::logOutButtonClicked, this, &MainWindow::loggedOutOfUserPanel);
+    connect(uPanel, &UserPanel::settingsButtonClicked, this, &MainWindow::showUserPanel);
+
     // change to user panel
+    ui->pagination->setCurrentIndex(5);
+}
+
+void MainWindow::on_registerButton_clicked()
+{
+    QString password1 = ui->passwordRegister->text();
+    QString password2 = ui->confirmPassword->text();
+
+    if(!InputManager::validatePassword(password1) || !InputManager::validatePassword(password2)
+        || password1 != password2) return;
+
+    registrationUser->setPassword(password1);
+
+    bool success = dbHandler.registerNewUser(registrationUser);
+    if(!success) return;
+
+    InputManager::clearInputs(ui->nameRegister, ui->surnameRegister,
+                              ui->emailRegister, ui->phoneNumberRegister,
+                              ui->passwordRegister, ui->confirmPassword,
+                              ui->idRegistration);
+
+    // change to user panel
+    uPanel = new UserPanel();
+    ui->pagination->insertWidget(5, uPanel);
+    uPanel->setCurrentUser(registrationUser);
+
+    connect(uPanel, &UserPanel::logOutButtonClicked, this, &MainWindow::loggedOutOfUserPanel);
+    connect(uPanel, &UserPanel::settingsButtonClicked, this, &MainWindow::showUserPanel);
+
     ui->pagination->setCurrentIndex(5);
 }
 
@@ -207,29 +238,6 @@ void MainWindow::on_loginGoTo_5_clicked()
                               ui->nameRegister, ui->surnameRegister, ui->phoneNumberRegister,
                               ui->passwordRegister, ui->confirmPassword);
     ui->pagination->setCurrentIndex(0);
-}
-
-
-void MainWindow::on_registerButton_clicked()
-{
-    QString password1 = ui->passwordRegister->text();
-    QString password2 = ui->confirmPassword->text();
-
-    if(!InputManager::validatePassword(password1) || !InputManager::validatePassword(password2)
-        || password1 != password2) return;
-
-    registrationUser->setPassword(password1);
-
-    bool success = dbHandler.registerNewUser(registrationUser);
-    if(!success) return;
-
-    InputManager::clearInputs(ui->nameRegister, ui->surnameRegister,
-                              ui->emailRegister, ui->phoneNumberRegister,
-                              ui->passwordRegister, ui->confirmPassword,
-                              ui->idRegistration);
-
-    // change to user panel
-    ui->pagination->setCurrentIndex(5);
 }
 
 void MainWindow::on_confirmPassword_textChanged(const QString &arg1)

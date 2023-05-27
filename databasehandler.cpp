@@ -59,11 +59,23 @@ bool DatabaseHandler::registerNewUser(FinelogUser* user, QLabel* errorLabel)
         errorLabel->setText("Unable to upload authentication data. Please try again");
         return false;
     }
-    success = sendEmailVerification(idToken);
-    if(!success) {
-        errorLabel->setText("Unable to send the verification email. Please try again");
+
+    QJsonObject accountInfo = getAccountInfo(idToken);
+    if(accountInfo.contains("error") && errorLabel) {
+        errorLabel->setText("Could not get account info. Please try again");
         return false;
     }
+
+    user->setEmailVerified(accountInfo.value("emailVerified").toBool());
+
+    // "created at" manipulations since the response is given as a string of milliseconds
+    QString timestamp = accountInfo.value("createdAt").toString();
+    long long milliseconds = timestamp.toLongLong();
+    QDateTime time;
+    time.setMSecsSinceEpoch(milliseconds);
+    QDate date = time.date();
+    qDebug() << "timestamp created at: " << date;
+    user->setAccountCreatedAt(date);
 
     // add the user into the database
     QVariantMap newUser;
@@ -82,6 +94,9 @@ bool DatabaseHandler::registerNewUser(FinelogUser* user, QLabel* errorLabel)
     QJsonDocument jsonDoc = QJsonDocument::fromVariant(newUser);
     QJsonObject response = performAuthenticatedPUT(path, jsonDoc, idToken);
     qDebug() << response;
+
+    if(errorLabel)
+        errorLabel->setText("");
 
     return response.contains("error") == false;
 }

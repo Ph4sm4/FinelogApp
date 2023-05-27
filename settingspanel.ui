@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>629</width>
-    <height>417</height>
+    <width>628</width>
+    <height>485</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -59,7 +59,8 @@ border-radius: 4px;
 color: black;
 padding-left: 10px;
 padding-right: 10px;
-background-color: rgb(230, 230, 230);
+background-color: rgb(150, 150, 150);
+border: 1px solid black;
 height: 30px;
 }
 
@@ -188,7 +189,7 @@ background: rgb(243, 244, 246);
 }</string>
         </property>
         <property name="currentIndex">
-         <number>1</number>
+         <number>2</number>
         </property>
         <widget class="QWidget" name="emailVerify1">
          <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -318,7 +319,7 @@ margin-top: 5px;
          </layout>
         </widget>
         <widget class="QWidget" name="emailVerify2">
-         <layout class="QVBoxLayout" name="verticalLayout_5">
+         <layout class="QVBoxLayout" name="verticalLayout_6">
           <item>
            <widget class="QLabel" name="label_3">
             <property name="font">
@@ -360,22 +361,74 @@ background: transparent;
            </spacer>
           </item>
           <item>
-           <widget class="QLabel" name="label_4">
-            <property name="styleSheet">
-             <string notr="true">QLabel {
-color: red;
-margin-right: 20px;
-margin-left: 20px;
+           <layout class="QVBoxLayout" name="verticalLayout_5">
+            <item>
+             <widget class="QLabel" name="label_4">
+              <property name="font">
+               <font>
+                <italic>false</italic>
+                <bold>false</bold>
+               </font>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QLabel {
+color: rgb(102, 102, 102);
 background: transparent;
 }</string>
-            </property>
-            <property name="text">
-             <string>Not verified</string>
-            </property>
-            <property name="alignment">
-             <set>Qt::AlignCenter</set>
-            </property>
-           </widget>
+              </property>
+              <property name="text">
+               <string>1. Click on the link in the email</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="label_5">
+              <property name="font">
+               <font>
+                <italic>false</italic>
+                <bold>false</bold>
+               </font>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QLabel {
+color: rgb(102, 102, 102);
+background: transparent;
+}</string>
+              </property>
+              <property name="text">
+               <string>2. Log out of the application</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="label_6">
+              <property name="font">
+               <font>
+                <italic>false</italic>
+                <bold>false</bold>
+               </font>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QLabel {
+color: rgb(102, 102, 102);
+background: transparent;
+}</string>
+              </property>
+              <property name="text">
+               <string>3. Log back in</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+           </layout>
           </item>
           <item>
            <spacer name="verticalSpacer_6">
@@ -409,6 +462,22 @@ background: transparent;
           <property name="bottomMargin">
            <number>0</number>
           </property>
+          <item>
+           <spacer name="verticalSpacer_7">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeType">
+             <enum>QSizePolicy::Fixed</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>40</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
           <item>
            <widget class="QLineEdit" name="nameLabel">
             <property name="autoFillBackground">
@@ -503,6 +572,22 @@ background: transparent;
              <string>Password</string>
             </property>
            </widget>
+          </item>
+          <item>
+           <spacer name="verticalSpacer_4">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeType">
+             <enum>QSizePolicy::Fixed</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
           </item>
           <item>
            <widget class="QPushButton" name="settingsSaveButton">
