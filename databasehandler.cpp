@@ -83,7 +83,7 @@ bool DatabaseHandler::registerNewUser(FinelogUser* user, QLabel* errorLabel)
 
     newUser["Email"] =  user->getEmail();
     newUser["Name"] = user->getName();
-    newUser["Phone number"] =user->getPhoneNumber();
+    newUser["Phone_number"] =user->getPhoneNumber();
     newUser["Surname"] = user->getSurname();
     newUser["user_id"] = user->getUserId();
     newUser["finelog_id"] = user->getFinelogId();
@@ -139,7 +139,7 @@ FinelogUser* DatabaseHandler::logInWithEmailAndPassword(const QString &email, co
     loggedInUser->setIdToken(idToken);
     loggedInUser->setName(userData.value("Name").toString());
     loggedInUser->setSurname(userData.value("Surname").toString());
-    loggedInUser->setPhoneNumber(userData.value("Phone number").toString());
+    loggedInUser->setPhoneNumber(userData.value("Phone_number").toString());
     loggedInUser->setPassword(password);
     loggedInUser->setFinelogId(userData.value("finelog_id").toString());
     loggedInUser->setEmailVerified(accountInfo.value("emailVerified").toBool());
@@ -269,4 +269,30 @@ bool DatabaseHandler::changeAuthDisplayName(const QString& idToken, const QStrin
     QJsonObject res = performPOST(endPoint, doc);
 
     return res.contains("error") == false;
+}
+
+bool DatabaseHandler::updateUserData(const QString &userId, const QJsonDocument& fieldsToUpdate, const QString& idToken)
+{
+    QString path = "Users/" + userId;
+    QJsonObject reply = performAuthenticatedPATCH(path, fieldsToUpdate, idToken);
+
+    return reply.contains("error") == false;
+}
+
+QJsonObject DatabaseHandler::performAuthenticatedPATCH(const QString &databasePath, const QJsonDocument &payload, const QString& userIdToken)
+{
+    QString endPoint = "https://finelogapp-default-rtdb.europe-west1.firebasedatabase.app/" + databasePath + ".json?auth=" + userIdToken;
+    QEventLoop loop;
+    QNetworkRequest newReq((QUrl(endPoint)));
+    newReq.setHeader(QNetworkRequest::ContentTypeHeader, QString("application/json"));
+
+    networkReply = networkManager->sendCustomRequest(newReq, "PATCH", payload.toJson());
+    connect(networkReply, &QNetworkReply::finished, &loop, &QEventLoop::quit);
+    loop.exec();
+
+    qDebug() << "error auth patch: " << networkReply->error();
+
+    QJsonDocument jsonDocument = QJsonDocument::fromJson(QString(networkReply->readAll()).toUtf8());
+    QJsonObject jsonObject = jsonDocument.object();
+    return jsonObject;
 }

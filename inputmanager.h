@@ -33,14 +33,25 @@ public:
         clearInputs(args...);
     }
 
+    template<typename T, typename... Args>
+    static typename std::enable_if<std::is_same<T, QLineEdit*>::value>::type
+    clearInputsBlack(T arg, Args... args) {
+        arg->clear();
+        deleteErrorBorderBlack(arg);
+        clearInputsBlack(args...);
+    }
+
     static void setErrorBorder(QLineEdit* e);
     static void deleteErrorBorder(QLineEdit* e);
+    static void deleteErrorBorderBlack(QLineEdit* e);
     static bool validatePassword(QString password);
     static bool validateEmail(QString email);
 
 private:
     // Base case for clearInputs: no arguments left
     static void clearInputs() {}
+
+    static void clearInputsBlack() {}
 
     // Base case for validateInputs: no arguments left, return true
     static bool validateInputs() { return true; }

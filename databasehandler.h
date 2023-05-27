@@ -20,6 +20,8 @@ public:
     QJsonObject performAuthenticatedPOST(const QString &databasePath, const QJsonDocument& payload, const QString &userIdToken);
     bool sendEmailVerification(const QString& idToken);
     bool changeAuthDisplayName(const QString& idToken, const QString &newName);
+    bool updateUserData(const QString& userId, const QJsonDocument& fieldsToUpdate, const QString& idToken);
+    QJsonObject performAuthenticatedPATCH(const QString& databasePath, const QJsonDocument& payload, const QString& userIdToken);
 
 public slots:
     //void networkReplyReadyRead();

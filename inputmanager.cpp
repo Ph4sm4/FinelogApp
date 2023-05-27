@@ -21,6 +21,13 @@ void InputManager::deleteErrorBorder(QLineEdit *e)
             e->styleSheet(), "QLineEdit", "border", "2px solid rgb(37, 39, 48);"));
 }
 
+void InputManager::deleteErrorBorderBlack(QLineEdit *e)
+{
+    e->setStyleSheet(
+        StylesheetManipulator::updateStylesheetProperty(
+            e->styleSheet(), "QLineEdit", "border", "1px solid black;"));
+}
+
 bool InputManager::validatePassword(QString password)
 {
     bool containsNum = false;

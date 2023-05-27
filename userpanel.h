@@ -25,6 +25,11 @@ public:
     void clearUser();
     FinelogUser* getCurrentUser() const { return currentUser; }
 
+    void setSettingsPanel(class SettingsPanel* newPanel);
+
+public slots:
+    void userBasicDetailsChange();
+
 private slots:
     void on_settingsButton_clicked();
 
@@ -41,6 +46,8 @@ private:
     void setUserDisplayInfo();
     DatabaseHandler dbHandler;
     FinelogUser* currentUser;
+    QVector<ReportHeadline> reports;
+    class SettingsPanel* settingsPanel = nullptr;
 };
 
 #endif // USERPANEL_H

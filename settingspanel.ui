@@ -193,7 +193,7 @@ background: rgb(243, 244, 246);
 }</string>
         </property>
         <property name="currentIndex">
-         <number>5</number>
+         <number>2</number>
         </property>
         <widget class="QWidget" name="emailVerify1">
          <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -209,6 +209,22 @@ background: rgb(243, 244, 246);
           <property name="bottomMargin">
            <number>0</number>
           </property>
+          <item>
+           <spacer name="verticalSpacer_24">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeType">
+             <enum>QSizePolicy::Fixed</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
           <item>
            <widget class="QLabel" name="label_2">
             <property name="font">
@@ -325,10 +341,26 @@ margin-top: 5px;
         <widget class="QWidget" name="emailVerify2">
          <layout class="QVBoxLayout" name="verticalLayout_6">
           <item>
+           <spacer name="verticalSpacer_25">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeType">
+             <enum>QSizePolicy::Fixed</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
            <widget class="QLabel" name="label_3">
             <property name="font">
              <font>
-              <pointsize>16</pointsize>
+              <pointsize>20</pointsize>
              </font>
             </property>
             <property name="styleSheet">
@@ -370,7 +402,7 @@ background: transparent;
              <widget class="QLabel" name="label_4">
               <property name="font">
                <font>
-                <pointsize>12</pointsize>
+                <pointsize>16</pointsize>
                 <italic>false</italic>
                 <bold>false</bold>
                </font>
@@ -393,7 +425,7 @@ background: transparent;
              <widget class="QLabel" name="label_5">
               <property name="font">
                <font>
-                <pointsize>12</pointsize>
+                <pointsize>16</pointsize>
                 <italic>false</italic>
                 <bold>false</bold>
                </font>
@@ -416,7 +448,7 @@ background: transparent;
              <widget class="QLabel" name="label_6">
               <property name="font">
                <font>
-                <pointsize>12</pointsize>
+                <pointsize>16</pointsize>
                 <italic>false</italic>
                 <bold>false</bold>
                </font>
@@ -699,7 +731,8 @@ border-radius: 8px;
 height: 30px;
 }
 
-QPushButton:pressed {
+QPushButton:pressed,
+QPushButton:focus {
 outline: none;
 background: transparent;
 }</string>
@@ -785,6 +818,25 @@ background: transparent;
             </property>
             <property name="placeholderText">
              <string>Surname</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="nameError">
+            <property name="styleSheet">
+             <string notr="true">QLabel {
+color: red;
+margin-right: 20px;
+margin-left: 20px;
+background: transparent;
+margin-top: 5px;
+}</string>
+            </property>
+            <property name="text">
+             <string>Error here</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
             </property>
            </widget>
           </item>
@@ -914,7 +966,8 @@ border-radius: 8px;
 height: 30px;
 }
 
-QPushButton:pressed {
+QPushButton:pressed,
+QPushButton:focus {
 outline: none;
 background: transparent;
 }</string>
@@ -981,6 +1034,25 @@ background: transparent;
             </property>
             <property name="placeholderText">
              <string>Email</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="emailError">
+            <property name="styleSheet">
+             <string notr="true">QLabel {
+color: red;
+margin-right: 20px;
+margin-left: 20px;
+background: transparent;
+margin-top: 5px;
+}</string>
+            </property>
+            <property name="text">
+             <string>Error here</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
             </property>
            </widget>
           </item>
@@ -1065,7 +1137,7 @@ padding: 4px 0;
             <property name="sizeHint" stdset="0">
              <size>
               <width>20</width>
-              <height>59</height>
+              <height>27</height>
              </size>
             </property>
            </spacer>
@@ -1110,7 +1182,8 @@ border-radius: 8px;
 height: 30px;
 }
 
-QPushButton:pressed {
+QPushButton:pressed,
+QPushButton:focus {
 outline: none;
 background: transparent;
 }</string>
@@ -1177,6 +1250,26 @@ background: transparent;
             </property>
             <property name="placeholderText">
              <string>Phone number</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="phoneError">
+            <property name="styleSheet">
+             <string notr="true">QLabel {
+color: red;
+margin-right: 20px;
+margin-left: 20px;
+background: transparent;
+margin-top: 5px;
+text-align: right;
+}</string>
+            </property>
+            <property name="text">
+             <string>Error here</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
             </property>
            </widget>
           </item>
@@ -1261,7 +1354,7 @@ padding: 4px 0;
             <property name="sizeHint" stdset="0">
              <size>
               <width>20</width>
-              <height>56</height>
+              <height>24</height>
              </size>
             </property>
            </spacer>
@@ -1306,7 +1399,8 @@ border-radius: 8px;
 height: 30px;
 }
 
-QPushButton:pressed {
+QPushButton:pressed,
+QPushButton:focus {
 outline: none;
 background: transparent;
 }</string>
@@ -1373,6 +1467,26 @@ background: transparent;
             </property>
             <property name="placeholderText">
              <string>Password</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="passwordError">
+            <property name="styleSheet">
+             <string notr="true">QLabel {
+color: red;
+margin-right: 20px;
+margin-left: 20px;
+background: transparent;
+margin-top: 5px;
+text-align: right;
+}</string>
+            </property>
+            <property name="text">
+             <string>Error here</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
             </property>
            </widget>
           </item>
@@ -1457,7 +1571,7 @@ padding: 4px 0;
             <property name="sizeHint" stdset="0">
              <size>
               <width>20</width>
-              <height>56</height>
+              <height>24</height>
              </size>
             </property>
            </spacer>

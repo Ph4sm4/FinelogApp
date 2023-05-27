@@ -57,16 +57,27 @@ void UserPanel::clearUser()
     currentUser = nullptr;
 }
 
-void UserPanel::setUserDisplayInfo()
+void UserPanel::setSettingsPanel(SettingsPanel *newPanel)
 {
-    QVector<ReportHeadline> reports = currentUser->getHeadlines();
+    settingsPanel = newPanel;
+    connect(settingsPanel, &SettingsPanel::userDetailsChange, this, &UserPanel::userBasicDetailsChange);
+}
 
+void UserPanel::userBasicDetailsChange()
+{
     ui->hiLabel->setText("Hi " + currentUser->getName() + "!");
     ui->phoneNumberLabel->setText("Phone number: " + currentUser->getPhoneNumber());
     ui->emailLabel->setText("Email: " + currentUser->getEmail());
     ui->idNumberLabel->setText("Finelog ID: " + currentUser->getFinelogId());
     ui->reportsNumberLabel->setText("Reports uploaded: " + QString::number(reports.size()));
     ui->joinedOnLabel->setText("Joined on: " + currentUser->getAccountCreatedAt().toString());
+}
+
+void UserPanel::setUserDisplayInfo()
+{
+    reports = currentUser->getHeadlines();
+
+    userBasicDetailsChange();
 
     QWidget* w = ui->scrollAreaWidgetContents;
     if(!w) {
@@ -144,7 +155,11 @@ void UserPanel::on_newProtocolButton_clicked()
                 ui->newProtocolButton->styleSheet(),
                 "QPushButton", "background-color", "rgb(102, 102, 102);"));
 
-        // make a qlabel that will explain to open settings
+
+        // we want to emit this signal so that the user will be
+        // guided how to verify the email, eg. the settings panel with
+        // this option will appear
+        emit settingsButtonClicked();
 
         return;
     }

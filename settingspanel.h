@@ -23,6 +23,8 @@ public:
 signals:
     void logOutButtonClicked();
 
+    void userDetailsChange();
+
 private slots:
     void on_logoutButton_clicked();
 
@@ -45,6 +47,14 @@ private slots:
     void on_backPassword_clicked();
 
     void on_backPhone_clicked();
+
+    void on_nameSave_clicked();
+
+    void on_saveEmail_clicked();
+
+    void on_savePhone_clicked();
+
+    void on_savePassword_clicked();
 
 private:
     Ui::SettingsPanel *ui;

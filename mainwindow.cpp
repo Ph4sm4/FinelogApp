@@ -66,6 +66,9 @@ void MainWindow::showUserPanel()
     settingsPanel->setOverlayWidget(overlay);
     connect(settingsPanel, &SettingsPanel::logOutButtonClicked, this, &MainWindow::loggedOutOfUserPanel);
 
+    if(!uPanel) return;
+
+    uPanel->setSettingsPanel(settingsPanel);
 
     overlay->setStyleSheet("background-color: rgba(0, 0, 0, 0.5);");
     overlay->setGeometry(0, 0, this->width(), this->height());
@@ -79,7 +82,7 @@ void MainWindow::showUserPanel()
 
 void MainWindow::on_loginButton_clicked()
 {
-    const QString email = ui->emailEdit->text();
+    const QString email = ui->emailEdit->text().toLower();
     const QString password = ui->passwordEdit->text();
 
     bool result = InputManager::validateInputs(ui->emailEdit, ui->passwordEdit);
@@ -161,11 +164,14 @@ void MainWindow::on_idNext_clicked()
 
 void MainWindow::on_nextName_clicked()
 {
-    QString name = ui->nameRegister->text();
-    QString surname = ui->surnameRegister->text();
+    QString name = ui->nameRegister->text().toLower();
+    QString surname = ui->surnameRegister->text().toLower();
 
     bool result = InputManager::validateInputs(ui->nameRegister, ui->surnameRegister);
     if(!result) return;
+
+    name[0] = name[0].toUpper();
+    surname[0] = surname[0].toUpper();
 
     registrationUser->setName(name);
     registrationUser->setSurname(surname);
