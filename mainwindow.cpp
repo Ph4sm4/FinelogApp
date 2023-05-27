@@ -69,7 +69,6 @@ void MainWindow::showUserPanel()
 
     overlay->setStyleSheet("background-color: rgba(0, 0, 0, 0.5);");
     overlay->setGeometry(0, 0, this->width(), this->height());
-    overlay->hide();
     overlay->setPanel(settingsPanel);
 
     overlay->show();

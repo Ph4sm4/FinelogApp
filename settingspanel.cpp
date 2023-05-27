@@ -87,3 +87,51 @@ void SettingsPanel::on_closePanel_clicked()
     overlay->closeSettingsPanel(); // it will also hide the settings panel with the proper animation
 }
 
+
+void SettingsPanel::on_nameSurnameButton_clicked()
+{
+    ui->pagination->setCurrentIndex(3);
+}
+
+
+void SettingsPanel::on_emailButton_clicked()
+{
+    ui->pagination->setCurrentIndex(4);
+}
+
+
+void SettingsPanel::on_phoneButton_clicked()
+{
+    ui->pagination->setCurrentIndex(5);
+}
+
+
+void SettingsPanel::on_passwordButton_clicked()
+{
+    ui->pagination->setCurrentIndex(6);
+}
+
+
+void SettingsPanel::on_backEmail_clicked()
+{
+    ui->pagination->setCurrentIndex(2);
+}
+
+
+void SettingsPanel::on_backName_clicked()
+{
+    ui->pagination->setCurrentIndex(2);
+}
+
+
+void SettingsPanel::on_backPassword_clicked()
+{
+    ui->pagination->setCurrentIndex(2);
+}
+
+
+void SettingsPanel::on_backPhone_clicked()
+{
+    ui->pagination->setCurrentIndex(2);
+}
+

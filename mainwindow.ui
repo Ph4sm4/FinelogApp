@@ -924,6 +924,11 @@ border-radius: 8px;
 margin-left: 20px; 
 height: 30px;
 margin-right: 70%;
+}
+
+QPushButton:pressed {
+outline: none;
+background: transparent;
 }</string>
               </property>
               <property name="text">
@@ -1242,6 +1247,11 @@ border-radius: 8px;
 margin-left: 20px; 
 height: 30px;
 margin-right: 70%;
+}
+
+QPushButton:pressed {
+outline: none;
+background: transparent;
 }</string>
               </property>
               <property name="text">
@@ -1560,6 +1570,11 @@ border-radius: 8px;
 margin-left: 20px; 
 height: 30px;
 margin-right: 70%;
+}
+
+QPushButton:pressed {
+outline: none;
+background: transparent;
 }</string>
               </property>
               <property name="text">

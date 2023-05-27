@@ -104,7 +104,7 @@ background-color: white;
         <number>0</number>
        </property>
        <property name="bottomMargin">
-        <number>20</number>
+        <number>0</number>
        </property>
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout">
@@ -439,7 +439,7 @@ QScrollBar:vertical {
             <x>0</x>
             <y>0</y>
             <width>593</width>
-            <height>166</height>
+            <height>186</height>
            </rect>
           </property>
           <property name="styleSheet">
