@@ -8,7 +8,6 @@
 #include <QPropertyAnimation>
 #include <QIntValidator>
 #include <QMessageBox>
-#include <QPropertyAnimation>
 #include "stylesheetmanipulator.h"
 
 /*
@@ -82,16 +81,21 @@ void MainWindow::showUserPanel()
 
 void MainWindow::on_loginButton_clicked()
 {
+    ui->loginButton->setDisabled(true);
     const QString email = ui->emailEdit->text().toLower();
     const QString password = ui->passwordEdit->text();
 
     bool result = InputManager::validateInputs(ui->emailEdit, ui->passwordEdit);
-    if(!result) return;
+    if(!result){
+        ui->loginButton->setDisabled(false);
+        return;
+    }
 
     FinelogUser* loggedInUser = dbHandler.logInWithEmailAndPassword(email, password, ui->loginErrorLabel);
     if(loggedInUser == nullptr) {
         InputManager::setErrorBorder(ui->emailEdit);
         InputManager::setErrorBorder(ui->passwordEdit);
+        ui->loginButton->setDisabled(false);
         return;
     }
 
@@ -106,6 +110,7 @@ void MainWindow::on_loginButton_clicked()
 
     // change to user panel
     ui->pagination->setCurrentIndex(5);
+    ui->loginButton->setDisabled(false);
 }
 
 void MainWindow::on_registerButton_clicked()

@@ -11,6 +11,9 @@
 #include <QScrollerProperties>
 #include <QJsonObject>
 #include <QScrollBar>
+#include <QGraphicsDropShadowEffect>
+#include <QPropertyAnimation>
+#include <QTimer>
 
 UserPanel::UserPanel(QWidget *parent) :
     QWidget(parent),
@@ -71,13 +74,61 @@ void UserPanel::userBasicDetailsChange()
     ui->idNumberLabel->setText("Finelog ID: " + currentUser->getFinelogId());
     ui->reportsNumberLabel->setText("Reports uploaded: " + QString::number(reports.size()));
     ui->joinedOnLabel->setText("Joined on: " + currentUser->getAccountCreatedAt().toString());
+
+    QLabel* successBox = new QLabel();
+    successBox->setFixedSize(140, 40);
+    successBox->setText("Success!");
+    successBox->setStyleSheet("QLabel { padding: 5px 10px; background-color: rgb(170, 255, 0); color: white; border-radius: 6px; font-size: 18px; font-weight: bold}");
+    QGraphicsDropShadowEffect* shadowEffect = new QGraphicsDropShadowEffect;
+    shadowEffect->setBlurRadius(10);
+    shadowEffect->setColor(Qt::black);
+    shadowEffect->setOffset(0, 2);
+    successBox->setGraphicsEffect(shadowEffect);
+    successBox->show();
+    successBox->raise();
+// something is wrong with this, try fixing the fact that it appears on top :(
+
+    QTimer::singleShot(0, this, [successBox]() {
+        successBox->move(-140, 40);
+    });
+    // CODE FOR ANIMATING THE SLIDE OF THE SUCCESS BOX IN AND OUT
+    //
+    //
+    QPropertyAnimation *animation = new QPropertyAnimation(successBox, "pos", this);
+    animation->setDuration(300);
+    animation->setEasingCurve(QEasingCurve::InOutQuad);
+    animation->setEndValue(QPoint(0, 40));
+    animation->start();
+
+    connect(animation, &QPropertyAnimation::finished, this, [successBox, this]()->void {
+        QTimer* timer = new QTimer(this);
+        // after 5 seconds we would like to animate back
+        connect(timer, &QTimer::timeout, successBox, [successBox, this]()->void {
+            QPropertyAnimation *animationBack = new QPropertyAnimation(successBox, "pos", this);
+            animationBack->setDuration(300);
+            animationBack->setEasingCurve(QEasingCurve::InOutQuad);
+            animationBack->setEndValue(QPoint(-140, 40));
+            animationBack->start();
+
+            connect(animationBack, &QPropertyAnimation::finished, successBox, [successBox]()->void {
+                successBox->deleteLater();
+            });
+        });
+
+        timer->start(5000);
+    });
 }
 
 void UserPanel::setUserDisplayInfo()
 {
     reports = currentUser->getHeadlines();
 
-    userBasicDetailsChange();
+    ui->hiLabel->setText("Hi " + currentUser->getName() + "!");
+    ui->phoneNumberLabel->setText("Phone number: " + currentUser->getPhoneNumber());
+    ui->emailLabel->setText("Email: " + currentUser->getEmail());
+    ui->idNumberLabel->setText("Finelog ID: " + currentUser->getFinelogId());
+    ui->reportsNumberLabel->setText("Reports uploaded: " + QString::number(reports.size()));
+    ui->joinedOnLabel->setText("Joined on: " + currentUser->getAccountCreatedAt().toString());
 
     QWidget* w = ui->scrollAreaWidgetContents;
     if(!w) {
