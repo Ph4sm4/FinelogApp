@@ -98,7 +98,7 @@ height: 100%;
 }</string>
       </property>
       <property name="currentIndex">
-       <number>6</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="login_page">
        <property name="styleSheet">
@@ -361,6 +361,12 @@ background-color: rgb(126, 42, 0)
                <string notr="true">QPushButton {
 color: rgb(249, 115, 22);
 margin-top: 10px;
+}
+
+QPushButton:pressed,
+QPushButton:focus {
+outline: none;
+background: transparent;
 }</string>
               </property>
               <property name="text">
