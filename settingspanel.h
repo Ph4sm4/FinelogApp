@@ -48,7 +48,7 @@ private slots:
 
     void on_backPhone_clicked();
 
-    void on_nameSave_clicked();
+    void on_saveName_clicked();
 
     void on_saveEmail_clicked();
 
@@ -67,6 +67,8 @@ private slots:
     void on_nameEdit_textChanged(const QString &arg1);
 
     void on_surnameEdit_textChanged(const QString &arg1);
+
+    void on_phoneEdit_textChanged(const QString &arg1);
 
 private:
     Ui::SettingsPanel *ui;

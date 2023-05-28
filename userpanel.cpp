@@ -47,20 +47,6 @@ UserPanel::UserPanel(QWidget *parent) :
     shadowEffect->setColor(QColor(0, 0, 0, 80));
     shadowEffect->setOffset(0, 0);
     ui->scrollArea->setGraphicsEffect(shadowEffect);
-
-//    timer = new QTimer(this);
-
-//    connect(timer, &QTimer::timeout, this, [this]()->void {
-//        QPropertyAnimation *animationBack = new QPropertyAnimation(successBox, "pos", this);
-//        animationBack->setDuration(300);
-//        animationBack->setEasingCurve(QEasingCurve::InOutQuad);
-//        animationBack->setEndValue(QPoint(-140, 40));
-//        animationBack->start();
-
-//        connect(animationBack, &QPropertyAnimation::finished, successBox, [this]()->void {
-//            successBox->hide();
-//        });
-//    });
 }
 
 UserPanel::~UserPanel()
@@ -90,31 +76,6 @@ void UserPanel::userBasicDetailsChange()
     ui->joinedOnLabel->setText("Joined on: " + currentUser->getAccountCreatedAt().toString());
 
     emit successBoxDisplayNeeded();
-//    QTimer::singleShot(1000, successBox, [this]() {
-//        successBox = new QLabel();
-//        successBox->setFixedSize(140, 40);
-//        successBox->setText("Success!");
-//        successBox->setStyleSheet("QLabel { padding: 5px 10px; background: rgb(80, 200, 120); color: white; border: none; border-radius: 6px; font-size: 18px; font-weight: bold}");
-//        successBox->raise();
-//        successBox->show();
-//        successBox->move(-140, 40);
-
-//        // something is wrong with this, try fixing the fact that it appears on top :(
-//        QPropertyAnimation *animation = new QPropertyAnimation(successBox, "pos", this);
-//        animation->setDuration(300);
-//        animation->setEasingCurve(QEasingCurve::InOutQuad);
-//        animation->setEndValue(QPoint(0, 40));
-//        animation->start();
-//        // CODE FOR ANIMATING THE SLIDE OF THE SUCCESS BOX IN AND OUT
-//        //
-//        //
-
-//        connect(animation, &QPropertyAnimation::finished, this, [this]()->void {
-//            // after 5 seconds we would like to animate back
-//            timer->stop();
-//            timer->start(5000);
-//        });
-//    });
 }
 
 void UserPanel::setUserDisplayInfo()

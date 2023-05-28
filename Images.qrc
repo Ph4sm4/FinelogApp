@@ -15,5 +15,7 @@
         <file>content/x.svg</file>
         <file>content/chevron-double-right.svg</file>
         <file>content/chevron-right.svg</file>
+        <file>content/check-grayed.svg</file>
+        <file>content/check-circle-grayed.svg</file>
     </qresource>
 </RCC>

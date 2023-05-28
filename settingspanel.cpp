@@ -112,6 +112,7 @@ void SettingsPanel::on_emailButton_clicked()
 void SettingsPanel::on_phoneButton_clicked()
 {
     ui->phoneEdit->setText(currentUser->getPhoneNumber());
+    InputManager::disableButton(ui->savePhone);
     ui->pagination->setCurrentIndex(5);
 }
 
@@ -120,6 +121,7 @@ void SettingsPanel::on_passwordButton_clicked()
 {
     ui->passwordEdit->setText(currentUser->getPassword());
     ui->confirmPassword->clear();
+    InputManager::disableButton(ui->savePassword);
     ui->pagination->setCurrentIndex(6);
 }
 
@@ -148,10 +150,13 @@ void SettingsPanel::on_backPhone_clicked()
 }
 
 
-void SettingsPanel::on_nameSave_clicked()
+void SettingsPanel::on_saveName_clicked()
 {
     QString name = ui->nameEdit->text().toLower();
     QString surname = ui->surnameEdit->text().toLower();
+
+    if(!name.length() || !surname.length()) return;
+
 
     name[0] = name[0].toUpper();
     surname[0] = surname[0].toUpper();
@@ -280,21 +285,29 @@ void SettingsPanel::on_passwordEdit_textChanged(const QString &arg1)
         ui->passwordError->setStyleSheet(StylesheetManipulator::updateStylesheetProperty(ui->passwordError->styleSheet(),
                                                                                               "QLabel", "color", "red"));
         ui->passwordError->setText("Password must be at least 6 characters long");
+        InputManager::disableButton(ui->savePassword);
     }
     else if(!InputManager::validatePassword(arg1)) {
         ui->passwordError->setStyleSheet(StylesheetManipulator::updateStylesheetProperty(ui->passwordError->styleSheet(),
                                                                                               "QLabel", "color", "red"));
         ui->passwordError->setText("Password must consist of a big and small letter and a number");
+        InputManager::disableButton(ui->savePassword);
     }
-    else if(arg1 == ui->confirmPassword->text()) {
+    else if(arg1 == ui->confirmPassword->text() && arg1 != currentUser->getPassword()) {
         ui->passwordError->setStyleSheet(StylesheetManipulator::updateStylesheetProperty(ui->passwordError->styleSheet(),
                                                                                               "QLabel", "color", "green"));
         ui->passwordError->setText("Passwords match");
+        InputManager::enableButton(ui->savePassword, "QPushButton {background-color:  rgb(249, 115, 22);height: 30px;border-radius: 10px;color: white;padding: 4px 0;}");
+    }
+    else if (arg1 == currentUser->getPassword()) {
+        ui->passwordError->setText("Password must be different from the current one");
+        InputManager::disableButton(ui->savePassword);
     }
     else {
         ui->passwordError->setStyleSheet(StylesheetManipulator::updateStylesheetProperty(ui->passwordError->styleSheet(),
                                                                                               "QLabel", "color", "red"));
         ui->passwordError->setText("Passwords do not match");
+        InputManager::disableButton(ui->savePassword);
     }
 
 }
@@ -307,21 +320,29 @@ void SettingsPanel::on_confirmPassword_textChanged(const QString &arg1)
         ui->passwordError->setStyleSheet(StylesheetManipulator::updateStylesheetProperty(ui->passwordError->styleSheet(),
                                                                                          "QLabel", "color", "red"));
         ui->passwordError->setText("Password must be at least 6 characters long");
+        InputManager::disableButton(ui->savePassword);
     }
     else if(!InputManager::validatePassword(arg1)) {
         ui->passwordError->setStyleSheet(StylesheetManipulator::updateStylesheetProperty(ui->passwordError->styleSheet(),
                                                                                          "QLabel", "color", "red"));
         ui->passwordError->setText("Password must consist of a big and small letter and a number");
+        InputManager::disableButton(ui->savePassword);
     }
-    else if(arg1 == ui->passwordEdit->text()) {
+    else if(arg1 == ui->passwordEdit->text() && arg1 != currentUser->getPassword()) {
         ui->passwordError->setStyleSheet(StylesheetManipulator::updateStylesheetProperty(ui->passwordError->styleSheet(),
                                                                                          "QLabel", "color", "green"));
         ui->passwordError->setText("Passwords match");
+        InputManager::enableButton(ui->savePassword, "QPushButton {background-color:  rgb(249, 115, 22);height: 30px;border-radius: 10px;color: white;padding: 4px 0;}");
+    }
+    else if(arg1 == currentUser->getPassword()) {
+        ui->passwordError->setText("Password must be different from the current one");
+        InputManager::disableButton(ui->savePassword);
     }
     else {
         ui->passwordError->setStyleSheet(StylesheetManipulator::updateStylesheetProperty(ui->passwordError->styleSheet(),
                                                                                          "QLabel", "color", "red"));
         ui->passwordError->setText("Passwords do not match");
+        InputManager::disableButton(ui->savePassword);
     }
 }
 
@@ -367,14 +388,29 @@ void SettingsPanel::on_confirmEmailCheckBox_stateChanged(int arg1)
 
 void SettingsPanel::on_nameEdit_textChanged(const QString &arg1)
 {
-
-}
-
-
-void SettingsPanel::on_surnameEdit_textChanged(const QString &arg1)
-{
-    QString name = ui->nameEdit->text().toLower();
+    QString name = arg1;
     QString surname = ui->surnameEdit->text().toLower();
+
+    bool toReturn = false;
+    if(!name.length()) {
+        InputManager::setErrorBorder(ui->nameEdit);
+        InputManager::disableButton(ui->saveName);
+        toReturn = true;
+    }
+    else {
+        InputManager::deleteErrorBorderBlack(ui->nameEdit);
+    }
+
+    if(!surname.length()) {
+        InputManager::setErrorBorder(ui->surnameEdit);
+        InputManager::disableButton(ui->saveName);
+        toReturn = true;
+    }
+    else {
+        InputManager::deleteErrorBorderBlack(ui->surnameEdit);
+    }
+
+    if(toReturn) return;
 
     name[0] = name[0].toUpper();
     surname[0] = surname[0].toUpper();
@@ -382,6 +418,59 @@ void SettingsPanel::on_surnameEdit_textChanged(const QString &arg1)
     if(!InputManager::validateInputs(ui->nameEdit, ui->surnameEdit) ||
         (name == currentUser->getName() && surname == currentUser->getSurname())) {
         InputManager::disableButton(ui->saveName);
+    }
+    else {
+        InputManager::enableButton(ui->saveName, "QPushButton {background-color:  rgb(249, 115, 22);height: 30px;border-radius: 10px;color: white;padding: 4px 0;}");
+    }
+}
+
+
+void SettingsPanel::on_surnameEdit_textChanged(const QString &arg1)
+{
+    QString name = ui->nameEdit->text().toLower();
+    QString surname = arg1;
+
+    bool toReturn = false;
+    if(!name.length()) {
+        InputManager::setErrorBorder(ui->nameEdit);
+        InputManager::disableButton(ui->saveName);
+        toReturn = true;
+    }
+    else {
+        InputManager::deleteErrorBorderBlack(ui->nameEdit);
+    }
+
+    if(!surname.length()) {
+        InputManager::setErrorBorder(ui->surnameEdit);
+        InputManager::disableButton(ui->saveName);
+        toReturn = true;
+    }
+    else {
+        InputManager::deleteErrorBorderBlack(ui->surnameEdit);
+    }
+
+    if(toReturn) return;
+
+    name[0] = name[0].toUpper();
+    surname[0] = surname[0].toUpper();
+
+    if(!InputManager::validateInputs(ui->nameEdit, ui->surnameEdit) ||
+        (name == currentUser->getName() && surname == currentUser->getSurname())) {
+        InputManager::disableButton(ui->saveName);
+    }
+    else {
+        InputManager::enableButton(ui->saveName, "QPushButton {background-color:  rgb(249, 115, 22);height: 30px;border-radius: 10px;color: white;padding: 4px 0;}");
+    }
+}
+
+
+void SettingsPanel::on_phoneEdit_textChanged(const QString &arg1)
+{
+    if(arg1 == currentUser->getPhoneNumber() || !arg1.length()) {
+        InputManager::disableButton(ui->savePhone);
+    }
+    else {
+        InputManager::enableButton(ui->savePhone, "QPushButton {background-color:  rgb(249, 115, 22);height: 30px;border-radius: 10px;color: white;padding: 4px 0;}");
     }
 }
 
