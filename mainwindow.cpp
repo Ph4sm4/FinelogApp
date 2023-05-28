@@ -367,3 +367,55 @@ void MainWindow::on_backName_clicked()
     ui->pagination->setCurrentIndex(1);
 }
 
+
+void MainWindow::on_sendPasswordReset_clicked()
+{
+    QString email = ui->passwordForgotEdit->text();
+
+    if(!InputManager::validateInputs(ui->passwordForgotEdit)) {
+         return;
+    }
+    else if(!InputManager::validateEmail(email)) {
+         ui->passwordForgotError->setText("Enter a valid email");
+         InputManager::setErrorBorder(ui->passwordForgotEdit);
+         return;
+    }
+
+    QJsonObject res = dbHandler.sendPasswordResetLink(email);
+
+    if(res.contains("error")) {
+         QJsonObject errorObject = res.value("error").toObject();
+
+         if(errorObject.value("message").toString() == "EMAIL_NOT_FOUND") {
+             ui->passwordForgotError->setText("There is no account connected to this email");
+         }
+         else {
+             ui->passwordForgotError->setText("An error occurred. Try again");
+         }
+         return;
+    }
+
+    ui->pagination->setCurrentIndex(6);
+    ui->passwordForgotEdit->clear();
+}
+
+
+void MainWindow::on_forgotPassword_clicked()
+{
+    ui->passwordForgotError->setText("");
+    ui->pagination->setCurrentIndex(5);
+}
+
+
+void MainWindow::on_loginGoTo_6_clicked()
+{
+    ui->pagination->setCurrentIndex(0);
+}
+
+
+void MainWindow::on_backToLogin_clicked()
+{
+    ui->passwordForgotEdit->clear();
+    ui->pagination->setCurrentIndex(0);
+}
+

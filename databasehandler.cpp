@@ -351,3 +351,16 @@ bool DatabaseHandler::emailChangedExternallyUpdate(FinelogUser *user)
 
     return true;
 }
+
+QJsonObject DatabaseHandler::sendPasswordResetLink(const QString &email)
+{
+    QString endPoint = "https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=" + api_key;
+    QVariantMap payload;
+    payload["requestType"] = "PASSWORD_RESET";
+    payload["email"] = email;
+
+    QJsonDocument doc = QJsonDocument::fromVariant(payload);
+    QJsonObject res = performPOST(endPoint, doc);
+
+    return res;
+}

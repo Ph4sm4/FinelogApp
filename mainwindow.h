@@ -62,6 +62,13 @@ private slots:
 
     void on_backPassword_clicked();
 
+    void on_sendPasswordReset_clicked();
+
+    void on_forgotPassword_clicked();
+
+    void on_loginGoTo_6_clicked();
+
+    void on_backToLogin_clicked();
 
 private:
     Ui::MainWindow *ui;

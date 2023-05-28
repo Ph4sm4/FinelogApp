@@ -25,6 +25,7 @@ public:
     bool changeAuthUserEmail(const QString& idToken, const QString& newEmail);
     bool changeAuthUserPassword(const QString& idToken, const QString& newPassword);
     bool emailChangedExternallyUpdate(FinelogUser* user);
+    QJsonObject sendPasswordResetLink(const QString& email);
 
 public slots:
     //void networkReplyReadyRead();
