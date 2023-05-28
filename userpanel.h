@@ -48,6 +48,8 @@ private:
     FinelogUser* currentUser;
     QVector<ReportHeadline> reports;
     class SettingsPanel* settingsPanel = nullptr;
+    class QLabel* successBox = nullptr;
+    class QTimer* timer = nullptr;
 };
 
 #endif // USERPANEL_H
