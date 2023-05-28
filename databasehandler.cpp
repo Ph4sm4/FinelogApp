@@ -8,7 +8,6 @@
 #include "fineloguser.h"
 #include <QLabel>
 #include <QJsonArray>
-#include "inputmanager.h"
 
 DatabaseHandler::DatabaseHandler(QObject* parent) : QObject(parent)
 {
@@ -29,7 +28,7 @@ QJsonObject DatabaseHandler::performAuthenticatedGET(const QString& databasePath
     connect(networkReply, &QNetworkReply::finished, &loop, &QEventLoop::quit);
     loop.exec();
 
-    qDebug() << "error auth get: " << networkReply->error();;
+    qDebug() << "error auth get: " << networkReply->error();
 
     QJsonDocument jsonDocument = QJsonDocument::fromJson(QString(networkReply->readAll()).toUtf8());
     QJsonObject jsonObject = jsonDocument.object();

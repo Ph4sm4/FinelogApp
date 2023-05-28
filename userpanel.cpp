@@ -152,55 +152,62 @@ void UserPanel::on_settingsButton_clicked()
 
 void UserPanel::on_newProtocolButton_clicked()
 {
+    ui->pagination->setCurrentIndex(1);
     // uploading report headline and report content data to db
-    if(!currentUser->getEmailVerified()) {
-        ui->newProtocolButton->setEnabled(false);
-        ui->newProtocolButton->setText("Verify your email");
-        InputManager::disableButton(ui->newProtocolButton);
+//    if(!currentUser->getEmailVerified()) {
+//        ui->newProtocolButton->setEnabled(false);
+//        ui->newProtocolButton->setText("Verify your email");
+//        InputManager::disableButton(ui->newProtocolButton);
 
-        // we want to emit this signal so that the user will be
-        // guided how to verify the email, eg. the settings panel with
-        // this option will appear
-        emit settingsButtonClicked();
+//        // we want to emit this signal so that the user will be
+//        // guided how to verify the email, eg. the settings panel with
+//        // this option will appear
+//        emit settingsButtonClicked();
 
-        return;
-    }
+//        return;
+//    }
 
-    QVariantMap payload;
-    payload["CarName"] = "Toyota";
-    payload["ProjectName"] = "Paneco-Something";
-    payload["Date"] = QDate::currentDate().toString();
-    payload["Time"] = QTime::currentTime().toString();
-    payload["WindowCondition"] = "Shattered";
-    payload["owner_id"] = currentUser->getUserId();
+//    QVariantMap payload;
+//    payload["CarName"] = "Toyota";
+//    payload["ProjectName"] = "Paneco-Something";
+//    payload["Date"] = QDate::currentDate().toString();
+//    payload["Time"] = QTime::currentTime().toString();
+//    payload["WindowCondition"] = "Shattered";
+//    payload["owner_id"] = currentUser->getUserId();
 
-    QString path = "Reports/Content";
-    QJsonObject res = dbHandler.performAuthenticatedPOST(path,
-                QJsonDocument::fromVariant(payload), currentUser->getIdToken());
+//    QString path = "Reports/Content";
+//    QJsonObject res = dbHandler.performAuthenticatedPOST(path,
+//                QJsonDocument::fromVariant(payload), currentUser->getIdToken());
 
-    qDebug() << "added content: " << res;
+//    qDebug() << "added content: " << res;
 
-    if(res.contains("error")) {
-        // something went wrong, maybe a message box?
-        return;
-    }
+//    if(res.contains("error")) {
+//        // something went wrong, maybe a message box?
+//        return;
+//    }
 
-    QString contentName = res.value("name").toString();
+//    QString contentName = res.value("name").toString();
 
-    QVariantMap headlinePayload;
-    headlinePayload["CarName"] = "Toyota";
-    headlinePayload["ProjectName"] = "Paneco-Something";
-    headlinePayload["Date"] = QDate::currentDate().toString();
-    headlinePayload["Time"] = QTime::currentTime().toString();
-    headlinePayload["owner_id"] = currentUser->getUserId();
-    headlinePayload["ContentName"] = contentName;
+//    QVariantMap headlinePayload;
+//    headlinePayload["CarName"] = "Toyota";
+//    headlinePayload["ProjectName"] = "Paneco-Something";
+//    headlinePayload["Date"] = QDate::currentDate().toString();
+//    headlinePayload["Time"] = QTime::currentTime().toString();
+//    headlinePayload["owner_id"] = currentUser->getUserId();
+//    headlinePayload["ContentName"] = contentName;
 
-    path = "Reports/Headlines/" + contentName;
-    res = dbHandler.performAuthenticatedPUT(path,
-                 QJsonDocument::fromVariant(headlinePayload), currentUser->getIdToken());
+//    path = "Reports/Headlines/" + contentName;
+//    res = dbHandler.performAuthenticatedPUT(path,
+//                 QJsonDocument::fromVariant(headlinePayload), currentUser->getIdToken());
 
-    qDebug() << "headline put res: " << res;
+//    qDebug() << "headline put res: " << res;
 
-    currentUser->fetchHeadlines();
-    setUserDisplayInfo();
+//    currentUser->fetchHeadlines();
+//    setUserDisplayInfo();
 }
+
+void UserPanel::on_backToDashboard_clicked()
+{
+    ui->pagination->setCurrentIndex(0);
+}
+

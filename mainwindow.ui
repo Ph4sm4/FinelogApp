@@ -313,7 +313,7 @@ margin-top: 5px;
            <widget class="QPushButton" name="loginButton">
             <property name="font">
              <font>
-              <pointsize>12</pointsize>
+              <pointsize>14</pointsize>
               <italic>false</italic>
               <bold>false</bold>
               <underline>false</underline>
@@ -325,7 +325,7 @@ border-radius: 8px;
 margin-right:  80px;
 margin-left: 80px;
 background-color: rgb(249, 115, 22);
-height: 30px;
+height: 32px;
 color: white;
 }
 QPushButton:pressed {
@@ -366,7 +366,7 @@ margin-top: 10px;
 QPushButton:pressed,
 QPushButton:focus {
 outline: none;
-background: transparent;
+background: white;
 }</string>
               </property>
               <property name="text">
@@ -437,6 +437,12 @@ background: transparent;
                <string notr="true">QPushButton {
 height: 30px;
 color: rgb(249, 115, 22);
+}
+
+QPushButton:pressed,
+QPushButton:focus {
+outline: none;
+background: white;
 }</string>
               </property>
               <property name="text">
@@ -644,7 +650,7 @@ color: white; background: transparent;
            <widget class="QPushButton" name="idNext">
             <property name="font">
              <font>
-              <pointsize>12</pointsize>
+              <pointsize>14</pointsize>
              </font>
             </property>
             <property name="styleSheet">
@@ -653,7 +659,7 @@ border-radius: 8px;
 margin-right:  20px;
 margin-left: 140px;
 background-color: rgb(249, 115, 22);
-height: 30px;
+height: 32px;
 color: white;
 }
 QPushButton:pressed {
@@ -966,7 +972,7 @@ background: transparent;
              <widget class="QPushButton" name="nextName">
               <property name="font">
                <font>
-                <pointsize>12</pointsize>
+                <pointsize>14</pointsize>
                </font>
               </property>
               <property name="styleSheet">
@@ -974,7 +980,7 @@ background: transparent;
 border-radius: 8px;
 margin-right:  20px;
 background-color: rgb(249, 115, 22);
-height: 30px;
+height: 32px;
 color: white;
 }
 QPushButton:pressed {
@@ -1290,7 +1296,7 @@ background: transparent;
              <widget class="QPushButton" name="nextEmail">
               <property name="font">
                <font>
-                <pointsize>12</pointsize>
+                <pointsize>14</pointsize>
                </font>
               </property>
               <property name="styleSheet">
@@ -1298,7 +1304,7 @@ background: transparent;
 border-radius: 8px;
 margin-right:  20px;
 background-color: rgb(249, 115, 22);
-height: 30px;
+height: 32px;
 color: white;
 }
 QPushButton:pressed {
@@ -1614,7 +1620,7 @@ background: transparent;
              <widget class="QPushButton" name="registerButton">
               <property name="font">
                <font>
-                <pointsize>12</pointsize>
+                <pointsize>14</pointsize>
                </font>
               </property>
               <property name="styleSheet">
@@ -1622,7 +1628,7 @@ background: transparent;
 border-radius: 8px;
 margin-right:  20px;
 background-color: rgb(249, 115, 22);
-height: 30px;
+height: 32px;
 color: white;
 }
 QPushButton:pressed {
@@ -1949,7 +1955,7 @@ background: transparent;
            <widget class="QPushButton" name="sendPasswordReset">
             <property name="font">
              <font>
-              <pointsize>12</pointsize>
+              <pointsize>14</pointsize>
              </font>
             </property>
             <property name="styleSheet">
@@ -1957,7 +1963,7 @@ background: transparent;
 border-radius: 8px;
 margin-right:  20px;
 background-color: rgb(249, 115, 22);
-height: 30px;
+height: 32px;
 color: white;
 }
 QPushButton:pressed {

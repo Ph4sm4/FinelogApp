@@ -35,6 +35,8 @@ private slots:
 
     void on_newProtocolButton_clicked();
 
+    void on_backToDashboard_clicked();
+
 signals:
     void settingsButtonClicked();
 
