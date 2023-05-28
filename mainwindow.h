@@ -26,6 +26,8 @@ public slots:
 
     void showUserPanel();
 
+    void displaySuccessBox();
+
 signals:
     void userChanged();
 
@@ -71,5 +73,8 @@ private:
     UserPanel* uPanel = nullptr;
     class SettingsPanel *settingsPanel;
     class OverlayWidget* overlay;
+
+    class QLabel* successBox = nullptr;
+    class QTimer* timer = nullptr;
 };
 #endif // MAINWINDOW_H

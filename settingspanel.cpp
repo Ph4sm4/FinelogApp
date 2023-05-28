@@ -7,6 +7,7 @@
 #include <QJsonObject>
 #include <QJsonDocument>
 #include <QVariantMap>
+#include "stylesheetmanipulator.h"
 
 SettingsPanel::SettingsPanel(QWidget *parent) :
     QWidget(parent),
@@ -94,14 +95,16 @@ void SettingsPanel::on_nameSurnameButton_clicked()
 {
     ui->nameEdit->setText(currentUser->getName());
     ui->surnameEdit->setText(currentUser->getSurname());
-    ui->pagination->setCurrentIndex(3);
+    InputManager::disableButton(ui->saveName);
 
+    ui->pagination->setCurrentIndex(3);
 }
 
 
 void SettingsPanel::on_emailButton_clicked()
 {
     ui->emailEdit->setText(currentUser->getEmail());
+    InputManager::disableButton(ui->saveEmail);
     ui->pagination->setCurrentIndex(4);
 }
 
@@ -116,6 +119,7 @@ void SettingsPanel::on_phoneButton_clicked()
 void SettingsPanel::on_passwordButton_clicked()
 {
     ui->passwordEdit->setText(currentUser->getPassword());
+    ui->confirmPassword->clear();
     ui->pagination->setCurrentIndex(6);
 }
 
@@ -180,7 +184,6 @@ void SettingsPanel::on_nameSave_clicked()
 
     emit userDetailsChange();
 
-    // add a box that will glide in for few seconds saying "success"
     ui->pagination->setCurrentIndex(2);
 }
 
@@ -189,7 +192,7 @@ void SettingsPanel::on_saveEmail_clicked()
 {
     QString email = ui->emailEdit->text().toLower();
 
-    if(!InputManager::validateInputs(ui->emailEdit) || email == currentUser->getEmail()) return;
+    if(!InputManager::validateInputs(ui->emailEdit) || !InputManager::validateEmail(email) || email == currentUser->getEmail() || !ui->confirmEmailCheckBox->isChecked()) return;
 
     QVariantMap payload;
     payload["Email"] = email;
@@ -198,7 +201,13 @@ void SettingsPanel::on_saveEmail_clicked()
                                        doc, currentUser->getIdToken());
 
     if(!success) {
-        ui->nameError->setText("An error occurred. Try again");
+        ui->emailError->setText("An error occurred. Try again");
+        return;
+    }
+
+    success = dbHandler.changeAuthUserEmail(currentUser->getIdToken(), email);
+    if(!success) {
+        ui->emailError->setText("An error occurred. Try again");
         return;
     }
 
@@ -208,7 +217,6 @@ void SettingsPanel::on_saveEmail_clicked()
 
     emit userDetailsChange();
 
-    // add a box that will glide in for few seconds saying "success"
     ui->pagination->setCurrentIndex(2);
 }
 
@@ -226,7 +234,7 @@ void SettingsPanel::on_savePhone_clicked()
                                             doc, currentUser->getIdToken());
 
     if(!success) {
-        ui->nameError->setText("An error occurred. Try again");
+        ui->phoneError->setText("An error occurred. Try again");
         return;
     }
 
@@ -236,14 +244,144 @@ void SettingsPanel::on_savePhone_clicked()
 
     emit userDetailsChange();
 
-    // add a box that will glide in for few seconds saying "success"
     ui->pagination->setCurrentIndex(2);
 }
 
 
 void SettingsPanel::on_savePassword_clicked()
 {
+    QString password = ui->passwordEdit->text();
+    QString confirmPassword = ui->confirmPassword->text();
+
+    if(!InputManager::validateInputs(ui->passwordEdit, ui->confirmPassword) || password == currentUser->getPassword() ||
+        password != confirmPassword) return;
+
+    bool success = dbHandler.changeAuthUserPassword(currentUser->getIdToken(), password);
+    qDebug() << "success password: " << success;
+    if(!success) {
+        ui->passwordError->setText("An error occurred. Try again");
+        return;
+    }
+
+    currentUser->setPassword(password);
+
+    InputManager::clearInputsBlack(ui->passwordEdit);
+    InputManager::clearInputsBlack(ui->confirmPassword);
 
     emit userDetailsChange();
+
+    ui->pagination->setCurrentIndex(2);
+}
+
+
+void SettingsPanel::on_passwordEdit_textChanged(const QString &arg1)
+{
+    if(arg1.length() < 6) {
+        ui->passwordError->setStyleSheet(StylesheetManipulator::updateStylesheetProperty(ui->passwordError->styleSheet(),
+                                                                                              "QLabel", "color", "red"));
+        ui->passwordError->setText("Password must be at least 6 characters long");
+    }
+    else if(!InputManager::validatePassword(arg1)) {
+        ui->passwordError->setStyleSheet(StylesheetManipulator::updateStylesheetProperty(ui->passwordError->styleSheet(),
+                                                                                              "QLabel", "color", "red"));
+        ui->passwordError->setText("Password must consist of a big and small letter and a number");
+    }
+    else if(arg1 == ui->confirmPassword->text()) {
+        ui->passwordError->setStyleSheet(StylesheetManipulator::updateStylesheetProperty(ui->passwordError->styleSheet(),
+                                                                                              "QLabel", "color", "green"));
+        ui->passwordError->setText("Passwords match");
+    }
+    else {
+        ui->passwordError->setStyleSheet(StylesheetManipulator::updateStylesheetProperty(ui->passwordError->styleSheet(),
+                                                                                              "QLabel", "color", "red"));
+        ui->passwordError->setText("Passwords do not match");
+    }
+
+}
+
+
+
+void SettingsPanel::on_confirmPassword_textChanged(const QString &arg1)
+{
+    if(arg1.length() < 6) {
+        ui->passwordError->setStyleSheet(StylesheetManipulator::updateStylesheetProperty(ui->passwordError->styleSheet(),
+                                                                                         "QLabel", "color", "red"));
+        ui->passwordError->setText("Password must be at least 6 characters long");
+    }
+    else if(!InputManager::validatePassword(arg1)) {
+        ui->passwordError->setStyleSheet(StylesheetManipulator::updateStylesheetProperty(ui->passwordError->styleSheet(),
+                                                                                         "QLabel", "color", "red"));
+        ui->passwordError->setText("Password must consist of a big and small letter and a number");
+    }
+    else if(arg1 == ui->passwordEdit->text()) {
+        ui->passwordError->setStyleSheet(StylesheetManipulator::updateStylesheetProperty(ui->passwordError->styleSheet(),
+                                                                                         "QLabel", "color", "green"));
+        ui->passwordError->setText("Passwords match");
+    }
+    else {
+        ui->passwordError->setStyleSheet(StylesheetManipulator::updateStylesheetProperty(ui->passwordError->styleSheet(),
+                                                                                         "QLabel", "color", "red"));
+        ui->passwordError->setText("Passwords do not match");
+    }
+}
+
+
+void SettingsPanel::on_emailEdit_textChanged(const QString &email)
+{
+    QString prevEmail = currentUser->getEmail();
+    if(!InputManager::validateEmail(email)) {
+        InputManager::setErrorBorder(ui->emailEdit);
+        ui->emailError->setText("This is not a valid email");
+        InputManager::disableButton(ui->saveEmail);
+    }
+    else if(email == prevEmail) {
+        InputManager::deleteErrorBorderBlack(ui->emailEdit);
+        ui->emailError->clear();
+        InputManager::disableButton(ui->saveEmail);
+    }
+    else {
+        InputManager::deleteErrorBorderBlack(ui->emailEdit);
+        ui->emailError->clear();
+        if(ui->confirmEmailCheckBox->isChecked() && email != prevEmail ){
+         InputManager::enableButton(ui->saveEmail, "QPushButton {background-color:  rgb(249, 115, 22);height: 30px;border-radius: 10px;color: white;padding: 4px 0;}");
+        }
+    }
+}
+
+
+void SettingsPanel::on_confirmEmailCheckBox_stateChanged(int arg1)
+{
+    if(!arg1) {
+        InputManager::disableButton(ui->saveEmail);
+    }
+    else {
+        QString email = ui->emailEdit->text();
+        QString prevEmail = currentUser->getEmail();
+        ui->emailError->clear();
+        if(InputManager::validateEmail(email) && email != prevEmail) {
+         InputManager::enableButton(ui->saveEmail, "QPushButton {background-color:  rgb(249, 115, 22);height: 30px;border-radius: 10px;color: white;padding: 4px 0;}");
+        }
+    }
+}
+
+
+void SettingsPanel::on_nameEdit_textChanged(const QString &arg1)
+{
+
+}
+
+
+void SettingsPanel::on_surnameEdit_textChanged(const QString &arg1)
+{
+    QString name = ui->nameEdit->text().toLower();
+    QString surname = ui->surnameEdit->text().toLower();
+
+    name[0] = name[0].toUpper();
+    surname[0] = surname[0].toUpper();
+
+    if(!InputManager::validateInputs(ui->nameEdit, ui->surnameEdit) ||
+        (name == currentUser->getName() && surname == currentUser->getSurname())) {
+        InputManager::disableButton(ui->saveName);
+    }
 }
 

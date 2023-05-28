@@ -61,7 +61,7 @@ bool DatabaseHandler::registerNewUser(FinelogUser* user, QLabel* errorLabel)
         return false;
     }
 
-    QJsonObject accountInfo = getAccountInfo(idToken);
+    QJsonObject accountInfo = getAuthAccountInfo(idToken);
     if(accountInfo.contains("error") && errorLabel) {
         errorLabel->setText("Could not get account info. Please try again");
         return false;
@@ -127,7 +127,7 @@ FinelogUser* DatabaseHandler::logInWithEmailAndPassword(const QString &email, co
     QJsonObject userData = performAuthenticatedGET(userEndPoint, idToken);
     //qDebug() << "logged in user data: " << userData;
 
-    QJsonObject accountInfo = getAccountInfo(idToken);
+    QJsonObject accountInfo = getAuthAccountInfo(idToken);
     if(accountInfo.contains("error") && errorLabel) {
         errorLabel->setText("Could not get account info. Please try again");
         return nullptr;
@@ -174,7 +174,7 @@ QJsonObject DatabaseHandler::signUpWithEmailAndPassword(const QString email, con
     return reply;
 }
 
-QJsonObject DatabaseHandler::getAccountInfo(const QString &idToken)
+QJsonObject DatabaseHandler::getAuthAccountInfo(const QString &idToken)
 {
     QString endPoint = "https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=" + api_key;
     QVariantMap payload;
@@ -295,4 +295,59 @@ QJsonObject DatabaseHandler::performAuthenticatedPATCH(const QString &databasePa
     QJsonDocument jsonDocument = QJsonDocument::fromJson(QString(networkReply->readAll()).toUtf8());
     QJsonObject jsonObject = jsonDocument.object();
     return jsonObject;
+}
+
+bool DatabaseHandler::changeAuthUserEmail(const QString &idToken, const QString &newEmail)
+{
+    QString endPoint = "https://identitytoolkit.googleapis.com/v1/accounts:update?key=" + api_key;
+
+    QVariantMap payload;
+    payload["idToken"] = idToken;
+    payload["email"] = newEmail;
+
+    QJsonDocument doc = QJsonDocument::fromVariant(payload);
+    QJsonObject res = performPOST(endPoint, doc);
+
+    return res.contains("error") == false;
+}
+
+bool DatabaseHandler::changeAuthUserPassword(const QString &idToken, const QString &newPassword)
+{
+    QString endPoint = "https://identitytoolkit.googleapis.com/v1/accounts:update?key=" + api_key;
+
+    QVariantMap payload;
+    payload["idToken"] = idToken;
+    payload["password"] = newPassword;
+
+    QJsonDocument doc = QJsonDocument::fromVariant(payload);
+    QJsonObject res = performPOST(endPoint, doc);
+
+    return res.contains("error") == false;
+}
+
+// this functions handles updates for the database if there was a situation
+// in which user's email has been changed via external links (through mail service)
+bool DatabaseHandler::emailChangedExternallyUpdate(FinelogUser *user)
+{
+    QJsonObject authData = getAuthAccountInfo(user->getIdToken());
+    const QString currentEmail = user->getEmail();
+    const QString properEmail = authData.value("email").toString();
+
+    //qWarning() << "current email: " << currentEmail;
+    //qWarning() << "proper email: " << properEmail;
+
+    if(currentEmail != properEmail) {
+        QString path = "Users/" + user->getUserId();
+        QVariantMap payload;
+        payload["Email"] = properEmail;
+
+        user->setEmail(properEmail);
+        QJsonDocument doc = QJsonDocument::fromVariant(payload);
+        QJsonObject res = performAuthenticatedPATCH(path, doc, user->getIdToken());
+
+        return res.contains("error") == false;
+    }
+
+
+    return true;
 }

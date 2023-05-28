@@ -56,6 +56,18 @@ private slots:
 
     void on_savePassword_clicked();
 
+    void on_passwordEdit_textChanged(const QString &arg1);
+
+    void on_confirmPassword_textChanged(const QString &arg1);
+
+    void on_emailEdit_textChanged(const QString &arg1);
+
+    void on_confirmEmailCheckBox_stateChanged(int arg1);
+
+    void on_nameEdit_textChanged(const QString &arg1);
+
+    void on_surnameEdit_textChanged(const QString &arg1);
+
 private:
     Ui::SettingsPanel *ui;
     class OverlayWidget* overlay = nullptr;

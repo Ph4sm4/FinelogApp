@@ -22,6 +22,9 @@ public:
     bool changeAuthDisplayName(const QString& idToken, const QString &newName);
     bool updateUserData(const QString& userId, const QJsonDocument& fieldsToUpdate, const QString& idToken);
     QJsonObject performAuthenticatedPATCH(const QString& databasePath, const QJsonDocument& payload, const QString& userIdToken);
+    bool changeAuthUserEmail(const QString& idToken, const QString& newEmail);
+    bool changeAuthUserPassword(const QString& idToken, const QString& newPassword);
+    bool emailChangedExternallyUpdate(FinelogUser* user);
 
 public slots:
     //void networkReplyReadyRead();
@@ -33,7 +36,7 @@ private:
     QNetworkReply* networkReply;
     const QString api_key = "AIzaSyA--DNxqDYjviNPHl7qrZ0GiQM9A5c2_Bg";
     QJsonObject signUpWithEmailAndPassword(const QString email, const QString password);
-    QJsonObject getAccountInfo(const QString& idToken);
+    QJsonObject getAuthAccountInfo(const QString& idToken);
 };
 
 #endif // DATABASEHANDLER_H

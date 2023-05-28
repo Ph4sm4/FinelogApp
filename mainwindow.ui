@@ -1485,7 +1485,7 @@ border: 2px solid black;
              <string/>
             </property>
             <property name="echoMode">
-             <enum>QLineEdit::Password</enum>
+             <enum>QLineEdit::PasswordEchoOnEdit</enum>
             </property>
             <property name="placeholderText">
              <string>Password</string>
@@ -1534,7 +1534,7 @@ border: 2px solid black;
              <string/>
             </property>
             <property name="echoMode">
-             <enum>QLineEdit::Password</enum>
+             <enum>QLineEdit::PasswordEchoOnEdit</enum>
             </property>
             <property name="placeholderText">
              <string>Confirm password</string>

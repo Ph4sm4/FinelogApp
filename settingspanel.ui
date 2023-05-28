@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>496</width>
-    <height>454</height>
+    <height>467</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -57,21 +57,7 @@ background: transparent;
 QLabel {
 border: none;
 }
-
-QLineEdit {
-border-radius: 4px;
-color: black;
-padding-left: 10px;
-padding-right: 10px;
-background-color: rgb(150, 150, 150);
-border: 1px solid black;
-height: 40px;
-}
-
-QLineEdit:focus {
-border: 2px solid black;
-outline: none;
-}</string>
+</string>
      </property>
      <property name="frameShape">
       <enum>QFrame::StyledPanel</enum>
@@ -193,7 +179,7 @@ background: rgb(243, 244, 246);
 }</string>
         </property>
         <property name="currentIndex">
-         <number>2</number>
+         <number>4</number>
         </property>
         <widget class="QWidget" name="emailVerify1">
          <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -695,6 +681,21 @@ text-align: right;
         </widget>
         <widget class="QWidget" name="nameSurnameSetting">
          <layout class="QVBoxLayout" name="verticalLayout_7">
+          <property name="spacing">
+           <number>10</number>
+          </property>
+          <property name="leftMargin">
+           <number>11</number>
+          </property>
+          <property name="topMargin">
+           <number>11</number>
+          </property>
+          <property name="rightMargin">
+           <number>11</number>
+          </property>
+          <property name="bottomMargin">
+           <number>11</number>
+          </property>
           <item>
            <spacer name="verticalSpacer_20">
             <property name="orientation">
@@ -789,7 +790,19 @@ background: transparent;
              <bool>false</bool>
             </property>
             <property name="styleSheet">
-             <string notr="true"/>
+             <string notr="true">QLineEdit {
+border-radius: 4px;
+color: black;
+padding-left: 10px;
+padding-right: 10px;
+border: 1px solid black;
+height: 40px;
+}
+
+QLineEdit:focus {
+border: 2px solid black;
+outline: none;
+}</string>
             </property>
             <property name="text">
              <string/>
@@ -808,7 +821,19 @@ background: transparent;
              <bool>false</bool>
             </property>
             <property name="styleSheet">
-             <string notr="true"/>
+             <string notr="true">QLineEdit {
+border-radius: 4px;
+color: black;
+padding-left: 10px;
+padding-right: 10px;
+border: 1px solid black;
+height: 40px;
+}
+
+QLineEdit:focus {
+border: 2px solid black;
+outline: none;
+}</string>
             </property>
             <property name="text">
              <string/>
@@ -872,7 +897,7 @@ margin-top: 5px;
              </spacer>
             </item>
             <item>
-             <widget class="QPushButton" name="nameSave">
+             <widget class="QPushButton" name="saveName">
               <property name="minimumSize">
                <size>
                 <width>200</width>
@@ -930,6 +955,21 @@ padding: 4px 0;
         </widget>
         <widget class="QWidget" name="emailSetting">
          <layout class="QVBoxLayout" name="verticalLayout_8">
+          <property name="spacing">
+           <number>10</number>
+          </property>
+          <property name="leftMargin">
+           <number>11</number>
+          </property>
+          <property name="topMargin">
+           <number>11</number>
+          </property>
+          <property name="rightMargin">
+           <number>11</number>
+          </property>
+          <property name="bottomMargin">
+           <number>11</number>
+          </property>
           <item>
            <spacer name="verticalSpacer_21">
             <property name="orientation">
@@ -1024,7 +1064,19 @@ background: transparent;
              <bool>false</bool>
             </property>
             <property name="styleSheet">
-             <string notr="true"/>
+             <string notr="true">QLineEdit {
+border-radius: 4px;
+color: black;
+padding-left: 10px;
+padding-right: 10px;
+border: 1px solid black;
+height: 40px;
+}
+
+QLineEdit:focus {
+border: 2px solid black;
+outline: none;
+}</string>
             </property>
             <property name="text">
              <string/>
@@ -1055,6 +1107,73 @@ margin-top: 5px;
              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
             </property>
            </widget>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_10">
+            <item>
+             <widget class="QCheckBox" name="confirmEmailCheckBox">
+              <property name="maximumSize">
+               <size>
+                <width>30</width>
+                <height>100</height>
+               </size>
+              </property>
+              <property name="font">
+               <font>
+                <bold>true</bold>
+               </font>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QCheckBox::indicator {
+width: 30px;
+height: 30px;
+background: rgb(249, 115, 22);
+border-radius: 4px;
+}
+
+QCheckBox::indicator:checked {
+image: url(:/icons/content/check.svg);
+}
+</string>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>20</width>
+                <height>20</height>
+               </size>
+              </property>
+              <property name="autoRepeat">
+               <bool>false</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="label_7">
+              <property name="font">
+               <font>
+                <bold>true</bold>
+               </font>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QLabel {
+color: rgb(63, 56, 68);
+}</string>
+              </property>
+              <property name="text">
+               <string>I confirm that I have access to this email and want to change it</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+              </property>
+              <property name="wordWrap">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+           </layout>
           </item>
           <item>
            <spacer name="verticalSpacer_13">
@@ -1146,6 +1265,9 @@ padding: 4px 0;
         </widget>
         <widget class="QWidget" name="phoneNumberSetting">
          <layout class="QVBoxLayout" name="verticalLayout_9">
+          <property name="spacing">
+           <number>10</number>
+          </property>
           <item>
            <spacer name="verticalSpacer_22">
             <property name="orientation">
@@ -1240,7 +1362,19 @@ background: transparent;
              <bool>false</bool>
             </property>
             <property name="styleSheet">
-             <string notr="true"/>
+             <string notr="true">QLineEdit {
+border-radius: 4px;
+color: black;
+padding-left: 10px;
+padding-right: 10px;
+border: 1px solid black;
+height: 40px;
+}
+
+QLineEdit:focus {
+border: 2px solid black;
+outline: none;
+}</string>
             </property>
             <property name="text">
              <string/>
@@ -1363,6 +1497,9 @@ padding: 4px 0;
         </widget>
         <widget class="QWidget" name="passwordSetting">
          <layout class="QVBoxLayout" name="verticalLayout_10">
+          <property name="spacing">
+           <number>10</number>
+          </property>
           <item>
            <spacer name="verticalSpacer_23">
             <property name="orientation">
@@ -1457,7 +1594,19 @@ background: transparent;
              <bool>false</bool>
             </property>
             <property name="styleSheet">
-             <string notr="true"/>
+             <string notr="true">QLineEdit {
+border-radius: 4px;
+color: black;
+padding-left: 10px;
+padding-right: 10px;
+border: 1px solid black;
+height: 40px;
+}
+
+QLineEdit:focus {
+border: 2px solid black;
+outline: none;
+}</string>
             </property>
             <property name="text">
              <string/>
@@ -1465,8 +1614,36 @@ background: transparent;
             <property name="frame">
              <bool>false</bool>
             </property>
+            <property name="echoMode">
+             <enum>QLineEdit::PasswordEchoOnEdit</enum>
+            </property>
             <property name="placeholderText">
              <string>Password</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="confirmPassword">
+            <property name="styleSheet">
+             <string notr="true">QLineEdit {
+border-radius: 4px;
+color: black;
+padding-left: 10px;
+padding-right: 10px;
+border: 1px solid black;
+height: 40px;
+}
+
+QLineEdit:focus {
+border: 2px solid black;
+outline: none;
+}</string>
+            </property>
+            <property name="echoMode">
+             <enum>QLineEdit::PasswordEchoOnEdit</enum>
+            </property>
+            <property name="placeholderText">
+             <string>Confirm password</string>
             </property>
            </widget>
           </item>
@@ -1487,6 +1664,9 @@ text-align: right;
             </property>
             <property name="alignment">
              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+            <property name="wordWrap">
+             <bool>true</bool>
             </property>
            </widget>
           </item>

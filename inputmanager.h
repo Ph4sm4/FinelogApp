@@ -41,6 +41,9 @@ public:
         clearInputsBlack(args...);
     }
 
+    static void disableButton(class QPushButton* button);
+    static void enableButton(class QPushButton* button, const QString& stylesheet);
+
     static void setErrorBorder(QLineEdit* e);
     static void deleteErrorBorder(QLineEdit* e);
     static void deleteErrorBorderBlack(QLineEdit* e);
