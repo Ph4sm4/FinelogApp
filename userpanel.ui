@@ -440,7 +440,7 @@ QScrollBar:vertical {
             <x>0</x>
             <y>0</y>
             <width>507</width>
-            <height>225</height>
+            <height>275</height>
            </rect>
           </property>
           <property name="styleSheet">
@@ -563,7 +563,7 @@ background: transparent;
           </font>
          </property>
          <property name="text">
-          <string>{ Project name }</string>
+          <string>Nowy protokół</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
@@ -704,7 +704,33 @@ min-height: 30px;
         width: 0;
         height: 0;
         border: none;
-    }</string>
+    }
+
+QDateEdit {
+  background-color: white;
+  color: black;
+  border: 1px solid gray;
+  border-radius: 4px;
+  padding: 2px;
+}
+
+QDateEdit::down-arrow,
+QDateEdit::up-arrow {
+  width: 0;
+  height: 0;
+  padding: 0;
+  border: none;
+  margin-right: 4px;
+}
+
+QDateEdit::down-button,
+QDateEdit::up-button {
+  width: 0;
+  height: 0;
+  padding: 0;
+  border: none;
+  background: none;
+}</string>
          </property>
          <property name="horizontalScrollBarPolicy">
           <enum>Qt::ScrollBarAlwaysOff</enum>
@@ -716,24 +742,12 @@ min-height: 30px;
           <property name="geometry">
            <rect>
             <x>0</x>
-            <y>0</y>
+            <y>-796</y>
             <width>497</width>
-            <height>5133</height>
+            <height>5322</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_4">
-           <property name="leftMargin">
-            <number>10</number>
-           </property>
-           <property name="topMargin">
-            <number>20</number>
-           </property>
-           <property name="rightMargin">
-            <number>10</number>
-           </property>
-           <property name="bottomMargin">
-            <number>20</number>
-           </property>
            <item>
             <layout class="QHBoxLayout" name="horizontalLayout_3">
              <item>
@@ -747,7 +761,7 @@ min-height: 30px;
               </widget>
              </item>
              <item>
-              <widget class="QLineEdit" name="passwordEdit">
+              <widget class="QLineEdit" name="emailEdit">
                <property name="autoFillBackground">
                 <bool>false</bool>
                </property>
@@ -786,7 +800,7 @@ min-height: 30px;
               </widget>
              </item>
              <item>
-              <widget class="QLineEdit" name="lineEdit">
+              <widget class="QLineEdit" name="phoneEdit">
                <property name="text">
                 <string>{ Unchangable tel id }</string>
                </property>
@@ -810,7 +824,7 @@ min-height: 30px;
               </widget>
              </item>
              <item>
-              <widget class="QComboBox" name="comboBox"/>
+              <widget class="QComboBox" name="driverCombo"/>
              </item>
             </layout>
            </item>
@@ -827,7 +841,7 @@ min-height: 30px;
               </widget>
              </item>
              <item>
-              <widget class="QComboBox" name="comboBox_2"/>
+              <widget class="QComboBox" name="carCombo"/>
              </item>
             </layout>
            </item>
@@ -844,7 +858,7 @@ min-height: 30px;
               </widget>
              </item>
              <item>
-              <widget class="QComboBox" name="comboBox_3"/>
+              <widget class="QComboBox" name="trailerCombo"/>
              </item>
             </layout>
            </item>
@@ -861,7 +875,7 @@ min-height: 30px;
               </widget>
              </item>
              <item>
-              <widget class="QComboBox" name="comboBox_4"/>
+              <widget class="QComboBox" name="projectCombo"/>
              </item>
             </layout>
            </item>
@@ -878,7 +892,7 @@ min-height: 30px;
               </widget>
              </item>
              <item>
-              <widget class="QSpinBox" name="spinBox_5">
+              <widget class="QSpinBox" name="odometerSpin">
                <property name="maximum">
                 <number>100000000</number>
                </property>
@@ -899,7 +913,7 @@ min-height: 30px;
               </widget>
              </item>
              <item>
-              <widget class="QSpinBox" name="spinBox_6">
+              <widget class="QSpinBox" name="fuelInTankSpin">
                <property name="maximum">
                 <number>100000</number>
                </property>
@@ -920,7 +934,7 @@ min-height: 30px;
               </widget>
              </item>
              <item>
-              <widget class="QGroupBox" name="groupBox">
+              <widget class="QGroupBox" name="tollCollectProper">
                <property name="title">
                 <string/>
                </property>
@@ -972,7 +986,7 @@ min-height: 30px;
               </widget>
              </item>
              <item>
-              <widget class="QLineEdit" name="lineEdit_2">
+              <widget class="QLineEdit" name="tollCollectProperEdit">
                <property name="maximumSize">
                 <size>
                  <width>222</width>
@@ -996,7 +1010,7 @@ min-height: 30px;
               </widget>
              </item>
              <item>
-              <widget class="QGroupBox" name="groupBox_3">
+              <widget class="QGroupBox" name="lightsCondition">
                <layout class="QHBoxLayout" name="horizontalLayout_46">
                 <item>
                  <widget class="QRadioButton" name="radioButton_31">
@@ -1030,7 +1044,7 @@ min-height: 30px;
               </widget>
              </item>
              <item>
-              <widget class="QGroupBox" name="groupBox_2">
+              <widget class="QGroupBox" name="briefCaseDocsPresent">
                <layout class="QHBoxLayout" name="horizontalLayout_22">
                 <item>
                  <widget class="QRadioButton" name="radioButton_13">
@@ -1064,7 +1078,7 @@ min-height: 30px;
               </widget>
              </item>
              <item>
-              <widget class="QGroupBox" name="groupBox_5">
+              <widget class="QGroupBox" name="carRegCertPresent">
                <layout class="QHBoxLayout" name="horizontalLayout_24">
                 <item>
                  <widget class="QRadioButton" name="radioButton_15">
@@ -1098,7 +1112,7 @@ min-height: 30px;
               </widget>
              </item>
              <item>
-              <widget class="QGroupBox" name="groupBox_4">
+              <widget class="QGroupBox" name="trailerRegCertPresent">
                <layout class="QHBoxLayout" name="horizontalLayout_26">
                 <item>
                  <widget class="QRadioButton" name="radioButton_17">
@@ -1132,7 +1146,7 @@ min-height: 30px;
               </widget>
              </item>
              <item>
-              <widget class="QGroupBox" name="groupBox_6">
+              <widget class="QGroupBox" name="carInsurancePresent">
                <layout class="QHBoxLayout" name="horizontalLayout_28">
                 <item>
                  <widget class="QRadioButton" name="radioButton_19">
@@ -1166,7 +1180,7 @@ min-height: 30px;
               </widget>
              </item>
              <item>
-              <widget class="QGroupBox" name="groupBox_7">
+              <widget class="QGroupBox" name="trailerInsurancePresent">
                <layout class="QHBoxLayout" name="horizontalLayout_30">
                 <item>
                  <widget class="QRadioButton" name="radioButton_21">
@@ -1200,7 +1214,7 @@ min-height: 30px;
               </widget>
              </item>
              <item>
-              <widget class="QGroupBox" name="groupBox_8">
+              <widget class="QGroupBox" name="licensePresent">
                <layout class="QHBoxLayout" name="horizontalLayout_32">
                 <item>
                  <widget class="QRadioButton" name="radioButton_23">
@@ -1234,7 +1248,7 @@ min-height: 30px;
               </widget>
              </item>
              <item>
-              <widget class="QLineEdit" name="lineEdit_3"/>
+              <widget class="QLineEdit" name="licenseNumberEdit"/>
              </item>
             </layout>
            </item>
@@ -1251,7 +1265,7 @@ min-height: 30px;
               </widget>
              </item>
              <item>
-              <widget class="QLineEdit" name="lineEdit_4"/>
+              <widget class="QLineEdit" name="dkvCardNumber"/>
              </item>
             </layout>
            </item>
@@ -1268,7 +1282,7 @@ min-height: 30px;
               </widget>
              </item>
              <item>
-              <widget class="QLineEdit" name="lineEdit_5"/>
+              <widget class="QLineEdit" name="hoyerCardNumber"/>
              </item>
             </layout>
            </item>
@@ -1285,7 +1299,7 @@ min-height: 30px;
               </widget>
              </item>
              <item>
-              <widget class="QGroupBox" name="groupBox_10">
+              <widget class="QGroupBox" name="overallCabinState">
                <property name="title">
                 <string/>
                </property>
@@ -1337,7 +1351,7 @@ min-height: 30px;
               </widget>
              </item>
              <item>
-              <widget class="QGroupBox" name="groupBox_9">
+              <widget class="QGroupBox" name="fridgeClean">
                <layout class="QHBoxLayout" name="horizontalLayout_39">
                 <item>
                  <widget class="QRadioButton" name="radioButton_27">
@@ -1371,7 +1385,7 @@ min-height: 30px;
               </widget>
              </item>
              <item>
-              <widget class="QGroupBox" name="groupBox_11">
+              <widget class="QGroupBox" name="cabinDamages">
                <layout class="QHBoxLayout" name="horizontalLayout_41">
                 <item>
                  <widget class="QRadioButton" name="radioButton_29">
@@ -1405,7 +1419,7 @@ min-height: 30px;
               </widget>
              </item>
              <item>
-              <widget class="QLineEdit" name="lineEdit_6"/>
+              <widget class="QLineEdit" name="cabinDamagesEdit"/>
              </item>
             </layout>
            </item>
@@ -1422,7 +1436,7 @@ min-height: 30px;
               </widget>
              </item>
              <item>
-              <widget class="QGroupBox" name="groupBox_12">
+              <widget class="QGroupBox" name="tireCondition">
                <layout class="QHBoxLayout" name="horizontalLayout_14">
                 <item>
                  <widget class="QRadioButton" name="radioButton_3">
@@ -1456,7 +1470,7 @@ min-height: 30px;
               </widget>
              </item>
              <item>
-              <widget class="QLineEdit" name="lineEdit_7"/>
+              <widget class="QLineEdit" name="tireConditionEdit"/>
              </item>
             </layout>
            </item>
@@ -1473,7 +1487,7 @@ min-height: 30px;
               </widget>
              </item>
              <item>
-              <widget class="QGroupBox" name="groupBox_13">
+              <widget class="QGroupBox" name="adrPlateCondition">
                <layout class="QHBoxLayout" name="horizontalLayout_48">
                 <item>
                  <widget class="QRadioButton" name="radioButton_33">
@@ -1507,7 +1521,7 @@ min-height: 30px;
               </widget>
              </item>
              <item>
-              <widget class="QGroupBox" name="groupBox_14">
+              <widget class="QGroupBox" name="vehicleClean">
                <layout class="QHBoxLayout" name="horizontalLayout_50">
                 <item>
                  <widget class="QRadioButton" name="radioButton_35">
@@ -1541,7 +1555,7 @@ min-height: 30px;
               </widget>
              </item>
              <item>
-              <widget class="QGroupBox" name="groupBox_15">
+              <widget class="QGroupBox" name="visibleOuterDamages">
                <layout class="QHBoxLayout" name="horizontalLayout_52">
                 <item>
                  <widget class="QRadioButton" name="radioButton_37">
@@ -1575,7 +1589,7 @@ min-height: 30px;
               </widget>
              </item>
              <item>
-              <widget class="QGroupBox" name="groupBox_16">
+              <widget class="QGroupBox" name="ebTriangles">
                <layout class="QHBoxLayout" name="horizontalLayout_54">
                 <item>
                  <widget class="QRadioButton" name="radioButton_39">
@@ -1609,7 +1623,7 @@ min-height: 30px;
               </widget>
              </item>
              <item>
-              <widget class="QGroupBox" name="groupBox_17">
+              <widget class="QGroupBox" name="ebGloves">
                <layout class="QHBoxLayout" name="horizontalLayout_56">
                 <item>
                  <widget class="QRadioButton" name="radioButton_41">
@@ -1643,7 +1657,7 @@ min-height: 30px;
               </widget>
              </item>
              <item>
-              <widget class="QGroupBox" name="groupBox_18">
+              <widget class="QGroupBox" name="adrColorfulInstruction">
                <layout class="QHBoxLayout" name="horizontalLayout_58">
                 <item>
                  <widget class="QRadioButton" name="radioButton_43">
@@ -1677,7 +1691,7 @@ min-height: 30px;
               </widget>
              </item>
              <item>
-              <widget class="QGroupBox" name="groupBox_19">
+              <widget class="QGroupBox" name="ebReflectiveVest">
                <layout class="QHBoxLayout" name="horizontalLayout_64">
                 <item>
                  <widget class="QRadioButton" name="radioButton_49">
@@ -1711,7 +1725,7 @@ min-height: 30px;
               </widget>
              </item>
              <item>
-              <widget class="QGroupBox" name="groupBox_20">
+              <widget class="QGroupBox" name="ebProtectiveGoogles">
                <layout class="QHBoxLayout" name="horizontalLayout_60">
                 <item>
                  <widget class="QRadioButton" name="radioButton_45">
@@ -1745,7 +1759,7 @@ min-height: 30px;
               </widget>
              </item>
              <item>
-              <widget class="QGroupBox" name="groupBox_21">
+              <widget class="QGroupBox" name="ebFunctionalFlashlight">
                <layout class="QHBoxLayout" name="horizontalLayout_62">
                 <item>
                  <widget class="QRadioButton" name="radioButton_47">
@@ -1779,7 +1793,7 @@ min-height: 30px;
               </widget>
              </item>
              <item>
-              <widget class="QGroupBox" name="groupBox_22">
+              <widget class="QGroupBox" name="ebBrushAndScoop">
                <layout class="QHBoxLayout" name="horizontalLayout_66">
                 <item>
                  <widget class="QRadioButton" name="radioButton_51">
@@ -1813,7 +1827,7 @@ min-height: 30px;
               </widget>
              </item>
              <item>
-              <widget class="QGroupBox" name="groupBox_23">
+              <widget class="QGroupBox" name="ebWasteBox">
                <layout class="QHBoxLayout" name="horizontalLayout_68">
                 <item>
                  <widget class="QRadioButton" name="radioButton_53">
@@ -1847,7 +1861,7 @@ min-height: 30px;
               </widget>
              </item>
              <item>
-              <widget class="QGroupBox" name="groupBox_24">
+              <widget class="QGroupBox" name="ebRubberShoes">
                <layout class="QHBoxLayout" name="horizontalLayout_70">
                 <item>
                  <widget class="QRadioButton" name="radioButton_57">
@@ -1881,7 +1895,7 @@ min-height: 30px;
               </widget>
              </item>
              <item>
-              <widget class="QGroupBox" name="groupBox_25">
+              <widget class="QGroupBox" name="ebWheelWedge">
                <layout class="QHBoxLayout" name="horizontalLayout_72">
                 <item>
                  <widget class="QRadioButton" name="radioButton_59">
@@ -1915,7 +1929,7 @@ min-height: 30px;
               </widget>
              </item>
              <item>
-              <widget class="QGroupBox" name="groupBox_26">
+              <widget class="QGroupBox" name="ebManholeMat">
                <layout class="QHBoxLayout" name="horizontalLayout_74">
                 <item>
                  <widget class="QRadioButton" name="radioButton_61">
@@ -1949,7 +1963,7 @@ min-height: 30px;
               </widget>
              </item>
              <item>
-              <widget class="QGroupBox" name="groupBox_27">
+              <widget class="QGroupBox" name="fireExting6kg">
                <layout class="QHBoxLayout" name="horizontalLayout_76">
                 <item>
                  <widget class="QRadioButton" name="radioButton_63">
@@ -1980,7 +1994,7 @@ min-height: 30px;
               </widget>
              </item>
              <item>
-              <widget class="QDateEdit" name="dateEdit"/>
+              <widget class="QDateEdit" name="fireExting6kg1Date"/>
              </item>
             </layout>
            </item>
@@ -1994,7 +2008,7 @@ min-height: 30px;
               </widget>
              </item>
              <item>
-              <widget class="QDateEdit" name="dateEdit_2"/>
+              <widget class="QDateEdit" name="fireExting6kg2Date"/>
              </item>
             </layout>
            </item>
@@ -2011,7 +2025,7 @@ min-height: 30px;
               </widget>
              </item>
              <item>
-              <widget class="QGroupBox" name="groupBox_29">
+              <widget class="QGroupBox" name="fireExting2kg">
                <layout class="QHBoxLayout" name="horizontalLayout_80">
                 <item>
                  <widget class="QRadioButton" name="radioButton_67">
@@ -2042,7 +2056,7 @@ min-height: 30px;
               </widget>
              </item>
              <item>
-              <widget class="QDateEdit" name="dateEdit_3"/>
+              <widget class="QDateEdit" name="fireExting2kgDate"/>
              </item>
             </layout>
            </item>
@@ -2059,7 +2073,7 @@ min-height: 30px;
               </widget>
              </item>
              <item>
-              <widget class="QGroupBox" name="groupBox_30">
+              <widget class="QGroupBox" name="medkit">
                <layout class="QHBoxLayout" name="horizontalLayout_83">
                 <item>
                  <widget class="QRadioButton" name="radioButton_69">
@@ -2090,7 +2104,7 @@ min-height: 30px;
               </widget>
              </item>
              <item>
-              <widget class="QDateEdit" name="dateEdit_4"/>
+              <widget class="QDateEdit" name="medkitDate"/>
              </item>
             </layout>
            </item>
@@ -2107,7 +2121,7 @@ min-height: 30px;
               </widget>
              </item>
              <item>
-              <widget class="QGroupBox" name="groupBox_31">
+              <widget class="QGroupBox" name="maskAndFilters">
                <layout class="QHBoxLayout" name="horizontalLayout_85">
                 <item>
                  <widget class="QRadioButton" name="radioButton_71">
@@ -2141,7 +2155,7 @@ min-height: 30px;
               </widget>
              </item>
              <item>
-              <widget class="QGroupBox" name="groupBox_32">
+              <widget class="QGroupBox" name="eyewash">
                <layout class="QHBoxLayout" name="horizontalLayout_87">
                 <item>
                  <widget class="QRadioButton" name="radioButton_73">
@@ -2172,7 +2186,7 @@ min-height: 30px;
               </widget>
              </item>
              <item>
-              <widget class="QDateEdit" name="dateEdit_5"/>
+              <widget class="QDateEdit" name="maskAndFiltersDate"/>
              </item>
             </layout>
            </item>
@@ -2186,7 +2200,7 @@ min-height: 30px;
               </widget>
              </item>
              <item>
-              <widget class="QDateEdit" name="dateEdit_6"/>
+              <widget class="QDateEdit" name="eyewashDate"/>
              </item>
             </layout>
            </item>
@@ -2203,7 +2217,7 @@ min-height: 30px;
               </widget>
              </item>
              <item>
-              <widget class="QLineEdit" name="lineEdit_9"/>
+              <widget class="QLineEdit" name="truckComments"/>
              </item>
             </layout>
            </item>
@@ -2227,7 +2241,7 @@ min-height: 30px;
               </widget>
              </item>
              <item>
-              <widget class="QGroupBox" name="groupBox_33">
+              <widget class="QGroupBox" name="trailerAdrCondition">
                <layout class="QHBoxLayout" name="horizontalLayout_92">
                 <item>
                  <widget class="QRadioButton" name="radioButton_75">
@@ -2261,7 +2275,7 @@ min-height: 30px;
               </widget>
              </item>
              <item>
-              <widget class="QGroupBox" name="groupBox_34">
+              <widget class="QGroupBox" name="trailerClean">
                <layout class="QHBoxLayout" name="horizontalLayout_94">
                 <item>
                  <widget class="QRadioButton" name="radioButton_77">
@@ -2295,7 +2309,7 @@ min-height: 30px;
               </widget>
              </item>
              <item>
-              <widget class="QGroupBox" name="groupBox_35">
+              <widget class="QGroupBox" name="trailerWheelWedge">
                <layout class="QHBoxLayout" name="horizontalLayout_96">
                 <item>
                  <widget class="QRadioButton" name="radioButton_79">
@@ -2329,7 +2343,7 @@ min-height: 30px;
               </widget>
              </item>
              <item>
-              <widget class="QGroupBox" name="groupBox_36">
+              <widget class="QGroupBox" name="trailerTireCondition">
                <layout class="QHBoxLayout" name="horizontalLayout_98">
                 <item>
                  <widget class="QRadioButton" name="radioButton_81">
@@ -2363,7 +2377,7 @@ min-height: 30px;
               </widget>
              </item>
              <item>
-              <widget class="QGroupBox" name="groupBox_37">
+              <widget class="QGroupBox" name="trailerLightCondition">
                <layout class="QHBoxLayout" name="horizontalLayout_100">
                 <item>
                  <widget class="QRadioButton" name="radioButton_83">
@@ -2397,7 +2411,7 @@ min-height: 30px;
               </widget>
              </item>
              <item>
-              <widget class="QLineEdit" name="lineEdit_10"/>
+              <widget class="QLineEdit" name="trailerLightDamagesEdit"/>
              </item>
             </layout>
            </item>
@@ -2414,7 +2428,7 @@ min-height: 30px;
               </widget>
              </item>
              <item>
-              <widget class="QGroupBox" name="groupBox_38">
+              <widget class="QGroupBox" name="trailerVisibleDamages">
                <layout class="QHBoxLayout" name="horizontalLayout_103">
                 <item>
                  <widget class="QRadioButton" name="radioButton_85">
@@ -2448,7 +2462,7 @@ min-height: 30px;
               </widget>
              </item>
              <item>
-              <widget class="QGroupBox" name="groupBox_39">
+              <widget class="QGroupBox" name="trailerWireCondition">
                <layout class="QHBoxLayout" name="horizontalLayout_105">
                 <item>
                  <widget class="QRadioButton" name="radioButton_87">
@@ -2482,7 +2496,7 @@ min-height: 30px;
               </widget>
              </item>
              <item>
-              <widget class="QLineEdit" name="lineEdit_11"/>
+              <widget class="QLineEdit" name="trailerWireConditionEdit"/>
              </item>
             </layout>
            </item>
@@ -2499,7 +2513,7 @@ min-height: 30px;
               </widget>
              </item>
              <item>
-              <widget class="QSpinBox" name="spinBox_7">
+              <widget class="QSpinBox" name="trailerBarSpin">
                <property name="maximum">
                 <number>100000000</number>
                </property>
@@ -2520,7 +2534,7 @@ min-height: 30px;
               </widget>
              </item>
              <item>
-              <widget class="QSpinBox" name="spinBox_8">
+              <widget class="QSpinBox" name="trailerBeltSpin">
                <property name="maximum">
                 <number>100000000</number>
                </property>
@@ -2541,7 +2555,7 @@ min-height: 30px;
               </widget>
              </item>
              <item>
-              <widget class="QGroupBox" name="groupBox_40">
+              <widget class="QGroupBox" name="trailerPalletTruck">
                <layout class="QHBoxLayout" name="horizontalLayout_111">
                 <item>
                  <widget class="QRadioButton" name="radioButton_89">
@@ -2575,7 +2589,7 @@ min-height: 30px;
               </widget>
              </item>
              <item>
-              <widget class="QSpinBox" name="spinBox_9">
+              <widget class="QSpinBox" name="trailerExpansionPoleSpin">
                <property name="maximum">
                 <number>100000000</number>
                </property>
@@ -2596,7 +2610,7 @@ min-height: 30px;
               </widget>
              </item>
              <item>
-              <widget class="QSpinBox" name="spinBox_10">
+              <widget class="QSpinBox" name="trailerCornerSpin">
                <property name="maximum">
                 <number>100000000</number>
                </property>
@@ -2617,7 +2631,7 @@ min-height: 30px;
               </widget>
              </item>
              <item>
-              <widget class="QSpinBox" name="spinBox_11">
+              <widget class="QSpinBox" name="trailerAntislipMapSpin">
                <property name="maximum">
                 <number>100000000</number>
                </property>
@@ -2638,7 +2652,7 @@ min-height: 30px;
               </widget>
              </item>
              <item>
-              <widget class="QGroupBox" name="groupBox_41">
+              <widget class="QGroupBox" name="trailerLoadedElevator">
                <layout class="QHBoxLayout" name="horizontalLayout_116">
                 <item>
                  <widget class="QRadioButton" name="radioButton_91">
@@ -2672,7 +2686,7 @@ min-height: 30px;
               </widget>
              </item>
              <item>
-              <widget class="QGroupBox" name="groupBox_42">
+              <widget class="QGroupBox" name="trailerUdtElevatorUpdToDate">
                <layout class="QHBoxLayout" name="horizontalLayout_118">
                 <item>
                  <widget class="QRadioButton" name="radioButton_93">
@@ -2706,7 +2720,7 @@ min-height: 30px;
               </widget>
              </item>
              <item>
-              <widget class="QGroupBox" name="groupBox_43">
+              <widget class="QGroupBox" name="trailerLngCertificate">
                <layout class="QHBoxLayout" name="horizontalLayout_120">
                 <item>
                  <widget class="QRadioButton" name="radioButton_95">
@@ -2740,7 +2754,7 @@ min-height: 30px;
               </widget>
              </item>
              <item>
-              <widget class="QGroupBox" name="groupBox_44">
+              <widget class="QGroupBox" name="eni">
                <layout class="QHBoxLayout" name="horizontalLayout_122">
                 <item>
                  <widget class="QRadioButton" name="radioButton_97">
@@ -2774,7 +2788,7 @@ min-height: 30px;
               </widget>
              </item>
              <item>
-              <widget class="QLineEdit" name="lineEdit_21"/>
+              <widget class="QLineEdit" name="eniNumberEdit"/>
              </item>
             </layout>
            </item>
@@ -2791,7 +2805,7 @@ min-height: 30px;
               </widget>
              </item>
              <item>
-              <widget class="QGroupBox" name="groupBox_45">
+              <widget class="QGroupBox" name="shell">
                <layout class="QHBoxLayout" name="horizontalLayout_124">
                 <item>
                  <widget class="QRadioButton" name="radioButton_99">
@@ -2825,7 +2839,7 @@ min-height: 30px;
               </widget>
              </item>
              <item>
-              <widget class="QLineEdit" name="lineEdit_20"/>
+              <widget class="QLineEdit" name="shellNumberEdit"/>
              </item>
             </layout>
            </item>
@@ -2842,7 +2856,7 @@ min-height: 30px;
               </widget>
              </item>
              <item>
-              <widget class="QGroupBox" name="groupBox_46">
+              <widget class="QGroupBox" name="barmalgas">
                <layout class="QHBoxLayout" name="horizontalLayout_126">
                 <item>
                  <widget class="QRadioButton" name="radioButton_101">
@@ -2876,7 +2890,7 @@ min-height: 30px;
               </widget>
              </item>
              <item>
-              <widget class="QLineEdit" name="lineEdit_19"/>
+              <widget class="QLineEdit" name="barmalgasNumberEdit"/>
              </item>
             </layout>
            </item>
@@ -2893,7 +2907,7 @@ min-height: 30px;
               </widget>
              </item>
              <item>
-              <widget class="QGroupBox" name="groupBox_47">
+              <widget class="QGroupBox" name="liqvis">
                <layout class="QHBoxLayout" name="horizontalLayout_128">
                 <item>
                  <widget class="QRadioButton" name="radioButton_103">
@@ -2927,7 +2941,7 @@ min-height: 30px;
               </widget>
              </item>
              <item>
-              <widget class="QLineEdit" name="lineEdit_18"/>
+              <widget class="QLineEdit" name="liqvisNumberEdit"/>
              </item>
             </layout>
            </item>
@@ -2944,7 +2958,7 @@ min-height: 30px;
               </widget>
              </item>
              <item>
-              <widget class="QGroupBox" name="groupBox_48">
+              <widget class="QGroupBox" name="liquind">
                <layout class="QHBoxLayout" name="horizontalLayout_130">
                 <item>
                  <widget class="QRadioButton" name="radioButton_105">
@@ -2978,7 +2992,7 @@ min-height: 30px;
               </widget>
              </item>
              <item>
-              <widget class="QLineEdit" name="lineEdit_17"/>
+              <widget class="QLineEdit" name="liquindNumberEdit"/>
              </item>
             </layout>
            </item>
@@ -2995,7 +3009,7 @@ min-height: 30px;
               </widget>
              </item>
              <item>
-              <widget class="QGroupBox" name="groupBox_49">
+              <widget class="QGroupBox" name="e100">
                <layout class="QHBoxLayout" name="horizontalLayout_132">
                 <item>
                  <widget class="QRadioButton" name="radioButton_107">
@@ -3029,7 +3043,7 @@ min-height: 30px;
               </widget>
              </item>
              <item>
-              <widget class="QLineEdit" name="lineEdit_16"/>
+              <widget class="QLineEdit" name="e100NumberEdit"/>
              </item>
             </layout>
            </item>
@@ -3046,7 +3060,7 @@ min-height: 30px;
               </widget>
              </item>
              <item>
-              <widget class="QGroupBox" name="groupBox_50">
+              <widget class="QGroupBox" name="aral">
                <layout class="QHBoxLayout" name="horizontalLayout_134">
                 <item>
                  <widget class="QRadioButton" name="radioButton_109">
@@ -3080,7 +3094,7 @@ min-height: 30px;
               </widget>
              </item>
              <item>
-              <widget class="QLineEdit" name="lineEdit_15"/>
+              <widget class="QLineEdit" name="aralNumberEdit"/>
              </item>
             </layout>
            </item>
@@ -3097,7 +3111,7 @@ min-height: 30px;
               </widget>
              </item>
              <item>
-              <widget class="QGroupBox" name="groupBox_51">
+              <widget class="QGroupBox" name="setConnectedToTrailer">
                <layout class="QHBoxLayout" name="horizontalLayout_136">
                 <item>
                  <widget class="QRadioButton" name="radioButton_111">
@@ -3131,7 +3145,7 @@ min-height: 30px;
               </widget>
              </item>
              <item>
-              <widget class="QGroupBox" name="groupBox_52">
+              <widget class="QGroupBox" name="missingBoxContent">
                <layout class="QHBoxLayout" name="horizontalLayout_138">
                 <item>
                  <widget class="QRadioButton" name="radioButton_113">
@@ -3165,7 +3179,7 @@ min-height: 30px;
               </widget>
              </item>
              <item>
-              <widget class="QLineEdit" name="lineEdit_13"/>
+              <widget class="QLineEdit" name="missingBoxContentEdit"/>
              </item>
             </layout>
            </item>
@@ -3182,7 +3196,7 @@ min-height: 30px;
               </widget>
              </item>
              <item>
-              <widget class="QGroupBox" name="groupBox_53">
+              <widget class="QGroupBox" name="missingDocsInCabin">
                <layout class="QHBoxLayout" name="horizontalLayout_140">
                 <item>
                  <widget class="QRadioButton" name="radioButton_115">
@@ -3216,7 +3230,102 @@ min-height: 30px;
               </widget>
              </item>
              <item>
-              <widget class="QLineEdit" name="lineEdit_12"/>
+              <widget class="QLineEdit" name="missingDocsInCabinEdit"/>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <spacer name="verticalSpacer_5">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeType">
+              <enum>QSizePolicy::Fixed</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>100</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="formSendConfirmCheck">
+             <property name="font">
+              <font>
+               <pointsize>12</pointsize>
+               <italic>true</italic>
+               <bold>false</bold>
+              </font>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">QCheckBox {
+color: black;
+}</string>
+             </property>
+             <property name="text">
+              <string>Potwierdzam przesłanie formularza</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_17">
+             <item>
+              <spacer name="horizontalSpacer_2">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+             <item>
+              <widget class="QPushButton" name="sendForm">
+               <property name="minimumSize">
+                <size>
+                 <width>200</width>
+                 <height>0</height>
+                </size>
+               </property>
+               <property name="font">
+                <font>
+                 <family>Microsoft JhengHei</family>
+                 <pointsize>12</pointsize>
+                 <italic>false</italic>
+                 <bold>true</bold>
+                </font>
+               </property>
+               <property name="layoutDirection">
+                <enum>Qt::RightToLeft</enum>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">QPushButton {
+background-color:  rgb(249, 115, 22);
+height: 30px;
+border-radius: 10px;
+color: white;
+padding: 4px 0;
+}</string>
+               </property>
+               <property name="text">
+                <string>Prześlij</string>
+               </property>
+               <property name="icon">
+                <iconset resource="Images.qrc">
+                 <normaloff>:/icons/content/check.svg</normaloff>:/icons/content/check.svg</iconset>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>22</width>
+                 <height>22</height>
+                </size>
+               </property>
+              </widget>
              </item>
             </layout>
            </item>

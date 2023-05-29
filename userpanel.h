@@ -37,6 +37,8 @@ private slots:
 
     void on_backToDashboard_clicked();
 
+    void on_sendForm_clicked();
+
 signals:
     void settingsButtonClicked();
 
@@ -52,6 +54,8 @@ private:
     FinelogUser* currentUser;
     QVector<ReportHeadline> reports;
     class SettingsPanel* settingsPanel = nullptr;
+
+    bool isPositiveChoiseSelected(class QGroupBox* box);
 
 };
 

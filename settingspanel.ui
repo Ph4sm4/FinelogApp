@@ -179,7 +179,7 @@ background: rgb(243, 244, 246);
 }</string>
         </property>
         <property name="currentIndex">
-         <number>6</number>
+         <number>0</number>
         </property>
         <widget class="QWidget" name="emailVerify1">
          <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -912,6 +912,9 @@ margin-top: 5px;
                 <bold>true</bold>
                </font>
               </property>
+              <property name="layoutDirection">
+               <enum>Qt::RightToLeft</enum>
+              </property>
               <property name="styleSheet">
                <string notr="true">QPushButton {
 background-color:  rgb(249, 115, 22);
@@ -1223,6 +1226,9 @@ color: rgb(63, 56, 68);
                 <bold>true</bold>
                </font>
               </property>
+              <property name="layoutDirection">
+               <enum>Qt::RightToLeft</enum>
+              </property>
               <property name="styleSheet">
                <string notr="true">QPushButton {
 background-color:  rgb(249, 115, 22);
@@ -1455,6 +1461,9 @@ text-align: right;
                 <italic>false</italic>
                 <bold>true</bold>
                </font>
+              </property>
+              <property name="layoutDirection">
+               <enum>Qt::RightToLeft</enum>
               </property>
               <property name="styleSheet">
                <string notr="true">QPushButton {
@@ -1719,6 +1728,9 @@ text-align: right;
                 <italic>false</italic>
                 <bold>true</bold>
                </font>
+              </property>
+              <property name="layoutDirection">
+               <enum>Qt::RightToLeft</enum>
               </property>
               <property name="styleSheet">
                <string notr="true">QPushButton {

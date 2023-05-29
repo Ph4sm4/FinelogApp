@@ -14,6 +14,8 @@
 #include <QGraphicsDropShadowEffect>
 #include <QPropertyAnimation>
 #include <QTimer>
+#include <QGroupBox>
+#define ipcs isPositiveChoiseSelected
 
 UserPanel::UserPanel(QWidget *parent) :
     QWidget(parent),
@@ -47,6 +49,34 @@ UserPanel::UserPanel(QWidget *parent) :
     shadowEffect->setColor(QColor(0, 0, 0, 80));
     shadowEffect->setOffset(0, 0);
     ui->scrollArea->setGraphicsEffect(shadowEffect);
+
+
+    // protocol fields scroll area
+
+    ui->protocol_fields->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded); // Show vertical scroll bar as needed
+    ui->protocol_fields->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff); // Disable horizontal scroll bar
+
+    ui->protocol_fields->setWidgetResizable(true);
+    ui->protocol_fields->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    ui->protocol_fields->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+
+    QScroller::grabGesture(ui->protocol_fields->viewport(), QScroller::TouchGesture); // Enable touch scrolling
+
+    // Configure the scrolling behavior
+    QScrollerProperties scrollerProperties2 = QScroller::scroller(
+                                                 ui->protocol_fields->viewport())->scrollerProperties();
+    scrollerProperties2.setScrollMetric(QScrollerProperties::DragVelocitySmoothingFactor, 0.6);
+    scrollerProperties2.setScrollMetric(QScrollerProperties::MinimumVelocity, 0.0);
+    scrollerProperties2.setScrollMetric(QScrollerProperties::MaximumVelocity, 0.6);
+    scrollerProperties2.setScrollMetric(QScrollerProperties::AcceleratingFlickMaximumTime, 0.4);
+    scrollerProperties2.setScrollMetric(QScrollerProperties::HorizontalOvershootPolicy, QScrollerProperties::OvershootAlwaysOff);
+    QScroller::scroller(ui->protocol_fields->viewport())->setScrollerProperties(scrollerProperties2);
+
+    QGraphicsDropShadowEffect* shadowEffect2 = new QGraphicsDropShadowEffect;
+    shadowEffect2->setBlurRadius(20);
+    shadowEffect2->setColor(QColor(0, 0, 0, 80));
+    shadowEffect2->setOffset(0, 0);
+    ui->protocol_fields->setGraphicsEffect(shadowEffect2);
 }
 
 UserPanel::~UserPanel()
@@ -142,6 +172,25 @@ void UserPanel::setUserDisplayInfo()
         existingLayout->addStretch();
     }
 }
+
+bool UserPanel::isPositiveChoiseSelected(QGroupBox *box)
+{
+    for(auto child : box->children()) {
+        QRadioButton* radio = qobject_cast<QRadioButton*>(child);
+        if(!radio) {
+            return false;
+        }
+        if(!radio->isChecked()) continue;
+        if(radio->text() == "Ok" || radio->text() == "Tak") {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+    return false;
+}
+
 void UserPanel::on_settingsButton_clicked()
 {
     emit settingsButtonClicked();
@@ -152,20 +201,22 @@ void UserPanel::on_settingsButton_clicked()
 
 void UserPanel::on_newProtocolButton_clicked()
 {
+    if(!currentUser->getEmailVerified()) {
+        ui->newProtocolButton->setEnabled(false);
+        ui->newProtocolButton->setText("Verify your email");
+        InputManager::disableButton(ui->newProtocolButton);
+
+        // we want to emit this signal so that the user will be
+        // guided how to verify the email, eg. the settings panel with
+        // this option will appear
+        emit settingsButtonClicked();
+
+        return;
+    }
+    InputManager::disableButton(ui->sendForm);
     ui->pagination->setCurrentIndex(1);
     // uploading report headline and report content data to db
-//    if(!currentUser->getEmailVerified()) {
-//        ui->newProtocolButton->setEnabled(false);
-//        ui->newProtocolButton->setText("Verify your email");
-//        InputManager::disableButton(ui->newProtocolButton);
 
-//        // we want to emit this signal so that the user will be
-//        // guided how to verify the email, eg. the settings panel with
-//        // this option will appear
-//        emit settingsButtonClicked();
-
-//        return;
-//    }
 
 //    QVariantMap payload;
 //    payload["CarName"] = "Toyota";
@@ -209,5 +260,117 @@ void UserPanel::on_newProtocolButton_clicked()
 void UserPanel::on_backToDashboard_clicked()
 {
     ui->pagination->setCurrentIndex(0);
+}
+
+
+void UserPanel::on_sendForm_clicked()
+{
+    UserReport report;
+    // #define ipcs isPositiveChoiseSelected
+    report.email = ui->emailEdit->text();
+    report.phoneNumber = ui->phoneEdit->text();
+    report.driverName = ui->driverCombo->currentText();
+    report.carName = ui->carCombo->currentText();
+    report.semiTrailer = ui->trailerCombo->currentText();
+    report.projectName = ui->projectCombo->currentText();
+    report.odometerReading = ui->odometerSpin->value();
+    report.fuelInTank = ui->fuelInTankSpin->value();
+    report.isTollCollectProper = ipcs(ui->tollCollectProper);
+    report.tollCollectProperComment = ui->tollCollectProperEdit->text();
+    report.lightsCondition = ipcs(ui->lightsCondition);
+    report.briefcaseDocsPresent = ipcs(ui->briefCaseDocsPresent);
+    report.carRegCertPresent = ipcs(ui->carRegCertPresent);
+    report.semiTrailerRegCertPresent = ipcs(ui->trailerRegCertPresent);
+    report.carInsurancePresent = ipcs(ui->carInsurancePresent);
+    report.semiTrailerInsurancePresent = ipcs(ui->trailerInsurancePresent);
+    report.licensePresent = ipcs(ui->licensePresent);
+    report.licenseNumber = ui->licenseNumberEdit->text();
+    report.dkvCardNumber = ui->dkvCardNumber->text();
+    report.hoyerCardNumber = ui->hoyerCardNumber->text();
+    report.overallCabinState = ipcs(ui->overallCabinState);
+    report.fridgeClean = ipcs(ui->fridgeClean);
+    report.cabinDamages = ipcs(ui->cabinDamages);
+    report.cabinDamagesComment = ui->cabinDamagesEdit->text();
+    report.tiresCondition = ipcs(ui->tireCondition);
+    report.tiresConditionComment = ui->tireConditionEdit->text();
+    report.adrPlateCondition = ipcs(ui->adrPlateCondition);
+    report.vehicleClean = ipcs(ui->vehicleClean);
+    report.visibleOuterDamages = ipcs(ui->visibleOuterDamages);
+    report.ebTriangles = ipcs(ui->ebTriangles);
+    report.ebGloves = ipcs(ui->ebGloves);
+    report.ebColorfulAdrInstruction = ipcs(ui->adrColorfulInstruction);
+    report.ebReflectiveVest = ipcs(ui->ebReflectiveVest);
+    report.ebProtectiveGoggles = ipcs(ui->ebProtectiveGoogles);
+    report.ebFunctionalFlashlight = ipcs(ui->ebFunctionalFlashlight);
+    report.ebBrushAndScoop = ipcs(ui->ebBrushAndScoop);
+    report.ebWasteBox = ipcs(ui->ebWasteBox);
+    report.ebRubberShoes = ipcs(ui->ebRubberShoes);
+    report.ebWheelWedge = ipcs(ui->ebWheelWedge);
+    report.ebManholeMat = ipcs(ui->ebManholeMat);
+    report.fireExtinguisher6kg = ipcs(ui->fireExting6kg);
+    report.expirationDateExting6kg1 = ui->fireExting6kg1Date->date();
+    report.expirationDateExting6kg2 = ui->fireExting6kg2Date->date();
+    report.fireExtinguisher2kg = ipcs(ui->fireExting2kg);
+    report.expirationDateExting2kg = ui->fireExting2kgDate->date();
+    report.medkit = ipcs(ui->medkit);
+    report.expirationDateMedkit = ui->medkitDate->date();
+    report.maskAndFilters = ipcs(ui->maskAndFilters);
+    report.eyewash = ipcs(ui->eyewash);
+    report.expirationDateMaskAndFilters = ui->maskAndFiltersDate->date();
+    report.expirationDateEyewash = ui->eyewashDate->date();
+    report.comments = ui->truckComments->text();
+
+    // semi trailer related (probably)
+
+    report.trailerAdrCondition = ipcs(ui->trailerAdrCondition);
+    report.trailerClean = ipcs(ui->trailerClean);
+    report.trailerWheelWedge = ipcs(ui->trailerWheelWedge);
+    report.trailerTireCondition = ipcs(ui->trailerTireCondition);
+    report.trailerLightsCondition = ipcs(ui->trailerLightCondition);
+    report.trailerLightsDamageComment = ui->trailerLightDamagesEdit->text();
+    report.trailerVisibleDamages = ipcs(ui->trailerVisibleDamages);
+    report.trailerWireCondition = ipcs(ui->trailerWireCondition);
+    report.trailerWireComments = ui->trailerWireConditionEdit->text();
+    report.trailerBarNumber = ui->trailerBarSpin->value();
+    report.trailerBeltNumber = ui->trailerBeltSpin->value();
+    report.trailerPalletTruck = ipcs(ui->trailerPalletTruck);
+    report.trailerExpansionPole = ui->trailerExpansionPoleSpin->value();
+    report.trailerCornerNumber = ui->trailerCornerSpin->value();
+    report.trailerAntislipMap = ui->trailerAntislipMapSpin->value();
+    report.trailerLoadedElevator = ipcs(ui->trailerLoadedElevator);
+    report.trailerUdtElevatorUpToDate = ipcs(ui->trailerUdtElevatorUpdToDate);
+    report.trailerLngCertificate = ipcs(ui->trailerLngCertificate);
+    report.eni = ipcs(ui->eni);
+    report.eniNumber = ui->eniNumberEdit->text();
+    report.shell = ipcs(ui->shell);
+    report.shellNumber = ui->shellNumberEdit->text();
+    report.barmalgas = ipcs(ui->barmalgas);
+    report.barmalgasNumber = ui->barmalgasNumberEdit->text();
+    report.liqvis = ipcs(ui->liqvis);
+    report.liqvisNumber = ui->liqvisNumberEdit->text();
+    report.liquind = ipcs(ui->liquind);
+    report.liquindNumber = ui->liquindNumberEdit->text();
+    report.e100 = ipcs(ui->e100);
+    report.e100Number = ui->e100NumberEdit->text();
+    report.aral = ipcs(ui->aral);
+    report.aralNumber = ui->aralNumberEdit->text();
+    report.setConnectedToTrailer = ipcs(ui->setConnectedToTrailer);
+    report.missingBoxContent = ipcs(ui->missingBoxContent);
+    report.missinBoxContentComment = ui->missingBoxContentEdit->text();
+    report.missingDocsInCabin = ipcs(ui->missingDocsInCabin);
+    report.missingDocsInCabinComment = ui->missingDocsInCabinEdit->text();
+
+    qDebug() << report;
+}
+
+
+void UserPanel::on_formSendConfirmCheck_stateChanged(int arg1)
+{
+    if(arg1) {
+        InputManager::enableButton(ui->sendForm, "QPushButton {background-color:  rgb(249, 115, 22);height: 30px;border-radius: 10px;color: white;padding: 4px 0;}");
+    }
+    else {
+        InputManager::disableButton(ui->sendForm);
+    }
 }
 
