@@ -41,6 +41,28 @@ private slots:
 
     void on_formSendConfirmCheck_stateChanged(int arg1);
 
+    void on_radioButton_26_toggled(bool checked);
+
+    void on_radioButton_23_toggled(bool checked);
+
+    void on_radioButton_29_toggled(bool checked);
+
+    void on_radioButton_4_toggled(bool checked);
+
+    void on_radioButton_63_toggled(bool checked);
+
+    void on_radioButton_67_toggled(bool checked);
+
+    void on_radioButton_69_toggled(bool checked);
+
+    void on_radioButton_71_toggled(bool checked);
+
+    void on_radioButton_73_toggled(bool checked);
+
+    void on_radioButton_84_toggled(bool checked);
+
+    void on_radioButton_88_toggled(bool checked);
+
 signals:
     void settingsButtonClicked();
 
@@ -58,7 +80,8 @@ private:
     class SettingsPanel* settingsPanel = nullptr;
 
     bool isPositiveChoiseSelected(class QGroupBox* box);
-
+    void setFormEditState(bool checked, class QLineEdit* edit);
+    void setFormDateEditState(bool checked, class QDateEdit* edit);
 };
 
 #endif // USERPANEL_H

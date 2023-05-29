@@ -175,11 +175,12 @@ void UserPanel::setUserDisplayInfo()
 
 bool UserPanel::isPositiveChoiseSelected(QGroupBox *box)
 {
-    for(auto child : box->children()) {
-        QRadioButton* radio = qobject_cast<QRadioButton*>(child);
+    for(QRadioButton* radio : box->findChildren<QRadioButton*>()) {
+        qDebug() << radio;
         if(!radio) {
             return false;
         }
+        qDebug() << radio->isChecked();
         if(!radio->isChecked()) continue;
         if(radio->text() == "Ok" || radio->text() == "Tak") {
             return true;
@@ -214,6 +215,18 @@ void UserPanel::on_newProtocolButton_clicked()
         return;
     }
     InputManager::disableButton(ui->sendForm);
+    for(QLineEdit* edit : ui->protocol_form->findChildren<QLineEdit*>()) {
+        if(edit) edit->setDisabled(true);
+    }
+
+    for(QDateEdit* edit : ui->protocol_form->findChildren<QDateEdit*>()) {
+        if(edit){
+            edit->setDisabled(true);
+            edit->setDisplayFormat("dd.MM.yyyy");
+            edit->setDate(QDate(2000, 1, 1));
+        }
+    }
+
     ui->pagination->setCurrentIndex(1);
     // uploading report headline and report content data to db
 
@@ -359,8 +372,6 @@ void UserPanel::on_sendForm_clicked()
     report.missinBoxContentComment = ui->missingBoxContentEdit->text();
     report.missingDocsInCabin = ipcs(ui->missingDocsInCabin);
     report.missingDocsInCabinComment = ui->missingDocsInCabinEdit->text();
-
-    qDebug() << report;
 }
 
 
@@ -372,5 +383,138 @@ void UserPanel::on_formSendConfirmCheck_stateChanged(int arg1)
     else {
         InputManager::disableButton(ui->sendForm);
     }
+}
+
+void UserPanel::setFormEditState(bool checked, QLineEdit *edit)
+{
+    if(!edit) return;
+
+    if(checked) {
+        edit->setEnabled(true);
+    }
+    else {
+        edit->setDisabled(true);
+    }
+}
+
+void UserPanel::setFormDateEditState(bool checked, QDateEdit *edit)
+{
+    if(!edit) return;
+
+    if(checked) {
+        edit->setEnabled(true);
+    }
+    else {
+        edit->setDisabled(true);
+    }
+}
+
+// is toll collect proper
+void UserPanel::on_radioButton_26_toggled(bool checked)
+{
+    setFormEditState(checked, ui->tollCollectProperEdit);
+}
+
+// is there a license in the cabin
+void UserPanel::on_radioButton_23_toggled(bool checked)
+{
+    setFormEditState(checked, ui->licenseNumberEdit);
+}
+
+// cabin damages
+void UserPanel::on_radioButton_29_toggled(bool checked)
+{
+    setFormEditState(checked, ui->cabinDamagesEdit);
+}
+
+// tire condition
+void UserPanel::on_radioButton_4_toggled(bool checked)
+{
+    setFormEditState(checked, ui->tireConditionEdit);
+}
+
+// fire extinguisher 6kg
+void UserPanel::on_radioButton_63_toggled(bool checked)
+{
+    setFormDateEditState(checked, ui->fireExting6kg1Date);
+    setFormDateEditState(checked, ui->fireExting6kg2Date);
+}
+
+// fire extinguisher 2kg
+void UserPanel::on_radioButton_67_toggled(bool checked)
+{
+    setFormDateEditState(checked, ui->fireExting2kgDate);
+}
+
+// medkit
+void UserPanel::on_radioButton_69_toggled(bool checked)
+{
+    setFormDateEditState(checked, ui->medkitDate);
+}
+
+// mask and filters
+void UserPanel::on_radioButton_71_toggled(bool checked)
+{
+    setFormDateEditState(checked, ui->maskAndFiltersDate);
+}
+
+// eyewash
+void UserPanel::on_radioButton_73_toggled(bool checked)
+{
+    setFormDateEditState(checked, ui->eyewashDate);
+}
+
+// trailer light condition
+void UserPanel::on_radioButton_84_toggled(bool checked)
+{
+    setFormEditState(checked, ui->trailerLightDamagesEdit);
+}
+
+// trailer wire condition
+void UserPanel::on_radioButton_88_toggled(bool checked)
+{
+    setFormEditState(checked, ui->trailerWireConditionEdit);
+}
+
+// eni
+void UserPanel::on_radioButton_97_toggled(bool checked)
+{
+    setFormEditState(checked, ui->eniNumberEdit);
+}
+
+// shell
+void UserPanel::on_radioButton_99_toggled(bool checked)
+{
+    setFormEditState(checked, ui->shellNumberEdit);
+}
+
+// barmalgas
+void UserPanel::on_radioButton_101_toggled(bool checked)
+{
+    setFormEditState(checked, ui->barmalgasNumberEdit);
+}
+
+// liqvis
+void UserPanel::on_radioButton_103_toggled(bool checked)
+{
+    setFormEditState(checked, ui->liqvisNumberEdit);
+}
+
+// liquind
+void UserPanel::on_radioButton_105_toggled(bool checked)
+{
+    setFormEditState(checked, ui->liquindNumberEdit);
+}
+
+// e100
+void UserPanel::on_radioButton_107_toggled(bool checked)
+{
+    setFormEditState(checked, ui->e100NumberEdit);
+}
+
+// aral
+void UserPanel::on_radioButton_109_toggled(bool checked)
+{
+    setFormEditState(checked, ui->aralNumberEdit);
 }
 
