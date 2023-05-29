@@ -39,6 +39,8 @@ private slots:
 
     void on_sendForm_clicked();
 
+    void on_formSendConfirmCheck_stateChanged(int arg1);
+
 signals:
     void settingsButtonClicked();
 
