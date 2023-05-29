@@ -289,12 +289,11 @@ void UserPanel::on_backToDashboard_clicked()
 
 void UserPanel::on_sendForm_clicked()
 {
-    bool allFilled = false;
+    bool allFilled = true;
     for(QGroupBox* box : ui->protocol_form->findChildren<QGroupBox*>()) {
         bool singleFilled = false;
         for(QRadioButton* button : box->findChildren<QRadioButton*>()) {
             if(button->isChecked()) {
-                allFilled = true;
                 singleFilled = true;
                 break;
             }
@@ -305,14 +304,22 @@ void UserPanel::on_sendForm_clicked()
         else {
             box->setStyleSheet("QGroupBox { border: none; }");
         }
+        if(!singleFilled) {
+            allFilled = false;
+        }
     }
+
+    // check for the combo boxes and start setting up the admin panel!!!
+
+
     if(!allFilled) {
         ui->formErrorLabel->setText("Nie wszystkie pola zostały wypełnione");
         return;
     }
+    ui->formErrorLabel->setText("");
 
     UserReport report;
-    // #define ipcs isPositiveChoiseSelected
+    // #define ipcs isPositiveChoiseSelected (there is this define on top)
     report.email = ui->emailEdit->text();
     report.phoneNumber = ui->phoneEdit->text();
     report.driverName = ui->driverCombo->currentText();
