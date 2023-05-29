@@ -63,6 +63,24 @@ private slots:
 
     void on_radioButton_88_toggled(bool checked);
 
+    void on_radioButton_97_toggled(bool checked);
+
+    void on_radioButton_99_toggled(bool checked);
+
+    void on_radioButton_101_toggled(bool checked);
+
+    void on_radioButton_103_toggled(bool checked);
+
+    void on_radioButton_105_toggled(bool checked);
+
+    void on_radioButton_107_toggled(bool checked);
+
+    void on_radioButton_109_toggled(bool checked);
+
+    void on_radioButton_113_toggled(bool checked);
+
+    void on_radioButton_115_toggled(bool checked);
+
 signals:
     void settingsButtonClicked();
 

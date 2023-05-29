@@ -606,6 +606,7 @@ padding-right: 10px;
 border: 1px solid black;
 height: 30px;
 max-width: 200px;
+background-color: white;
 }
 
 QLineEdit:focus {
@@ -666,7 +667,7 @@ QScrollBar:vertical {
     }
 
 QLabel {
-color: rgb(249, 115, 22);
+color: black;
 padding: 10px 0;
 max-width: 200px;
 }
@@ -754,7 +755,7 @@ QDateEdit::up-button {
           <property name="geometry">
            <rect>
             <x>0</x>
-            <y>-4009</y>
+            <y>-375</y>
             <width>497</width>
             <height>5537</height>
            </rect>
@@ -3297,7 +3298,18 @@ QDateEdit::up-button {
               </font>
              </property>
              <property name="styleSheet">
-              <string notr="true">QCheckBox {
+              <string notr="true">QCheckBox::indicator {
+width: 30px;
+height: 30px;
+background:rgb(80, 200, 120);
+border-radius: 4px;
+}
+
+QCheckBox::indicator:checked {
+image: url(:/icons/content/check.svg);
+}
+
+QCheckBox {
 color: black;
 }</string>
              </property>
@@ -3321,6 +3333,26 @@ color: black;
               </size>
              </property>
             </spacer>
+           </item>
+           <item>
+            <widget class="QLabel" name="formErrorLabel">
+             <property name="styleSheet">
+              <string notr="true">QLabel {
+color: red;
+margin-right: 20px;
+margin-left: 20px;
+background: transparent;
+margin-bottom: 5px;
+max-width: 9999px;
+}</string>
+             </property>
+             <property name="text">
+              <string>Nie wszystkie pola zostały wypełnione</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             </property>
+            </widget>
            </item>
            <item>
             <layout class="QHBoxLayout" name="horizontalLayout_17">
@@ -3381,26 +3413,6 @@ padding: 4px 0;
               </widget>
              </item>
             </layout>
-           </item>
-           <item>
-            <widget class="QLabel" name="formErrorLabel">
-             <property name="styleSheet">
-              <string notr="true">QLabel {
-color: red;
-margin-right: 20px;
-margin-left: 20px;
-background: transparent;
-margin-top: 5px;
-max-width: 9999px;
-}</string>
-             </property>
-             <property name="text">
-              <string>Nie wszystkie pola zostały wypełnione</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-             </property>
-            </widget>
            </item>
            <item>
             <spacer name="verticalSpacer_8">

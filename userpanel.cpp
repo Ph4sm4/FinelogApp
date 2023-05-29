@@ -214,11 +214,22 @@ void UserPanel::on_newProtocolButton_clicked()
 
         return;
     }
+    // preparation of the form
     InputManager::disableButton(ui->sendForm);
+    ui->formErrorLabel->setText("");
+
+    // blocking all edits
     for(QLineEdit* edit : ui->protocol_form->findChildren<QLineEdit*>()) {
         if(edit) edit->setDisabled(true);
     }
 
+    // enabling only those that should be always enabled
+
+    ui->dkvCardNumber->setEnabled(true);
+    ui->hoyerCardNumber->setEnabled(true);
+    ui->truckComments->setEnabled(true);
+
+    // blocking all date edits
     for(QDateEdit* edit : ui->protocol_form->findChildren<QDateEdit*>()) {
         if(edit){
             edit->setDisabled(true);
@@ -278,6 +289,28 @@ void UserPanel::on_backToDashboard_clicked()
 
 void UserPanel::on_sendForm_clicked()
 {
+    bool allFilled = false;
+    for(QGroupBox* box : ui->protocol_form->findChildren<QGroupBox*>()) {
+        bool singleFilled = false;
+        for(QRadioButton* button : box->findChildren<QRadioButton*>()) {
+            if(button->isChecked()) {
+                allFilled = true;
+                singleFilled = true;
+                break;
+            }
+        }
+        if(!singleFilled) {
+            box->setStyleSheet("QGroupBox { border: 2px solid red; }");
+        }
+        else {
+            box->setStyleSheet("QGroupBox { border: none; }");
+        }
+    }
+    if(!allFilled) {
+        ui->formErrorLabel->setText("Nie wszystkie pola zostały wypełnione");
+        return;
+    }
+
     UserReport report;
     // #define ipcs isPositiveChoiseSelected
     report.email = ui->emailEdit->text();
@@ -372,6 +405,8 @@ void UserPanel::on_sendForm_clicked()
     report.missinBoxContentComment = ui->missingBoxContentEdit->text();
     report.missingDocsInCabin = ipcs(ui->missingDocsInCabin);
     report.missingDocsInCabinComment = ui->missingDocsInCabinEdit->text();
+
+    qDebug() << report;
 }
 
 
@@ -516,5 +551,17 @@ void UserPanel::on_radioButton_107_toggled(bool checked)
 void UserPanel::on_radioButton_109_toggled(bool checked)
 {
     setFormEditState(checked, ui->aralNumberEdit);
+}
+
+// missing content in the box
+void UserPanel::on_radioButton_113_toggled(bool checked)
+{
+    setFormEditState(checked, ui->missingBoxContentEdit);
+}
+
+// missing docs in cabin
+void UserPanel::on_radioButton_115_toggled(bool checked)
+{
+    setFormEditState(checked, ui->missingDocsInCabinEdit);
 }
 
