@@ -217,6 +217,8 @@ void UserPanel::on_newProtocolButton_clicked()
     // preparation of the form
     InputManager::disableButton(ui->sendForm);
     ui->formErrorLabel->setText("");
+    ui->emailEdit->setText(currentUser->getEmail());
+    ui->phoneEdit->setText(currentUser->getPhoneNumber());
 
     // blocking all edits
     for(QLineEdit* edit : ui->protocol_form->findChildren<QLineEdit*>()) {

@@ -755,7 +755,7 @@ QDateEdit::up-button {
           <property name="geometry">
            <rect>
             <x>0</x>
-            <y>0</y>
+            <y>-2241</y>
             <width>497</width>
             <height>5534</height>
            </rect>
@@ -908,6 +908,9 @@ QDateEdit::up-button {
               <widget class="QSpinBox" name="odometerSpin">
                <property name="buttonSymbols">
                 <enum>QAbstractSpinBox::NoButtons</enum>
+               </property>
+               <property name="minimum">
+                <number>0</number>
                </property>
                <property name="maximum">
                 <number>100000000</number>
