@@ -439,8 +439,8 @@ QScrollBar:vertical {
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>507</width>
-            <height>275</height>
+            <width>90</width>
+            <height>22</height>
            </rect>
           </property>
           <property name="styleSheet">
@@ -755,9 +755,9 @@ QDateEdit::up-button {
           <property name="geometry">
            <rect>
             <x>0</x>
-            <y>-375</y>
+            <y>0</y>
             <width>497</width>
-            <height>5537</height>
+            <height>5534</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -906,6 +906,9 @@ QDateEdit::up-button {
              </item>
              <item>
               <widget class="QSpinBox" name="odometerSpin">
+               <property name="buttonSymbols">
+                <enum>QAbstractSpinBox::NoButtons</enum>
+               </property>
                <property name="maximum">
                 <number>100000000</number>
                </property>
@@ -927,6 +930,14 @@ QDateEdit::up-button {
              </item>
              <item>
               <widget class="QSpinBox" name="fuelInTankSpin">
+               <property name="font">
+                <font>
+                 <pointsize>-1</pointsize>
+                </font>
+               </property>
+               <property name="buttonSymbols">
+                <enum>QAbstractSpinBox::NoButtons</enum>
+               </property>
                <property name="maximum">
                 <number>100000</number>
                </property>

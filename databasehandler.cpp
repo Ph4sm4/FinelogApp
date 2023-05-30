@@ -80,10 +80,10 @@ bool DatabaseHandler::registerNewUser(FinelogUser* user, QLabel* errorLabel)
     // add the user into the database
     QVariantMap newUser;
 
-    newUser["Email"] =  user->getEmail();
-    newUser["Name"] = user->getName();
-    newUser["Phone_number"] =user->getPhoneNumber();
-    newUser["Surname"] = user->getSurname();
+    newUser["email"] =  user->getEmail();
+    newUser["name"] = user->getName();
+    newUser["phone_number"] =user->getPhoneNumber();
+    newUser["surname"] = user->getSurname();
     newUser["user_id"] = user->getUserId();
     newUser["finelog_id"] = user->getFinelogId();
 
@@ -133,12 +133,12 @@ FinelogUser* DatabaseHandler::logInWithEmailAndPassword(const QString &email, co
     }
 
     FinelogUser* loggedInUser = new FinelogUser();
-    loggedInUser->setEmail(userData.value("Email").toString());
+    loggedInUser->setEmail(userData.value("email").toString());
     loggedInUser->setUserID(uId);
     loggedInUser->setIdToken(idToken);
-    loggedInUser->setName(userData.value("Name").toString());
-    loggedInUser->setSurname(userData.value("Surname").toString());
-    loggedInUser->setPhoneNumber(userData.value("Phone_number").toString());
+    loggedInUser->setName(userData.value("name").toString());
+    loggedInUser->setSurname(userData.value("surname").toString());
+    loggedInUser->setPhoneNumber(userData.value("phone_number").toString());
     loggedInUser->setPassword(password);
     loggedInUser->setFinelogId(userData.value("finelog_id").toString());
     loggedInUser->setEmailVerified(accountInfo.value("emailVerified").toBool());
@@ -338,7 +338,7 @@ bool DatabaseHandler::emailChangedExternallyUpdate(FinelogUser *user)
     if(currentEmail != properEmail) {
         QString path = "Users/" + user->getUserId();
         QVariantMap payload;
-        payload["Email"] = properEmail;
+        payload["email"] = properEmail;
 
         user->setEmail(properEmail);
         QJsonDocument doc = QJsonDocument::fromVariant(payload);
@@ -362,4 +362,138 @@ QJsonObject DatabaseHandler::sendPasswordResetLink(const QString &email)
     QJsonObject res = performPOST(endPoint, doc);
 
     return res;
+}
+
+bool DatabaseHandler::uploadProtocol(const FinelogUser *user, const UserReport &report)
+{
+    // uploading report headline and report content data to db
+
+    QVariantMap payload;
+    payload["owner_id"] = user->getUserId();
+    payload["owner_email"] = user->getEmail();
+    payload["owner_phone"] = user->getPhoneNumber();
+    payload["date"] = QDate::currentDate().toString();
+    payload["time"] = QTime::currentTime().toString();
+
+    payload["carName"] = report.carName;
+    payload["projectName"] = report.projectName;
+    payload["driver"] = report.driverName;
+    payload["semiTrailer"] = report.semiTrailer;
+    payload["odometerReading"] = report.odometerReading;
+    payload["fuelInTank"] = report.fuelInTank;
+    payload["tollCollectProper"] = report.isTollCollectProper;
+    payload["tollCollectProperComment"] = report.tollCollectProperComment;
+    payload["lightsCondition"] = report.lightsCondition;
+    payload["brief"] = report.briefcaseDocsPresent;
+    payload["carRegCertPresent"] = report.carRegCertPresent;
+    payload["semiTrailerRegCertPresent"] = report.semiTrailerRegCertPresent;
+    payload["carInsurancePresent"] = report.carInsurancePresent;
+    payload["licensePresent"] = report.licensePresent;
+    payload["licenseNumber"] = report.licenseNumber;
+    payload["dkvCardNumber"] = report.dkvCardNumber;
+    payload["hoyerCardNumber"] = report.hoyerCardNumber;
+    payload["overallCabinState"] = report.overallCabinState;
+    payload["fridgeClean"] = report.fridgeClean;
+    payload["cabinDamages"] = report.cabinDamages;
+    payload["cabinDamagesComment"] = report.cabinDamagesComment;
+    payload["tiresCondition"] = report.tiresCondition;
+    payload["tiresConditionComment"] = report.tiresConditionComment;
+    payload["adrPlateCondition"] = report.adrPlateCondition;
+    payload["vehicleClean"] = report.vehicleClean;
+    payload["visibleOuterDamages"] = report.visibleOuterDamages;
+    payload["ebTriangles"] = report.ebTriangles;
+    payload["ebGloves"] = report.ebGloves;
+    payload["ebColorfulAdrInstruction"] = report.ebColorfulAdrInstruction;
+    payload["ebReflectiveVest"] = report.ebReflectiveVest;
+    payload["ebProtectiveGoggles"] = report.ebProtectiveGoggles;
+    payload["ebFunctionalFlashlight"] = report.ebFunctionalFlashlight;
+    payload["ebBrushAndScoop"] = report.ebBrushAndScoop;
+    payload["ebWasteBox"] = report.ebWasteBox;
+    payload["ebRubberShoes"] = report.ebRubberShoes;
+    payload["ebWheelWedge"] = report.ebWheelWedge;
+    payload["ebManholeMat"] = report.ebManholeMat;
+    payload["fireExtinguisher6kg"] = report.fireExtinguisher6kg;
+    payload["expirationDateExting6kg1"] = report.expirationDateExting6kg1;
+    payload["expirationDateExting6kg2"] = report.expirationDateExting6kg2;
+    payload["fireExtinguisher2kg"] = report.fireExtinguisher2kg;
+    payload["expirationDateExting2kg"] = report.expirationDateExting2kg;
+    payload["medkit"] = report.medkit;
+    payload["expirationDateMedkit"] = report.expirationDateMedkit;
+    payload["maskAndFilters"] = report.maskAndFilters;
+    payload["expirationDateMaskAndFilters"] = report.expirationDateMaskAndFilters;
+    payload["eyewash"] = report.eyewash;
+    payload["expirationDateEyewash"] = report.expirationDateEyewash;
+    payload["comments"] = report.comments;
+
+    // semi trailer here
+
+    payload["trailerAdrCondition"] = report.trailerAdrCondition;
+    payload["trailerClean"] = report.trailerClean;
+    payload["trailerWheelWedge"] = report.trailerWheelWedge;
+    payload["trailerTireCondition"] = report.trailerTireCondition;
+    payload["trailerLightsCondition"] = report.trailerLightsCondition;
+    payload["trailerLightsDamageComment"] = report.trailerLightsDamageComment;
+    payload["trailerVisibleDamages"] = report.trailerVisibleDamages;
+    payload["trailerWireCondition"] = report.trailerWireCondition;
+    payload["trailerWireComments"] = report.trailerWireComments;
+    payload["trailerBarNumber"] = report.trailerBarNumber;
+    payload["trailerBeltNumber"] = report.trailerBeltNumber;
+    payload["trailerPalletTruck"] = report.trailerPalletTruck;
+    payload["trailerExpansionPole"] = report.trailerExpansionPole;
+    payload["trailerCornerNumber"] = report.trailerCornerNumber;
+    payload["trailerAntislipMap"] = report.trailerAntislipMap;
+    payload["trailerLoadedElevator"] = report.trailerLoadedElevator;
+    payload["trailerUdtElevatorUpToDate"] = report.trailerUdtElevatorUpToDate;
+    payload["trailerLngCertificate"] = report.trailerLngCertificate;
+    payload["eni"] = report.eni;
+    payload["eniNumber"] = report.eniNumber;
+    payload["shell"] = report.shell;
+    payload["shellNumber"] = report.shellNumber;
+    payload["barmalgas"] = report.barmalgas;
+    payload["barmalgasNumber"] = report.barmalgasNumber;
+    payload["liqvis"] = report.liqvis;
+    payload["liqvisNumber"] = report.liqvisNumber;
+    payload["liquind"] = report.liquind;
+    payload["liquindNumber"] = report.liquindNumber;
+    payload["e100"] = report.e100;
+    payload["e100Number"] = report.e100Number;
+    payload["aral"] = report.aral;
+    payload["aralNumber"] = report.aralNumber;
+
+    // other
+
+    payload["setConnectedToTrailer"] = report.setConnectedToTrailer;
+    payload["missingBoxContent"] = report.missingBoxContent;
+    payload["missinBoxContentComment"] = report.missinBoxContentComment;
+    payload["missingDocsInCabin"] = report.missingDocsInCabin;
+    payload["missingDocsInCabinComment"] = report.missingDocsInCabinComment;
+
+
+    QString path = "Reports/Content";
+    QJsonObject res = performAuthenticatedPOST(path,
+                                               QJsonDocument::fromVariant(payload), user->getIdToken());
+
+    qDebug() << "added content: " << res;
+
+    if(res.contains("error")) {
+        return false;
+    }
+
+    QString contentName = res.value("name").toString();
+
+    QVariantMap headlinePayload;
+    headlinePayload["carName"] = report.carName;
+    headlinePayload["projectName"] = report.projectName;
+    headlinePayload["date"] = QDate::currentDate().toString();
+    headlinePayload["time"] = QTime::currentTime().toString();
+    headlinePayload["owner_id"] = user->getUserId();
+    headlinePayload["contentName"] = contentName;
+
+    path = "Reports/Headlines/" + contentName;
+    res = performAuthenticatedPUT(path,
+                                  QJsonDocument::fromVariant(headlinePayload), user->getIdToken());
+
+    qDebug() << "headline put res: " << res;
+
+    return res.contains("error") == false;
 }

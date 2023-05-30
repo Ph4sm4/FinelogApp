@@ -223,12 +223,6 @@ void UserPanel::on_newProtocolButton_clicked()
         if(edit) edit->setDisabled(true);
     }
 
-    // enabling only those that should be always enabled
-
-    ui->dkvCardNumber->setEnabled(true);
-    ui->hoyerCardNumber->setEnabled(true);
-    ui->truckComments->setEnabled(true);
-
     // blocking all date edits
     for(QDateEdit* edit : ui->protocol_form->findChildren<QDateEdit*>()) {
         if(edit){
@@ -237,48 +231,21 @@ void UserPanel::on_newProtocolButton_clicked()
             edit->setDate(QDate(2000, 1, 1));
         }
     }
+    // enabling only those that should be always enabled
+
+    ui->dkvCardNumber->setEnabled(true);
+    ui->hoyerCardNumber->setEnabled(true);
+    ui->truckComments->setEnabled(true);
+
+    ui->odometerSpin->setEnabled(true);
+    ui->odometerSpin->setReadOnly(false);
+
+    ui->fuelInTankSpin->setEnabled(true);
+    ui->fuelInTankSpin->setReadOnly(false);
+
 
     ui->pagination->setCurrentIndex(1);
-    // uploading report headline and report content data to db
 
-
-//    QVariantMap payload;
-//    payload["CarName"] = "Toyota";
-//    payload["ProjectName"] = "Paneco-Something";
-//    payload["Date"] = QDate::currentDate().toString();
-//    payload["Time"] = QTime::currentTime().toString();
-//    payload["WindowCondition"] = "Shattered";
-//    payload["owner_id"] = currentUser->getUserId();
-
-//    QString path = "Reports/Content";
-//    QJsonObject res = dbHandler.performAuthenticatedPOST(path,
-//                QJsonDocument::fromVariant(payload), currentUser->getIdToken());
-
-//    qDebug() << "added content: " << res;
-
-//    if(res.contains("error")) {
-//        // something went wrong, maybe a message box?
-//        return;
-//    }
-
-//    QString contentName = res.value("name").toString();
-
-//    QVariantMap headlinePayload;
-//    headlinePayload["CarName"] = "Toyota";
-//    headlinePayload["ProjectName"] = "Paneco-Something";
-//    headlinePayload["Date"] = QDate::currentDate().toString();
-//    headlinePayload["Time"] = QTime::currentTime().toString();
-//    headlinePayload["owner_id"] = currentUser->getUserId();
-//    headlinePayload["ContentName"] = contentName;
-
-//    path = "Reports/Headlines/" + contentName;
-//    res = dbHandler.performAuthenticatedPUT(path,
-//                 QJsonDocument::fromVariant(headlinePayload), currentUser->getIdToken());
-
-//    qDebug() << "headline put res: " << res;
-
-//    currentUser->fetchHeadlines();
-//    setUserDisplayInfo();
 }
 
 void UserPanel::on_backToDashboard_clicked()
@@ -413,7 +380,14 @@ void UserPanel::on_sendForm_clicked()
     report.missingDocsInCabin = ipcs(ui->missingDocsInCabin);
     report.missingDocsInCabinComment = ui->missingDocsInCabinEdit->text();
 
-    qDebug() << report;
+    bool success = dbHandler.uploadProtocol(currentUser, report);
+    if(!success) {
+        ui->formErrorLabel->setText("An error occurred while submitting the form");
+        return;
+    }
+
+    currentUser->fetchHeadlines();
+    setUserDisplayInfo();
 }
 
 
