@@ -136,7 +136,10 @@ void ProtocolForm::hideSendOptions()
 
 bool ProtocolForm::initializeFormData(const QString &contentName)
 {
-    qDebug() << "content name received: " << contentName;
+    //qDebug() << "content name received: " << contentName;
+    QString path = "Reports/Content/" + contentName;
+    QJsonObject formData = dbHandler.performAuthenticatedGET(path, currentUser->getIdToken());
+
 
     return true;
 }
