@@ -13,6 +13,51 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">QComboBox {
+    border: 1px solid #ccc;
+    padding: 4px;
+    min-width: 150px;
+    background-color: #fff;
+    color: #333;
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+    selection-background-color: lightblue;
+	min-height: 30px;
+}
+
+QComboBox::drop-down {
+    subcontrol-origin: padding;
+    subcontrol-position: center right;
+    width: 20px;
+    border: none;
+    background: transparent;
+}
+
+QComboBox::down-arrow {
+    image: url(:/icons/content/chevron-down.svg);
+    width: 10px;
+    height: 10px;
+}
+
+QComboBox QAbstractItemView {
+    border: 1px solid #ccc;
+    background-color: #fff;
+    padding: 2px;
+    selection-background-color: lightblue;
+}
+
+QComboBox QAbstractItemView::item {
+    height: 20px;
+    padding: 2px 8px;
+}
+
+QComboBox QAbstractItemView::item:selected {
+    background-color: lightblue;
+    color: #333;
+}
+</string>
+  </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <property name="spacing">
     <number>0</number>
@@ -111,40 +156,6 @@ color: black;
 padding: 10px 0;
 max-width: 200px;
 }
-
-QComboBox {
-        background-color: #ffffff;
-        border: 1px solid #cccccc;
-        border-radius: 4px;
-        padding: 2px 8px;
-        color: #333333;
-        font-size: 12px;
-		min-height: 30px;
-    }
-
-    QComboBox::drop-down {
-		subcontrol-origin: padding;
-    	subcontrol-position: top right;
-        border-left: 1px solid #cccccc;
-        border-top-right-radius: 4px;
-        border-bottom-right-radius: 4px;
-        background: white;
-		border-color: rgb(249, 115, 22);
-		color: black;
-    }
-
-    QComboBox::down-arrow {
-        image: url(:/icons/content/chevron-down.svg);
-    }
-
-    QComboBox::item {
-        padding: 4px 8px;
-		max-height: 20px;
-    }
-
-    QComboBox::item:selected {
-        background-color: #e6f3ff;
-    }
 QSpinBox {
         background-color: #ffffff;
         border: 1px solid #cccccc;
@@ -199,7 +210,7 @@ QDateEdit::up-button {
         <x>0</x>
         <y>0</y>
         <width>455</width>
-        <height>4601</height>
+        <height>4617</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_4">
