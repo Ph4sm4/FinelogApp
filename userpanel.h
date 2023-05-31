@@ -30,7 +30,9 @@ public:
 public slots:
     void userBasicDetailsChange();
 
-    void formSubmitted();
+    void formReadyForDeletion();
+
+    void projectDetailsRequested(const QString& contentName);
 
 private slots:
     void on_settingsButton_clicked();

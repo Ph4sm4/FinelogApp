@@ -125,6 +125,22 @@ void ProtocolForm::prepareForm()
     ui->truckComments->setEnabled(true);
 }
 
+void ProtocolForm::hideSendOptions()
+{
+    ui->sendForm->setDisabled(true);
+    ui->sendForm->hide();
+
+    ui->formSendConfirmCheck->setDisabled(true);
+    ui->formSendConfirmCheck->hide();
+}
+
+bool ProtocolForm::initializeFormData(const QString &contentName)
+{
+    qDebug() << "content name received: " << contentName;
+
+    return true;
+}
+
 void ProtocolForm::on_sendForm_clicked()
 {
     bool allFilled = true;

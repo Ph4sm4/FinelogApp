@@ -18,6 +18,8 @@ public:
 
     void prepareForm();
     void setCurrentUser(class FinelogUser* user) { currentUser = user; }
+    void hideSendOptions();
+    bool initializeFormData(const QString& contentName);
 
 signals:
     void formSubmitted();

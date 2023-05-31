@@ -81,7 +81,7 @@ void UserPanel::userBasicDetailsChange()
     emit successBoxDisplayNeeded();
 }
 
-void UserPanel::formSubmitted()
+void UserPanel::formReadyForDeletion()
 {
     setUserDisplayInfo();
 
@@ -90,6 +90,26 @@ void UserPanel::formSubmitted()
     ui->pagination->removeWidget(form);
     form->deleteLater();
     form = nullptr;
+}
+
+void UserPanel::projectDetailsRequested(const QString& contentName)
+{
+    form = new ProtocolForm();
+    form->setCurrentUser(currentUser);
+    form->prepareForm();
+    form->hideSendOptions();
+    form->initializeFormData(contentName);
+
+    QVBoxLayout* layout = qobject_cast<QVBoxLayout*>(ui->protocol_form->layout());
+    if(layout) {
+        layout->addWidget(form);
+        ui->pagination->setCurrentIndex(1);
+        qDebug() << "successfully added project details form";
+    }
+    else {
+        qDebug() << "no layout";
+    }
+
 }
 
 void UserPanel::setUserDisplayInfo()
@@ -150,6 +170,8 @@ void UserPanel::setUserDisplayInfo()
             newItem->setParent(ui->scrollAreaWidgetContents);
             newItem->setContentName(headline.contentName);
 
+            connect(newItem, &ListItem::clicked, this, &UserPanel::projectDetailsRequested);
+
             existingLayout->addWidget(newItem);
         }
         // Add a stretch at the end to push the widgets to the top
@@ -193,7 +215,7 @@ void UserPanel::on_newProtocolButton_clicked()
             form->setCurrentUser(currentUser);
             form->prepareForm();
 
-            connect(form, &ProtocolForm::formSubmitted, this, &UserPanel::formSubmitted);
+            connect(form, &ProtocolForm::formSubmitted, this, &UserPanel::formReadyForDeletion);
 
             layout->addWidget(form);
             qDebug() << "successfully added form";
@@ -207,6 +229,7 @@ void UserPanel::on_newProtocolButton_clicked()
 
 void UserPanel::on_backToDashboard_clicked()
 {
+    formReadyForDeletion();
     ui->pagination->setCurrentIndex(0);
 }
 

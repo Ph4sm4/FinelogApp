@@ -45,3 +45,24 @@ void ListItem::setCarName(const QString &newCarName)
     carName = newCarName;
     ui->carNameLabel->setText(carName);
 }
+
+bool ListItem::event(QEvent* event) {
+    if (event->type() == QEvent::TouchBegin || event->type() == QEvent::TouchEnd || event->type() == QEvent::TouchCancel) {
+        return true; // Consume touch events to prevent them from being propagated further
+    } else if (event->type() == QEvent::Gesture) {
+        return gestureEvent(static_cast<QGestureEvent*>(event)); // Handle gesture events
+    }
+    return QWidget::event(event); // Call the base class implementation for other events
+}
+
+bool ListItem::gestureEvent(QGestureEvent* event) {
+    if (QGesture* gesture = event->gesture(Qt::TapGesture)) {
+        if (QTapGesture* tapGesture = static_cast<QTapGesture*>(gesture)) {
+            if (tapGesture->state() == Qt::GestureFinished) {
+                emit clicked(this->contentName); // Emit the clicked signal when the tap gesture is finished
+                return true;
+            }
+        }
+    }
+    return false;
+}

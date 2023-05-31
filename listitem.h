@@ -4,6 +4,10 @@
 #include <QWidget>
 #include <QTime>
 #include <QDate>
+#include <QTouchEvent>
+#include <QGestureEvent>
+#include <QGesture>
+#include <QTapGesture>
 
 namespace Ui {
 class ListItem;
@@ -25,6 +29,19 @@ public:
 
     bool operator==(const ListItem& other) {
         return contentName == other.contentName;
+    }
+
+signals:
+    void clicked(const QString& contentName);
+
+protected:
+    bool event(QEvent* event) override;
+    bool gestureEvent(QGestureEvent* event);
+    void mousePressEvent(QMouseEvent* event) override {
+        if (event->button() == Qt::LeftButton) {
+            emit clicked(this->contentName);
+        }
+        QWidget::mousePressEvent(event); // Call the base class implementation
     }
 
 private:
