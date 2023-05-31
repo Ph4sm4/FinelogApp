@@ -95,6 +95,10 @@ padding-bottom: 5px;
        <string notr="true">#pagination {
 width: 100%;
 height: 100%;
+}
+
+QLineEdit:focus {
+background: rgb(230, 230, 230);
 }</string>
       </property>
       <property name="currentIndex">
@@ -189,6 +193,7 @@ margin-right: 20px;
 QLineEdit:focus {
 border: 2px solid black;
 outline: none;
+background: rgb(230, 230, 230);
 }</string>
             </property>
             <property name="text">

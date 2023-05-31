@@ -30,6 +30,8 @@ public:
 public slots:
     void userBasicDetailsChange();
 
+    void formSubmitted();
+
 private slots:
     void on_settingsButton_clicked();
 
@@ -37,49 +39,6 @@ private slots:
 
     void on_backToDashboard_clicked();
 
-    void on_sendForm_clicked();
-
-    void on_formSendConfirmCheck_stateChanged(int arg1);
-
-    void on_radioButton_26_toggled(bool checked);
-
-    void on_radioButton_23_toggled(bool checked);
-
-    void on_radioButton_29_toggled(bool checked);
-
-    void on_radioButton_4_toggled(bool checked);
-
-    void on_radioButton_63_toggled(bool checked);
-
-    void on_radioButton_67_toggled(bool checked);
-
-    void on_radioButton_69_toggled(bool checked);
-
-    void on_radioButton_71_toggled(bool checked);
-
-    void on_radioButton_73_toggled(bool checked);
-
-    void on_radioButton_84_toggled(bool checked);
-
-    void on_radioButton_88_toggled(bool checked);
-
-    void on_radioButton_97_toggled(bool checked);
-
-    void on_radioButton_99_toggled(bool checked);
-
-    void on_radioButton_101_toggled(bool checked);
-
-    void on_radioButton_103_toggled(bool checked);
-
-    void on_radioButton_105_toggled(bool checked);
-
-    void on_radioButton_107_toggled(bool checked);
-
-    void on_radioButton_109_toggled(bool checked);
-
-    void on_radioButton_113_toggled(bool checked);
-
-    void on_radioButton_115_toggled(bool checked);
 
 signals:
     void settingsButtonClicked();
@@ -96,10 +55,9 @@ private:
     FinelogUser* currentUser;
     QVector<ReportHeadline> reports;
     class SettingsPanel* settingsPanel = nullptr;
+    class ProtocolForm* form = nullptr;
 
-    bool isPositiveChoiseSelected(class QGroupBox* box);
-    void setFormEditState(bool checked, class QLineEdit* edit);
-    void setFormDateEditState(bool checked, class QDateEdit* edit);
+    void clearForm();
 };
 
 #endif // USERPANEL_H

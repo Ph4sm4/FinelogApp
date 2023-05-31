@@ -27,11 +27,11 @@ void FinelogUser::fetchHeadlines()
         QJsonObject val = it.value().toObject();
 
         ReportHeadline headline;
-        headline.projectName = val.value("ProjectName").toString();
-        headline.carName = val.value("CarName").toString();
-        headline.uploadTime = QTime::fromString(val.value("Time").toString());
-        headline.uploadDate = QDate::fromString(val.value("Date").toString());
-        headline.contentName = val.value("ContentName").toString();
+        headline.projectName = val.value("projectName").toString();
+        headline.carName = val.value("carName").toString();
+        headline.uploadTime = QTime::fromString(val.value("time").toString());
+        headline.uploadDate = QDate::fromString(val.value("date").toString());
+        headline.contentName = val.value("contentName").toString();
 
         if(!headlines.contains(headline))
             headlines.append(headline);

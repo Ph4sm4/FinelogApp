@@ -17,6 +17,7 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     overlaywidget.cpp \
+    protocolform.cpp \
     reportheadline.cpp \
     settingspanel.cpp \
     stylesheetmanipulator.cpp \
@@ -30,6 +31,7 @@ HEADERS += \
     listitem.h \
     mainwindow.h \
     overlaywidget.h \
+    protocolform.h \
     reportheadline.h \
     settingspanel.h \
     stylesheetmanipulator.h \
@@ -39,6 +41,7 @@ HEADERS += \
 FORMS += \
     listitem.ui \
     mainwindow.ui \
+    protocolform.ui \
     settingspanel.ui \
     userpanel.ui
 
