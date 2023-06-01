@@ -97,7 +97,7 @@ void MainWindow::showUserPanel()
 void MainWindow::displaySuccessBox()
 {
     QTimer::singleShot(1000, successBox, [this]() {
-        successBox = new QLabel();
+        successBox = new QLabel(this);
         successBox->setFixedSize(140, 40);
         successBox->setText("Success!");
         successBox->setStyleSheet("QLabel { padding: 5px 10px; background: rgb(80, 200, 120); color: white; border: none; border-radius: 6px; font-size: 18px; font-weight: bold}");
