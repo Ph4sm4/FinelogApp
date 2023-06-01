@@ -233,7 +233,7 @@ void SettingsPanel::on_savePhone_clicked()
     if(!InputManager::validateInputs(ui->phoneEdit) || phoneNumber == currentUser->getPhoneNumber()) return;
 
     QVariantMap payload;
-    payload["Phone_number"] = phoneNumber;
+    payload["phone_number"] = phoneNumber;
     QJsonDocument doc = QJsonDocument::fromVariant(payload);
     bool success = dbHandler.updateUserData(currentUser->getUserId(),
                                             doc, currentUser->getIdToken());
