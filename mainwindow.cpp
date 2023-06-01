@@ -22,7 +22,9 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
     ui->finelogLogo->setPixmap(QPixmap(":/images/content/finelog-logo.png"));
+    QApplication::setWindowIcon(QIcon(":/images/content/app_icon.ico"));
 
     ui->pagination->setCurrentIndex(0); // always start off with the login page
 

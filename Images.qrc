@@ -4,6 +4,7 @@
         <file>content/finelog-logo.png</file>
         <file>content/driver-min.jpeg</file>
         <file>content/iveco.jpg</file>
+        <file>content/app_icon.ico</file>
     </qresource>
     <qresource prefix="/icons">
         <file>content/eye_opened.svg</file>
