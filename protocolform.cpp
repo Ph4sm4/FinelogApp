@@ -15,6 +15,7 @@
 #include <QTimer>
 #include <QGroupBox>
 #define ipcs isPositiveChoiseSelected
+#define mprb markProperRadioButton
 
 ProtocolForm::ProtocolForm(QWidget *parent) :
     QWidget(parent),
@@ -125,6 +126,17 @@ void ProtocolForm::prepareForm()
     ui->truckComments->setEnabled(true);
 }
 
+// disable all fields
+void ProtocolForm::prepareFormToInspect()
+{
+    for(QObject* o : ui->protocol_fields->children()) {
+        QWidget* w = dynamic_cast<QWidget*>(o);
+        if(w) {
+            w->setDisabled(true);
+        }
+    }
+}
+
 void ProtocolForm::hideSendOptions()
 {
     ui->sendForm->setDisabled(true);
@@ -132,6 +144,8 @@ void ProtocolForm::hideSendOptions()
 
     ui->formSendConfirmCheck->setDisabled(true);
     ui->formSendConfirmCheck->hide();
+
+    ui->formErrorLabel->setText("");
 }
 
 bool ProtocolForm::initializeFormData(const QString &contentName)
@@ -140,8 +154,143 @@ bool ProtocolForm::initializeFormData(const QString &contentName)
     QString path = "Reports/Content/" + contentName;
     QJsonObject formData = dbHandler.performAuthenticatedGET(path, currentUser->getIdToken());
 
+    // proceed with setting up the form data from db into the ui
+
+    // #define mprb markProperRadioButton
+
+    ui->emailEdit->setText(formData.value("owner_email").toString());
+    ui->phoneEdit->setText(formData.value("owner_phone").toString());
+
+    ui->driverCombo->addItem(formData.value("driver").toString());
+    ui->carCombo->addItem(formData.value("carName").toString());
+    ui->trailerCombo->addItem(formData.value("semiTrailer").toString());
+    ui->projectCombo->addItem(formData.value("projectName").toString());
+
+    ui->driverCombo->setCurrentText(formData.value("driverName").toString());
+    ui->carCombo->setCurrentText(formData.value("carName").toString());
+    ui->trailerCombo->setCurrentText(formData.value("semiTrailer").toString());
+    ui->projectCombo->setCurrentText(formData.value("projectName").toString());
+
+    ui->odometerSpin->setValue(formData.value("odometerReading").toDouble());
+    ui->fuelInTankSpin->setValue(formData.value("fuelInTank").toDouble());
+    mprb(ui->tollCollectProper,formData.value("isTollCollectProper").toBool());
+    ui->tollCollectProperEdit->setText(formData.value("tollCollectProperComment").toString());
+    mprb(ui->lightsCondition, formData.value("lightsCondition").toBool());
+    mprb(ui->briefCaseDocsPresent, formData.value("briefcaseDocsPresent").toBool());
+    mprb(ui->carRegCertPresent, formData.value("carRegCertPresent").toBool());
+    mprb(ui->trailerRegCertPresent, formData.value("semiTrailerRegCertPresent").toBool());
+    mprb(ui->carInsurancePresent, formData.value("carInsurancePresent").toBool());
+    mprb(ui->trailerInsurancePresent, formData.value("semiTrailerInsurancePresent").toBool());
+    mprb(ui->licensePresent, formData.value("licensePresent").toBool());
+    ui->licenseNumberEdit->setText(formData.value("licenseNumber").toString());
+    ui->dkvCardNumber->setText(formData.value("dkvCardNumber").toString());
+    ui->hoyerCardNumber->setText(formData.value("hoyerCardNumber").toString());
+    mprb(ui->overallCabinState, formData.value("overallCabinState").toBool());
+    mprb(ui->fridgeClean, formData.value("fridgeClean").toBool());
+    mprb(ui->cabinDamages, formData.value("cabinDamages").toBool());
+    ui->cabinDamagesEdit->setText(formData.value("cabinDamagesComment").toString());
+    mprb(ui->tireCondition, formData.value("tiresCondition").toBool());
+    ui->tireConditionEdit->setText(formData.value("tiresConditionComment").toString());
+    mprb(ui->adrPlateCondition, formData.value("adrPlateCondition").toBool());
+    mprb(ui->vehicleClean, formData.value("vehicleClean").toBool());
+    mprb(ui->visibleOuterDamages, formData.value("visibleOuterDamages").toBool());
+    mprb(ui->ebTriangles, formData.value("ebTriangles").toBool());
+    mprb(ui->ebGloves, formData.value("ebGloves").toBool());
+    mprb(ui->adrColorfulInstruction, formData.value("ebColorfulAdrInstruction").toBool());
+    mprb(ui->ebReflectiveVest, formData.value("ebReflectiveVest").toBool());
+    mprb(ui->ebProtectiveGoogles, formData.value("ebProtectiveGoggles").toBool());
+    mprb(ui->ebFunctionalFlashlight, formData.value("ebFunctionalFlashlight").toBool());
+    mprb(ui->ebBrushAndScoop, formData.value("ebBrushAndScoop").toBool());
+    mprb(ui->ebWasteBox, formData.value("ebWasteBox").toBool());
+    mprb(ui->ebRubberShoes, formData.value("ebRubberShoes").toBool());
+    mprb(ui->ebWheelWedge, formData.value("ebWheelWedge").toBool());
+    mprb(ui->ebManholeMat, formData.value("ebManholeMat").toBool());
+    mprb(ui->fireExting6kg, formData.value("fireExtinguisher6kg").toBool());
+    ui->fireExting6kg1Date->setDate(QDate::fromString(formData.value("expirationDateExting6kg1").toString(), "yyyy-MM-dd"));
+    ui->fireExting6kg2Date->setDate(QDate::fromString(formData.value("expirationDateExting6kg2").toString(), "yyyy-MM-dd"));
+    mprb(ui->fireExting2kg, formData.value("fireExtinguisher2kg").toBool());
+    ui->fireExting2kgDate->setDate(QDate::fromString(formData.value("expirationDateExting2kg").toString(), "yyyy-MM-dd"));
+    mprb(ui->medkit, formData.value("medkit").toBool());
+    ui->medkitDate->setDate(QDate::fromString(formData.value("expirationDateMedkit").toString(), "yyyy-MM-dd"));
+    mprb(ui->maskAndFilters, formData.value("maskAndFilters").toBool());
+    mprb(ui->eyewash, formData.value("eyewash").toBool());
+    ui->maskAndFiltersDate->setDate(QDate::fromString(formData.value("expirationDateMaskAndFilters").toString(), "yyyy-MM-dd"));
+    ui->eyewashDate->setDate(QDate::fromString(formData.value("expirationDateEyewash").toString(), "yyyy-MM-dd"));
+    ui->truckComments->setText(formData.value("comments").toString());
+
+    // semi trailer related (probably)
+
+    mprb(ui->trailerAdrCondition, formData.value("trailerAdrCondition").toBool());
+    mprb(ui->trailerClean, formData.value("trailerClean").toBool());
+    mprb(ui->trailerWheelWedge, formData.value("trailerWheelWedge").toBool());
+    mprb(ui->trailerTireCondition, formData.value("trailerTireCondition").toBool());
+    mprb(ui->trailerLightCondition, formData.value("trailerLightsCondition").toBool());
+    ui->trailerLightDamagesEdit->setText(formData.value("trailerLightsDamageComment").toString());
+    mprb(ui->trailerVisibleDamages, formData.value("trailerVisibleDamages").toBool());
+    mprb(ui->trailerWireCondition, formData.value("trailerWireCondition").toBool());
+    ui->trailerWireConditionEdit->setText(formData.value("trailerWireComments").toString());
+    ui->trailerBarSpin->setValue(formData.value("trailerBarNumber").toDouble());
+    ui->trailerBeltSpin->setValue(formData.value("trailerBeltNumber").toDouble());
+    mprb(ui->trailerPalletTruck, formData.value("trailerPalletTruck").toBool());
+    ui->trailerExpansionPoleSpin->setValue(formData.value("trailerExpansionPole").toDouble());
+    ui->trailerCornerSpin->setValue(formData.value("trailerCornerNumber").toDouble());
+    ui->trailerAntislipMapSpin->setValue(formData.value("trailerAntislipMap").toDouble());
+    mprb(ui->trailerLoadedElevator, formData.value("trailerLoadedElevator").toBool());
+    mprb(ui->trailerUdtElevatorUpdToDate, formData.value("trailerUdtElevatorUpToDate").toBool());
+    mprb(ui->trailerLngCertificate, formData.value("trailerLngCertificate").toBool());
+    mprb(ui->eni, formData.value("eni").toBool());
+    ui->eniNumberEdit->setText(formData.value("eniNumber").toString());
+    mprb(ui->shell, formData.value("shell").toBool());
+    ui->shellNumberEdit->setText(formData.value("shellNumber").toString());
+    mprb(ui->barmalgas, formData.value("barmalgas").toBool());
+    ui->barmalgasNumberEdit->setText(formData.value("barmalgasNumber").toString());
+    mprb(ui->liqvis, formData.value("liqvis").toBool());
+    ui->liqvisNumberEdit->setText(formData.value("liqvisNumber").toString());
+    mprb(ui->liquind, formData.value("liquind").toBool());
+    ui->liquindNumberEdit->setText(formData.value("liquindNumber").toString());
+    mprb(ui->e100, formData.value("e100").toBool());
+    ui->e100NumberEdit->setText(formData.value("e100Number").toString());
+    mprb(ui->aral, formData.value("aral").toBool());
+    ui->aralNumberEdit->setText(formData.value("aralNumber").toString());
+    mprb(ui->setConnectedToTrailer, formData.value("setConnectedToTrailer").toBool());
+    mprb(ui->missingBoxContent, formData.value("missingBoxContent").toBool());
+    ui->missingBoxContentEdit->setText(formData.value("missinBoxContentComment").toString());
+    mprb(ui->missingDocsInCabin, formData.value("missingDocsInCabin").toBool());
+    ui->missingDocsInCabinEdit->setText(formData.value("missingDocsInCabinComment").toString());
+
+
+
 
     return true;
+}
+
+void ProtocolForm::markProperRadioButton(QGroupBox* box, bool val)
+{
+    if(!box) return;
+
+    QRadioButton* radio1 = nullptr;
+    QRadioButton* radio2 = nullptr;
+    for(QRadioButton* r : box->findChildren<QRadioButton*>()) {
+        if(!radio1) radio1 = r;
+        else radio2 = r;
+    }
+
+    QRadioButton* positiveOption = nullptr;
+    QRadioButton* negativeOption = nullptr;
+
+    if(!radio1 || !radio2) return;
+
+    if(radio1->text() == "Ok" || radio1->text() == "Tak") {
+        positiveOption = radio1;
+        negativeOption = radio2;
+    }
+    else {
+        positiveOption = radio2;
+        negativeOption = radio1;
+    }
+
+    if(val) positiveOption->setChecked(true);
+    else negativeOption->setChecked(true);
 }
 
 void ProtocolForm::on_sendForm_clicked()

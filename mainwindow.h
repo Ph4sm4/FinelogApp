@@ -6,7 +6,6 @@
 #include "databasehandler.h"
 #include <QLineEdit>
 #include <QJsonObject>
-#include "inputmanager.h"
 #include "userpanel.h"
 
 QT_BEGIN_NAMESPACE

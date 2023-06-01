@@ -93,6 +93,10 @@ height: 30px;
 max-width: 200px;
 background-color: white;
 }
+QWidget {
+   background-color: rgb(243, 244, 246);
+    border-radius: 5px;
+}
 
 QLineEdit:focus {
 border: 2px solid black;
@@ -104,11 +108,28 @@ QLineEdit::disabled {
     color: #aaaaaa; 
     border: 1px solid #aaaaaa; 
 }
-
-QDateEdit::disabled {
+QComboBox::disabled {
     background-color: #dddddd; 
     color: #aaaaaa; 
     border: 1px solid #aaaaaa; 
+}
+QSpinBox::disabled {
+    background-color: #dddddd; 
+    color: #aaaaaa; 
+    border: 1px solid #aaaaaa; 
+}
+QGroupBox::disabled {
+    background-color: #dddddd; 
+    color: #aaaaaa; 
+    border: 1px solid #aaaaaa; 
+}
+QRadioButton::disabled {
+    background-color: #dddddd; 
+    color: #aaaaaa; 
+}
+QDateEdit::disabled {
+    background-color: #dddddd; 
+    color: #aaaaaa; 
 }
 
 QScrollArea {
@@ -117,10 +138,7 @@ QScrollArea {
      border-radius: 5px;
      padding: 0;
 }
-QWidget {
-   background-color: rgb(243, 244, 246);
-    border-radius: 5px;
-}
+
 
 QScrollBar:vertical {
         border: none;

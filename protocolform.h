@@ -17,12 +17,14 @@ public:
     ~ProtocolForm();
 
     void prepareForm();
+    void prepareFormToInspect();
     void setCurrentUser(class FinelogUser* user) { currentUser = user; }
     void hideSendOptions();
     bool initializeFormData(const QString& contentName);
 
 signals:
     void formSubmitted();
+    void successBoxTrigger();
 
 private slots:
     void on_radioButton_26_toggled(bool checked);
@@ -77,6 +79,7 @@ private:
     bool isPositiveChoiseSelected(class QGroupBox* box);
     void setFormEditState(bool checked, class QLineEdit* edit);
     void setFormDateEditState(bool checked, class QDateEdit* edit);
+    void markProperRadioButton(class QGroupBox* box, bool val);
 
     DatabaseHandler dbHandler;
 };

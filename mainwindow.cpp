@@ -10,7 +10,7 @@
 #include <QMessageBox>
 #include "stylesheetmanipulator.h"
 #include <QTimer>
-
+#include "inputmanager.h"
 /*
  * https://cloud.google.com/identity-platform/docs/use-rest-api#section-confirm-email-verification
  * https://cloud.google.com/identity-platform/docs/reference/rest/v1/accounts/resetPassword
@@ -188,6 +188,7 @@ void MainWindow::on_registerButton_clicked()
 
     connect(uPanel, &UserPanel::logOutButtonClicked, this, &MainWindow::loggedOutOfUserPanel);
     connect(uPanel, &UserPanel::settingsButtonClicked, this, &MainWindow::showUserPanel);
+    connect(uPanel, &UserPanel::successBoxDisplayNeeded, this, &MainWindow::displaySuccessBox);
 
     ui->pagination->setCurrentIndex(5);
 }

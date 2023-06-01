@@ -90,15 +90,29 @@ void UserPanel::formReadyForDeletion()
     ui->pagination->removeWidget(form);
     form->deleteLater();
     form = nullptr;
+
+    emit successBoxDisplayNeeded();
+}
+
+// function required to leave the inspected protocol without causing a success box trigger - e.g. no signal emitted
+void UserPanel::formReadyForDeletionNoSuccessBox()
+{
+    setUserDisplayInfo();
+
+    ui->pagination->setCurrentIndex(0);
+
+    ui->pagination->removeWidget(form);
+    form->deleteLater();
+    form = nullptr;
 }
 
 void UserPanel::projectDetailsRequested(const QString& contentName)
 {
     form = new ProtocolForm();
     form->setCurrentUser(currentUser);
-    form->prepareForm();
-    form->hideSendOptions();
     form->initializeFormData(contentName);
+    form->prepareFormToInspect();
+    form->hideSendOptions();
 
     QVBoxLayout* layout = qobject_cast<QVBoxLayout*>(ui->protocol_form->layout());
     if(layout) {
@@ -111,6 +125,8 @@ void UserPanel::projectDetailsRequested(const QString& contentName)
     }
 
 }
+
+
 
 void UserPanel::setUserDisplayInfo()
 {
@@ -229,7 +245,7 @@ void UserPanel::on_newProtocolButton_clicked()
 
 void UserPanel::on_backToDashboard_clicked()
 {
-    formReadyForDeletion();
+    formReadyForDeletionNoSuccessBox();
     ui->pagination->setCurrentIndex(0);
 }
 

@@ -59,6 +59,8 @@ private:
     class SettingsPanel* settingsPanel = nullptr;
     class ProtocolForm* form = nullptr;
 
+    void formReadyForDeletionNoSuccessBox();
+
     void clearForm();
 };
 
