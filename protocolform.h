@@ -20,7 +20,7 @@ public:
     void prepareFormToInspect();
     void setCurrentUser(class FinelogUser* user) { currentUser = user; }
     void hideSendOptions();
-    bool initializeFormData(const QString& contentName);
+    bool initializeFormData(const QString& contentName, QLabel* projectTitle);
 
 signals:
     void formSubmitted();

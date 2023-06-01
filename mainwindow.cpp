@@ -105,7 +105,6 @@ void MainWindow::displaySuccessBox()
         successBox->show();
         successBox->move(-140, 40);
 
-        // something is wrong with this, try fixing the fact that it appears on top :(
         QPropertyAnimation *animation = new QPropertyAnimation(successBox, "pos", this);
         animation->setDuration(300);
         animation->setEasingCurve(QEasingCurve::InOutQuad);
@@ -116,9 +115,9 @@ void MainWindow::displaySuccessBox()
         //
 
         connect(animation, &QPropertyAnimation::finished, this, [this]()->void {
-            // after 5 seconds we would like to animate back
+            // after 3 seconds we would like to animate back
             timer->stop();
-            timer->start(5000);
+            timer->start(3000);
         });
     });
 }
@@ -418,5 +417,11 @@ void MainWindow::on_backToLogin_clicked()
 {
     ui->passwordForgotEdit->clear();
     ui->pagination->setCurrentIndex(0);
+}
+
+
+void MainWindow::on_pagination_currentChanged(int arg1)
+{
+    ui->loginErrorLabel->setText("");
 }
 

@@ -9,11 +9,6 @@ FinelogUser::FinelogUser() {
 
 }
 
-UserReport FinelogUser::getReportContent(const QString &name) const
-{
-
-}
-
 void FinelogUser::fetchHeadlines()
 {
     const QString endPoint = "Reports/Headlines";

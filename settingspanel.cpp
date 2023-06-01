@@ -171,8 +171,8 @@ void SettingsPanel::on_saveName_clicked()
     }
 
     QVariantMap payload;
-    payload["Name"] = name;
-    payload["Surname"] = surname;
+    payload["name"] = name;
+    payload["surname"] = surname;
     QJsonDocument doc = QJsonDocument::fromVariant(payload);
     success = dbHandler.updateUserData(currentUser->getUserId(),
                                        doc, currentUser->getIdToken());
@@ -200,7 +200,7 @@ void SettingsPanel::on_saveEmail_clicked()
     if(!InputManager::validateInputs(ui->emailEdit) || !InputManager::validateEmail(email) || email == currentUser->getEmail() || !ui->confirmEmailCheckBox->isChecked()) return;
 
     QVariantMap payload;
-    payload["Email"] = email;
+    payload["email"] = email;
     QJsonDocument doc = QJsonDocument::fromVariant(payload);
     bool success = dbHandler.updateUserData(currentUser->getUserId(),
                                        doc, currentUser->getIdToken());

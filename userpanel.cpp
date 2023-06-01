@@ -110,7 +110,7 @@ void UserPanel::projectDetailsRequested(const QString& contentName)
 {
     form = new ProtocolForm();
     form->setCurrentUser(currentUser);
-    form->initializeFormData(contentName);
+    form->initializeFormData(contentName, ui->protocolTitle);
     form->prepareFormToInspect();
     form->hideSendOptions();
 
@@ -232,6 +232,7 @@ void UserPanel::on_newProtocolButton_clicked()
             form->prepareForm();
 
             connect(form, &ProtocolForm::formSubmitted, this, &UserPanel::formReadyForDeletion);
+            ui->protocolTitle->setText("Nowy protokół");
 
             layout->addWidget(form);
             qDebug() << "successfully added form";

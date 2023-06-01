@@ -129,7 +129,7 @@ void ProtocolForm::prepareForm()
 // disable all fields
 void ProtocolForm::prepareFormToInspect()
 {
-    for(QObject* o : ui->protocol_fields->children()) {
+    for(QObject* o : ui->protocol_fields->widget()->children()) {
         QWidget* w = dynamic_cast<QWidget*>(o);
         if(w) {
             w->setDisabled(true);
@@ -148,7 +148,7 @@ void ProtocolForm::hideSendOptions()
     ui->formErrorLabel->setText("");
 }
 
-bool ProtocolForm::initializeFormData(const QString &contentName)
+bool ProtocolForm::initializeFormData(const QString &contentName, QLabel* projectTitle)
 {
     //qDebug() << "content name received: " << contentName;
     QString path = "Reports/Content/" + contentName;
@@ -157,6 +157,8 @@ bool ProtocolForm::initializeFormData(const QString &contentName)
     // proceed with setting up the form data from db into the ui
 
     // #define mprb markProperRadioButton
+
+    projectTitle->setText(formData.value("projectName").toString());
 
     ui->emailEdit->setText(formData.value("owner_email").toString());
     ui->phoneEdit->setText(formData.value("owner_phone").toString());

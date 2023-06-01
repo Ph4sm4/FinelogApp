@@ -4,7 +4,6 @@
 #include <QString>
 #include <QVector>
 #include "reportheadline.h"
-#include "userreport.h"
 
 class FinelogUser
 {
@@ -21,7 +20,6 @@ public:
     QString getIdToken() const { return idToken; }
     QString getFinelogId() const { return finelogId; }
     QVector<ReportHeadline> getHeadlines() const { return headlines; }
-    UserReport getReportContent(const QString& name) const;
     bool getEmailVerified() const { return emailVerified; }
     QDate getAccountCreatedAt() const { return accountCreatedAt; }
 

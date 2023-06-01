@@ -69,6 +69,8 @@ private slots:
 
     void on_backToLogin_clicked();
 
+    void on_pagination_currentChanged(int arg1);
+
 private:
     Ui::MainWindow *ui;
 
