@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>496</width>
-    <height>491</height>
+    <width>440</width>
+    <height>783</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -179,7 +179,7 @@ background: rgb(243, 244, 246);
 }</string>
         </property>
         <property name="currentIndex">
-         <number>4</number>
+         <number>2</number>
         </property>
         <widget class="QWidget" name="emailVerify1">
          <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -669,10 +669,13 @@ text-align: right;
             <property name="orientation">
              <enum>Qt::Vertical</enum>
             </property>
+            <property name="sizeType">
+             <enum>QSizePolicy::MinimumExpanding</enum>
+            </property>
             <property name="sizeHint" stdset="0">
              <size>
               <width>20</width>
-              <height>113</height>
+              <height>100</height>
              </size>
             </property>
            </spacer>
@@ -1796,6 +1799,22 @@ border-top: 2px solid  rgb(249, 115, 22);
          <string>Log out</string>
         </property>
        </widget>
+      </item>
+      <item>
+       <spacer name="verticalSpacer_26">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::Expanding</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>60</height>
+         </size>
+        </property>
+       </spacer>
       </item>
      </layout>
     </widget>

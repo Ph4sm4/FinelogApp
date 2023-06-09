@@ -108,6 +108,7 @@ bool DatabaseHandler::registerNewUser(FinelogUser* user, QLabel* errorLabel)
     newUser["user_id"] = user->getUserId();
     newUser["isAdmin"] = false;
     newUser["finelog_id"] = user->getFinelogId();
+    newUser["accountCreatedAt"] = date.toString();
 
     // this endpoint is going to create a document labeled as UserId (UId)
     // idToken is required to perform an authorized database request

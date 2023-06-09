@@ -6,6 +6,8 @@ UserItem::UserItem(QWidget *parent) :
     ui(new Ui::UserItem)
 {
     ui->setupUi(this);
+
+    user = new FinelogUser();
 }
 
 UserItem::~UserItem()
@@ -25,14 +27,16 @@ void UserItem::setNewUpload(bool upload)
 
 void UserItem::setFullName(const QString &name, const QString &surname)
 {
-    fullName = name + " " + surname;
+    QString fullName = name + " " + surname;
+    user->setName(name);
+    user->setSurname(surname);
     ui->fullNameLabel->setText(fullName);
 }
 
 void UserItem::setEmail(const QString &newEmail)
 {
-    email = newEmail;
-    ui->emailLabel->setText(email);
+    user->setEmail(newEmail);
+    ui->emailLabel->setText(newEmail);
 }
 
 void UserItem::setNumberOfUploads(const int &uploadNumber)
@@ -64,4 +68,12 @@ bool UserItem::gestureEvent(QGestureEvent *event)
         }
     }
     return false;
+}
+
+void UserItem::mousePressEvent(QMouseEvent *event)
+{
+    if (event->button() == Qt::LeftButton) {
+        emit clicked(user);
+    }
+    QWidget::mousePressEvent(event); // Call the base class implementation
 }

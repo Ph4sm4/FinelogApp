@@ -29,6 +29,7 @@ public:
     bool uploadProtocol(const class FinelogUser* user, const class UserReport& report);
     bool deleteUserAccount(const QString& idToken);
     bool deleteDatabaseEntry(const QString &databasePath, const QString &idToken);
+    QJsonObject getAuthAccountInfo(const QString &idToken);
 
 public slots:
     //void networkReplyReadyRead();
@@ -41,7 +42,6 @@ private:
     const QString api_key = "AIzaSyA--DNxqDYjviNPHl7qrZ0GiQM9A5c2_Bg";
     const QString dbBaseUrl = "https://finelogapp-default-rtdb.europe-west1.firebasedatabase.app/";
     QJsonObject signUpWithEmailAndPassword(const QString email, const QString password);
-    QJsonObject getAuthAccountInfo(const QString& idToken);
 };
 
 #endif // DATABASEHANDLER_H

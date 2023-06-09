@@ -21,11 +21,23 @@ public:
         adminUser = user;
         initializeDashboard();
     }
+public slots:
+    void clickedOnUser(class FinelogUser *user);
+
+    void formReadyForDeletion();
+
+    void projectDetailsRequested(const QString &contentName);
+
+private slots:
+    void on_backToPanel_clicked();
 
 private:
     Ui::AdminPanel *ui;
 
-    class FinelogUser *adminUser;
+    class FinelogUser *adminUser = nullptr;
+    class FinelogUser *previewUser = nullptr;
+    class ProtocolForm *form = nullptr;
+
     DatabaseHandler dbHandler;
     void initializeDashboard();
 };

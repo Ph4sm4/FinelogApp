@@ -49,7 +49,7 @@ private:
     QString finelogId;
     bool emailVerified;
     QDate accountCreatedAt;
-    bool isAdmin;
+    bool isAdmin = false;
 
     //database related
     QString idToken;
