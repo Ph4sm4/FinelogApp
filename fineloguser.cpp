@@ -1,6 +1,5 @@
 #include "fineloguser.h"
 #include <QRegularExpression>
-#include "userreport.h"
 #include "databasehandler.h"
 #include <QJsonObject>
 #include <QDebug>

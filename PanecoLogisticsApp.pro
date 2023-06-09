@@ -14,6 +14,7 @@ RC_ICONS = app_icon.ico
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    adminpanel.cpp \
     databasehandler.cpp \
     fineloguser.cpp \
     inputmanager.cpp \
@@ -25,10 +26,12 @@ SOURCES += \
     reportheadline.cpp \
     settingspanel.cpp \
     stylesheetmanipulator.cpp \
+    useritem.cpp \
     userpanel.cpp \
     userreport.cpp
 
 HEADERS += \
+    adminpanel.h \
     databasehandler.h \
     fineloguser.h \
     inputmanager.h \
@@ -39,14 +42,17 @@ HEADERS += \
     reportheadline.h \
     settingspanel.h \
     stylesheetmanipulator.h \
+    useritem.h \
     userpanel.h \
     userreport.h
 
 FORMS += \
+    adminpanel.ui \
     listitem.ui \
     mainwindow.ui \
     protocolform.ui \
     settingspanel.ui \
+    useritem.ui \
     userpanel.ui
 
 # Default rules for deployment.

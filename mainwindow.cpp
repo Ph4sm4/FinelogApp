@@ -1,16 +1,18 @@
 #include "mainwindow.h"
-#include "overlaywidget.h"
 #include <QGraphicsEffect>
-#include "settingspanel.h"
-#include "ui_mainwindow.h"
-#include "fineloguser.h"
-#include <type_traits>
-#include <QPropertyAnimation>
 #include <QIntValidator>
 #include <QMessageBox>
-#include "stylesheetmanipulator.h"
+#include <QPropertyAnimation>
 #include <QTimer>
+#include "adminpanel.h"
+#include "fineloguser.h"
 #include "inputmanager.h"
+#include "overlaywidget.h"
+#include "settingspanel.h"
+#include "stylesheetmanipulator.h"
+#include "ui_mainwindow.h"
+#include "userpanel.h"
+#include <type_traits>
 /*
  * https://cloud.google.com/identity-platform/docs/use-rest-api#section-confirm-email-verification
  * https://cloud.google.com/identity-platform/docs/reference/rest/v1/accounts/resetPassword
@@ -150,16 +152,22 @@ void MainWindow::on_loginButton_clicked()
         return;
     }
 
-    uPanel = new UserPanel();
-    ui->pagination->insertWidget(5, uPanel);
-    uPanel->setCurrentUser(loggedInUser);
-    InputManager::clearInputs(ui->emailEdit, ui->passwordEdit);
+    if (loggedInUser->getIsAdmin() == false) { // change to user panel
+        uPanel = new UserPanel();
+        ui->pagination->insertWidget(5, uPanel);
+        uPanel->setCurrentUser(loggedInUser);
+        InputManager::clearInputs(ui->emailEdit, ui->passwordEdit);
 
-    connect(uPanel, &UserPanel::logOutButtonClicked, this, &MainWindow::loggedOutOfUserPanel);
-    connect(uPanel, &UserPanel::settingsButtonClicked, this, &MainWindow::showUserPanel);
-    connect(uPanel, &UserPanel::successBoxDisplayNeeded, this, &MainWindow::displaySuccessBox);
+        connect(uPanel, &UserPanel::logOutButtonClicked, this, &MainWindow::loggedOutOfUserPanel);
+        connect(uPanel, &UserPanel::settingsButtonClicked, this, &MainWindow::showUserPanel);
+        connect(uPanel, &UserPanel::successBoxDisplayNeeded, this, &MainWindow::displaySuccessBox);
 
-    // change to user panel
+    } else { // change to admin panel
+        aPanel = new AdminPanel();
+        aPanel->setUser(loggedInUser);
+        ui->pagination->insertWidget(5, aPanel);
+    }
+
     ui->pagination->setCurrentIndex(5);
     ui->loginButton->setDisabled(false);
 }
@@ -174,7 +182,7 @@ void MainWindow::on_registerButton_clicked()
 
     registrationUser->setPassword(password1);
 
-    bool success = dbHandler.registerNewUser(registrationUser);
+    bool success = dbHandler.registerNewUser(registrationUser, ui->registerErrorLabel);
     if(!success) return;
 
     InputManager::clearInputs(ui->nameRegister, ui->surnameRegister,

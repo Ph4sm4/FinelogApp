@@ -8,6 +8,7 @@
 #include "fineloguser.h"
 #include <QLabel>
 #include <QJsonArray>
+#include "stylesheetmanipulator.h"
 #include "userreport.h"
 
 DatabaseHandler::DatabaseHandler(QObject* parent) : QObject(parent)
@@ -20,9 +21,15 @@ DatabaseHandler::~DatabaseHandler()
     networkManager->deleteLater();
 }
 
+
 QJsonObject DatabaseHandler::performAuthenticatedGET(const QString& databasePath, const QString& userIdToken, const QString& queryParams)
 {
-    QString endPoint = "https://finelogapp-default-rtdb.europe-west1.firebasedatabase.app/" + databasePath + ".json" + (queryParams.length()? "?" + queryParams : "") + (queryParams.length()? "&" : "?") + "auth=" + userIdToken;
+    QString endPoint = dbBaseUrl + databasePath + ".json"
+                       + (queryParams.length() ? "?" + queryParams : "")
+                       + (queryParams.length() ? "&" : "?") + "auth=" + userIdToken;
+
+    //qDebug() << "auth get endpoint: " << endPoint;
+
     QEventLoop loop;
     networkReply = networkManager->get(
         QNetworkRequest(QUrl(endPoint)));
@@ -43,9 +50,20 @@ bool DatabaseHandler::registerNewUser(FinelogUser* user, QLabel* errorLabel)
 
     // check for errors here
 
-
-
-    // check for errors later !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    if(newUserData.contains("error")) {
+        QJsonObject errObj = newUserData.value("error").toObject();
+        if(errObj.value("message") == "EMAIL_EXISTS") {
+            if(errorLabel) {
+                errorLabel->setText("The account with specified email already exists");
+                errorLabel->setStyleSheet(StylesheetManipulator::updateStylesheetProperty(errorLabel->styleSheet(),
+                                                                              "QLabel", "color", "red"));
+            }
+        }
+        else {
+            if(errorLabel) errorLabel->setText("An error occurred");
+        }
+        return false;
+    }
 
     const QString UId = newUserData.value("localId").toString();
     const QString idToken = newUserData.value("idToken").toString();
@@ -58,12 +76,14 @@ bool DatabaseHandler::registerNewUser(FinelogUser* user, QLabel* errorLabel)
     bool success = changeAuthDisplayName(idToken, user->getName() + " " + user->getSurname());
     if(!success) {
         errorLabel->setText("Unable to upload authentication data. Please try again");
+        deleteUserAccount(idToken);
         return false;
     }
 
     QJsonObject accountInfo = getAuthAccountInfo(idToken);
     if(accountInfo.contains("error") && errorLabel) {
         errorLabel->setText("Could not get account info. Please try again");
+        deleteUserAccount(idToken);
         return false;
     }
 
@@ -86,6 +106,7 @@ bool DatabaseHandler::registerNewUser(FinelogUser* user, QLabel* errorLabel)
     newUser["phone_number"] =user->getPhoneNumber();
     newUser["surname"] = user->getSurname();
     newUser["user_id"] = user->getUserId();
+    newUser["isAdmin"] = false;
     newUser["finelog_id"] = user->getFinelogId();
 
     // this endpoint is going to create a document labeled as UserId (UId)
@@ -143,6 +164,7 @@ FinelogUser* DatabaseHandler::logInWithEmailAndPassword(const QString &email, co
     loggedInUser->setPassword(password);
     loggedInUser->setFinelogId(userData.value("finelog_id").toString());
     loggedInUser->setEmailVerified(accountInfo.value("emailVerified").toBool());
+    loggedInUser->setIsAdmin(userData.value("isAdmin").toBool());
 
     // "created at" manipulations since the response is given as a string of milliseconds
     QString timestamp = accountInfo.value("createdAt").toString();
@@ -209,7 +231,7 @@ QJsonObject DatabaseHandler::performPOST(const QString &url, const QJsonDocument
 
 QJsonObject DatabaseHandler::performAuthenticatedPUT(const QString &databasePath, const QJsonDocument &payload, const QString& userIdToken)
 {
-    QString endPoint = "https://finelogapp-default-rtdb.europe-west1.firebasedatabase.app/" + databasePath + ".json?auth=" + userIdToken;
+    QString endPoint = dbBaseUrl + databasePath + ".json?auth=" + userIdToken;
 
     QNetworkRequest newReq((QUrl(endPoint)));
     newReq.setHeader(QNetworkRequest::ContentTypeHeader, QString("application/json"));
@@ -228,7 +250,7 @@ QJsonObject DatabaseHandler::performAuthenticatedPUT(const QString &databasePath
 
 QJsonObject DatabaseHandler::performAuthenticatedPOST(const QString &databasePath, const QJsonDocument& payload, const QString &userIdToken)
 {
-    QString endPoint = "https://finelogapp-default-rtdb.europe-west1.firebasedatabase.app/" + databasePath + ".json?auth=" + userIdToken;
+    QString endPoint = dbBaseUrl + databasePath + ".json?auth=" + userIdToken;
     QEventLoop loop;
     QNetworkRequest newReq((QUrl(endPoint)));
     newReq.setHeader(QNetworkRequest::ContentTypeHeader, QString("application/json"));
@@ -281,7 +303,7 @@ bool DatabaseHandler::updateUserData(const QString &userId, const QJsonDocument&
 
 QJsonObject DatabaseHandler::performAuthenticatedPATCH(const QString &databasePath, const QJsonDocument &payload, const QString& userIdToken)
 {
-    QString endPoint = "https://finelogapp-default-rtdb.europe-west1.firebasedatabase.app/" + databasePath + ".json?auth=" + userIdToken;
+    QString endPoint = dbBaseUrl + databasePath + ".json?auth=" + userIdToken;
     QEventLoop loop;
     QNetworkRequest newReq((QUrl(endPoint)));
     newReq.setHeader(QNetworkRequest::ContentTypeHeader, QString("application/json"));
@@ -492,9 +514,67 @@ bool DatabaseHandler::uploadProtocol(const FinelogUser *user, const UserReport &
 
     path = "Reports/Headlines/" + contentName;
     res = performAuthenticatedPUT(path,
-                                  QJsonDocument::fromVariant(headlinePayload), user->getIdToken());
+                                  QJsonDocument::fromVariant(headlinePayload),
+                                  user->getIdToken());
 
+    // if there was an error during headline upload, then we must delete the content entry
+    if (res.contains("error")) {
+        QString contentPath = "Reports/Content/" + contentName;
+        deleteDatabaseEntry(contentPath, user->getIdToken());
+        return false;
+    }
     qDebug() << "headline put res: " << res;
 
+    // now we want to add this particular report (e.g. Content name) to the Unread collection in the database
+
+    path = "Admin/Unread/" + contentName;
+    QVariantMap unreadPayload;
+    unreadPayload["owner_id"] = user->getUserId();
+
+    res = performAuthenticatedPUT(path,
+                                  QJsonDocument::fromVariant(unreadPayload),
+                                  user->getIdToken());
+
+    qDebug() << "unread put: " << res;
+
+    // if during this step, an error occurred - we must delete already created entries (content + headline)
+    if (res.contains("error")) {
+        QString contentPath = "Reports/Content/" + contentName;
+        QString headlinePath = "Reports/Headlines/" + contentName;
+
+        deleteDatabaseEntry(contentPath, user->getIdToken());
+        deleteDatabaseEntry(headlinePath, user->getIdToken());
+        return false;
+    }
+
     return res.contains("error") == false;
+}
+
+bool DatabaseHandler::deleteUserAccount(const QString &idToken)
+{
+    QString endPoint = "https://identitytoolkit.googleapis.com/v1/accounts:delete?key=" + api_key;
+
+    QVariantMap payload;
+    payload["idToken"] = idToken;
+    QJsonDocument doc = QJsonDocument::fromVariant(payload);
+
+    QJsonObject res = performPOST(endPoint, doc);
+
+    return res.contains("error") == false;
+}
+
+bool DatabaseHandler::deleteDatabaseEntry(const QString &databasePath, const QString &idToken)
+{
+    QString endPoint = dbBaseUrl + databasePath + ".json?auth=" + idToken;
+
+    QEventLoop loop;
+    QNetworkRequest req((QUrl(endPoint)));
+
+    networkReply = networkManager->deleteResource(req);
+    connect(networkReply, &QNetworkReply::finished, &loop, &QEventLoop::quit);
+    loop.exec();
+
+    QJsonDocument jsonDocument = QJsonDocument::fromJson(QString(networkReply->readAll()).toUtf8());
+    QJsonObject jsonObject = jsonDocument.object();
+    return jsonObject.contains("error") == false;
 }

@@ -55,8 +55,7 @@ QComboBox QAbstractItemView::item {
 QComboBox QAbstractItemView::item:selected {
     background-color: lightblue;
     color: #333;
-}
-</string>
+}</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <property name="spacing">

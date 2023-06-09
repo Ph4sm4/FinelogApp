@@ -22,6 +22,7 @@ public:
     QVector<ReportHeadline> getHeadlines() const { return headlines; }
     bool getEmailVerified() const { return emailVerified; }
     QDate getAccountCreatedAt() const { return accountCreatedAt; }
+    bool getIsAdmin() const { return isAdmin; }
 
     void setName(const QString& newName) { name = newName; }
     void setEmail(const QString& newEmail) { email = newEmail; }
@@ -37,6 +38,7 @@ public:
     void setUserID(const QString& newUserId) { userId = newUserId; }
     void setAccountCreatedAt(QDate creation) { accountCreatedAt = creation; }
     void setEmailVerified(bool verified) { emailVerified = verified; }
+    void setIsAdmin(bool admin) { isAdmin = admin; }
 
 private:
     QString name;
@@ -47,6 +49,7 @@ private:
     QString finelogId;
     bool emailVerified;
     QDate accountCreatedAt;
+    bool isAdmin;
 
     //database related
     QString idToken;

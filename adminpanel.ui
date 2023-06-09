@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>UserPanel</class>
- <widget class="QWidget" name="UserPanel">
+ <class>AdminPanel</class>
+ <widget class="QWidget" name="AdminPanel">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>507</width>
-    <height>700</height>
+    <width>595</width>
+    <height>791</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -120,25 +120,6 @@ background-color: white;
             <number>0</number>
            </property>
            <item>
-            <widget class="QLabel" name="joinedOnLabel">
-             <property name="font">
-              <font>
-               <italic>true</italic>
-              </font>
-             </property>
-             <property name="styleSheet">
-              <string notr="true">QLabel {
-background: transparent;
-color: rgb(102, 102, 102);
-margin-bottom: 5px;
-}</string>
-             </property>
-             <property name="text">
-              <string>Joined on: { date }</string>
-             </property>
-            </widget>
-           </item>
-           <item>
             <widget class="QLabel" name="hiLabel">
              <property name="font">
               <font>
@@ -157,7 +138,7 @@ padding: 5px 0;
 }</string>
              </property>
              <property name="text">
-              <string>Hi {name}!</string>
+              <string>Admin Panel</string>
              </property>
              <property name="alignment">
               <set>Qt::AlignJustify|Qt::AlignVCenter</set>
@@ -165,27 +146,7 @@ padding: 5px 0;
             </widget>
            </item>
            <item>
-            <widget class="QLabel" name="phoneNumberLabel">
-             <property name="layoutDirection">
-              <enum>Qt::LeftToRight</enum>
-             </property>
-             <property name="styleSheet">
-              <string notr="true">QLabel {
-background: transparent;
-color: rgb(102, 102, 102);
-margin-top: 5px;
-}</string>
-             </property>
-             <property name="text">
-              <string>Phone number: { phoneNumber }</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignJustify|Qt::AlignVCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLabel" name="emailLabel">
+            <widget class="QLabel" name="usersNumberLabel">
              <property name="styleSheet">
               <string notr="true">QLabel {
 background: transparent;
@@ -193,160 +154,81 @@ color: rgb(102, 102, 102);
 }</string>
              </property>
              <property name="text">
-              <string>Email: { email }</string>
+              <string>Current users: { number }</string>
              </property>
             </widget>
-           </item>
-           <item>
-            <widget class="QLabel" name="idNumberLabel">
-             <property name="styleSheet">
-              <string notr="true">QLabel {
-background: transparent;
-color: rgb(102, 102, 102);
-}</string>
-             </property>
-             <property name="text">
-              <string>Finelog ID: {id number}</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLabel" name="reportsNumberLabel">
-             <property name="styleSheet">
-              <string notr="true">QLabel {
-background: transparent;
-color: rgb(102, 102, 102);
-}</string>
-             </property>
-             <property name="text">
-              <string>Reports uploaded: { number }</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
-         <item>
-          <layout class="QVBoxLayout" name="verticalLayout_6">
-           <item>
-            <layout class="QHBoxLayout" name="horizontalLayout_4">
-             <item>
-              <spacer name="horizontalSpacer_3">
-               <property name="orientation">
-                <enum>Qt::Horizontal</enum>
-               </property>
-               <property name="sizeHint" stdset="0">
-                <size>
-                 <width>40</width>
-                 <height>20</height>
-                </size>
-               </property>
-              </spacer>
-             </item>
-             <item>
-              <layout class="QVBoxLayout" name="verticalLayout_7">
-               <item>
-                <widget class="QPushButton" name="settingsButton">
-                 <property name="sizePolicy">
-                  <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                   <horstretch>0</horstretch>
-                   <verstretch>0</verstretch>
-                  </sizepolicy>
-                 </property>
-                 <property name="layoutDirection">
-                  <enum>Qt::LeftToRight</enum>
-                 </property>
-                 <property name="styleSheet">
-                  <string notr="true">QPushButton {
-background-color: transparent;
-border: none;
-outline: none;
-}</string>
-                 </property>
-                 <property name="text">
-                  <string/>
-                 </property>
-                 <property name="icon">
-                  <iconset resource="Images.qrc">
-                   <normaloff>:/icons/content/settings.svg</normaloff>:/icons/content/settings.svg</iconset>
-                 </property>
-                 <property name="iconSize">
-                  <size>
-                   <width>36</width>
-                   <height>36</height>
-                  </size>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <spacer name="verticalSpacer_6">
-                 <property name="orientation">
-                  <enum>Qt::Vertical</enum>
-                 </property>
-                 <property name="sizeType">
-                  <enum>QSizePolicy::Preferred</enum>
-                 </property>
-                 <property name="sizeHint" stdset="0">
-                  <size>
-                   <width>20</width>
-                   <height>40</height>
-                  </size>
-                 </property>
-                </spacer>
-               </item>
-              </layout>
-             </item>
-            </layout>
            </item>
           </layout>
          </item>
         </layout>
        </item>
        <item>
-        <spacer name="verticalSpacer_2">
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
+        <layout class="QHBoxLayout" name="horizontalLayout_3">
+         <property name="spacing">
+          <number>10</number>
          </property>
-         <property name="sizeType">
-          <enum>QSizePolicy::Fixed</enum>
+         <property name="leftMargin">
+          <number>20</number>
          </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>20</width>
-           <height>40</height>
-          </size>
+         <property name="rightMargin">
+          <number>20</number>
          </property>
-        </spacer>
-       </item>
-       <item>
-        <widget class="QPushButton" name="newProtocolButton">
-         <property name="enabled">
-          <bool>true</bool>
-         </property>
-         <property name="font">
-          <font>
-           <family>Microsoft JhengHei</family>
-           <pointsize>24</pointsize>
-           <italic>false</italic>
-           <bold>true</bold>
-          </font>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">QPushButton {
+         <item>
+          <widget class="QPushButton" name="manageFormData">
+           <property name="enabled">
+            <bool>true</bool>
+           </property>
+           <property name="font">
+            <font>
+             <family>Microsoft JhengHei</family>
+             <pointsize>16</pointsize>
+             <italic>false</italic>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">QPushButton {
 background-color:  rgb(249, 115, 22);
-height: 50px;
-margin-left: 50%;
-margin-right: 50%;
+height: 30px;
 border-radius: 10px;
 color: white;
 }</string>
-         </property>
-         <property name="text">
-          <string>Upload new protocol</string>
-         </property>
-        </widget>
+           </property>
+           <property name="text">
+            <string>Manage form data</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="deleteAccount">
+           <property name="enabled">
+            <bool>true</bool>
+           </property>
+           <property name="font">
+            <font>
+             <family>Microsoft JhengHei</family>
+             <pointsize>16</pointsize>
+             <italic>false</italic>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">QPushButton {
+background-color:  rgb(249, 115, 22);
+height: 30px;
+border-radius: 10px;
+color: white;
+}</string>
+           </property>
+           <property name="text">
+            <string>Delete account</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
        </item>
        <item>
-        <spacer name="verticalSpacer">
+        <spacer name="verticalSpacer_2">
          <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
@@ -439,8 +321,8 @@ QScrollBar:vertical {
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>507</width>
-            <height>275</height>
+            <width>595</width>
+            <height>244</height>
            </rect>
           </property>
           <property name="styleSheet">

@@ -44,11 +44,7 @@ ProtocolForm::ProtocolForm(QWidget *parent) :
     scrollerProperties2.setScrollMetric(QScrollerProperties::HorizontalOvershootPolicy, QScrollerProperties::OvershootAlwaysOff);
     QScroller::scroller(ui->protocol_fields->viewport())->setScrollerProperties(scrollerProperties2);
 
-    QGraphicsDropShadowEffect* shadowEffect2 = new QGraphicsDropShadowEffect;
-    shadowEffect2->setBlurRadius(20);
-    shadowEffect2->setColor(QColor(0, 0, 0, 80));
-    shadowEffect2->setOffset(0, 0);
-    ui->protocol_fields->setGraphicsEffect(shadowEffect2);
+
 }
 
 ProtocolForm::~ProtocolForm()
@@ -319,12 +315,11 @@ void ProtocolForm::on_sendForm_clicked()
 
     // check for the combo boxes and start setting up the admin panel!!!
 
-
-    if(!allFilled) {
-        ui->formErrorLabel->setText("Nie wszystkie pola zostały wypełnione");
-        return;
-    }
-    ui->formErrorLabel->setText("");
+    //    if(!allFilled) {
+    //        ui->formErrorLabel->setText("Nie wszystkie pola zostały wypełnione");
+    //        return;
+    //    }
+    //    ui->formErrorLabel->setText("");
 
     UserReport report;
     // #define ipcs isPositiveChoiseSelected (there is this define on top)

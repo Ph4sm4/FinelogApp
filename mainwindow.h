@@ -1,12 +1,11 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include <QMainWindow>
 #include <QDebug>
-#include "databasehandler.h"
-#include <QLineEdit>
 #include <QJsonObject>
-#include "userpanel.h"
+#include <QLineEdit>
+#include <QMainWindow>
+#include "databasehandler.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -78,9 +77,10 @@ private:
 
     class FinelogUser* registrationUser = nullptr;
 
-    UserPanel* uPanel = nullptr;
-    class SettingsPanel *settingsPanel;
-    class OverlayWidget* overlay;
+    class UserPanel *uPanel = nullptr;
+    class SettingsPanel *settingsPanel = nullptr;
+    class OverlayWidget *overlay = nullptr;
+    class AdminPanel *aPanel = nullptr;
 
     class QLabel* successBox = nullptr;
     class QTimer* timer = nullptr;
