@@ -31,6 +31,8 @@ public slots:
 private slots:
     void on_backToPanel_clicked();
 
+    void on_backToPreview_clicked();
+
 private:
     Ui::AdminPanel *ui;
 

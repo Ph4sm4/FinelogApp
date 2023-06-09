@@ -90,7 +90,7 @@ padding-right: 20px;
 background-color: white;
 }</string>
       </property>
-      <layout class="QVBoxLayout" name="verticalLayout">
+      <layout class="QVBoxLayout" name="verticalLayout" stretch="0,0,0,0">
        <property name="spacing">
         <number>0</number>
        </property>
@@ -254,7 +254,7 @@ color: white;
          <property name="minimumSize">
           <size>
            <width>0</width>
-           <height>0</height>
+           <height>250</height>
           </size>
          </property>
          <property name="maximumSize">
@@ -322,7 +322,7 @@ QScrollBar:vertical {
             <x>0</x>
             <y>0</y>
             <width>419</width>
-            <height>180</height>
+            <height>250</height>
            </rect>
           </property>
           <property name="styleSheet">
@@ -712,7 +712,7 @@ background-color: white;
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_2">
          <item>
-          <widget class="QPushButton" name="backToDashboard">
+          <widget class="QPushButton" name="backToPreview">
            <property name="font">
             <font>
              <pointsize>12</pointsize>

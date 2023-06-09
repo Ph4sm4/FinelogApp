@@ -21,17 +21,31 @@ AdminPanel::AdminPanel(QWidget *parent) :
 
     ui->pagination->setCurrentIndex(0);
 
-    ui->scrollArea->setVerticalScrollBarPolicy(
-        Qt::ScrollBarAsNeeded); // Show vertical scroll bar as needed
-    ui->scrollArea->setHorizontalScrollBarPolicy(
-        Qt::ScrollBarAlwaysOff); // Disable horizontal scroll bar
-
     ui->scrollArea->setWidgetResizable(true);
     ui->scrollArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     ui->scrollArea->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
 
+    ui->scrollArea_2->setWidgetResizable(true);
+    ui->scrollArea_2->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    ui->scrollArea_2->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+
     QScroller::grabGesture(ui->scrollArea->viewport(),
                            QScroller::TouchGesture); // Enable touch scrolling
+
+    QScroller::grabGesture(ui->scrollArea_2->viewport(),
+                           QScroller::TouchGesture); // Enable touch scrolling
+
+    QGraphicsDropShadowEffect *shadowEffect = new QGraphicsDropShadowEffect;
+    shadowEffect->setBlurRadius(20);
+    shadowEffect->setColor(QColor(0, 0, 0, 80));
+    shadowEffect->setOffset(0, 0);
+    ui->scrollArea->setGraphicsEffect(shadowEffect);
+
+    QGraphicsDropShadowEffect *shadowEffect2 = new QGraphicsDropShadowEffect;
+    shadowEffect2->setBlurRadius(20);
+    shadowEffect2->setColor(QColor(0, 0, 0, 80));
+    shadowEffect2->setOffset(0, 0);
+    ui->scrollArea_2->setGraphicsEffect(shadowEffect2);
 
     // Configure the scrolling behavior
     QScrollerProperties scrollerProperties = QScroller::scroller(ui->scrollArea->viewport())
@@ -44,23 +58,15 @@ AdminPanel::AdminPanel(QWidget *parent) :
                                        QScrollerProperties::OvershootAlwaysOff);
     QScroller::scroller(ui->scrollArea->viewport())->setScrollerProperties(scrollerProperties);
 
-    QGraphicsDropShadowEffect *shadowEffect = new QGraphicsDropShadowEffect;
-    shadowEffect->setBlurRadius(20);
-    shadowEffect->setColor(QColor(0, 0, 0, 80));
-    shadowEffect->setOffset(0, 0);
-    ui->scrollArea->setGraphicsEffect(shadowEffect);
-
-    ui->scrollArea_2->setWidgetResizable(true);
-    ui->scrollArea_2->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    ui->scrollArea_2->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
-
-    QScroller::grabGesture(ui->scrollArea_2->viewport(),
-                           QScroller::TouchGesture); // Enable touch scrolling
-
     // Configure the scrolling behavior
     scrollerProperties = QScroller::scroller(ui->scrollArea_2->viewport())->scrollerProperties();
+    scrollerProperties.setScrollMetric(QScrollerProperties::DragVelocitySmoothingFactor, 0.6);
+    scrollerProperties.setScrollMetric(QScrollerProperties::MinimumVelocity, 0.0);
+    scrollerProperties.setScrollMetric(QScrollerProperties::MaximumVelocity, 0.6);
+    scrollerProperties.setScrollMetric(QScrollerProperties::AcceleratingFlickMaximumTime, 0.4);
+    scrollerProperties.setScrollMetric(QScrollerProperties::HorizontalOvershootPolicy,
+                                       QScrollerProperties::OvershootAlwaysOff);
     QScroller::scroller(ui->scrollArea_2->viewport())->setScrollerProperties(scrollerProperties);
-    ui->scrollArea_2->setGraphicsEffect(shadowEffect);
 }
 
 AdminPanel::~AdminPanel()
@@ -136,7 +142,14 @@ void AdminPanel::clickedOnUser(FinelogUser *user)
     ui->pagination->setCurrentIndex(1);
 }
 
-void AdminPanel::formReadyForDeletion() {}
+void AdminPanel::formReadyForDeletion()
+{
+    ui->pagination->setCurrentIndex(0);
+
+    ui->pagination->removeWidget(form);
+    form->deleteLater();
+    form = nullptr;
+}
 
 void AdminPanel::projectDetailsRequested(const QString &contentName)
 {
@@ -149,7 +162,7 @@ void AdminPanel::projectDetailsRequested(const QString &contentName)
     QVBoxLayout *layout = qobject_cast<QVBoxLayout *>(ui->protocol_form->layout());
     if (layout) {
         layout->addWidget(form);
-        ui->pagination->setCurrentIndex(1);
+        ui->pagination->setCurrentIndex(2);
         qDebug() << "successfully added project details form";
     } else {
         qDebug() << "no layout";
@@ -247,4 +260,10 @@ void AdminPanel::initializeDashboard()
 void AdminPanel::on_backToPanel_clicked()
 {
     ui->pagination->setCurrentIndex(0);
+}
+
+void AdminPanel::on_backToPreview_clicked()
+{
+    formReadyForDeletion();
+    ui->pagination->setCurrentIndex(1);
 }

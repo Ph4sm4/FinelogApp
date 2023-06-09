@@ -25,9 +25,6 @@ ProtocolForm::ProtocolForm(QWidget *parent) :
 
     // protocol fields scroll area
 
-    ui->protocol_fields->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded); // Show vertical scroll bar as needed
-    ui->protocol_fields->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff); // Disable horizontal scroll bar
-
     ui->protocol_fields->setWidgetResizable(true);
     ui->protocol_fields->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     ui->protocol_fields->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
@@ -35,16 +32,21 @@ ProtocolForm::ProtocolForm(QWidget *parent) :
     QScroller::grabGesture(ui->protocol_fields->viewport(), QScroller::TouchGesture); // Enable touch scrolling
 
     // Configure the scrolling behavior
-    QScrollerProperties scrollerProperties2 = QScroller::scroller(
-                                                  ui->protocol_fields->viewport())->scrollerProperties();
-    scrollerProperties2.setScrollMetric(QScrollerProperties::DragVelocitySmoothingFactor, 0.6);
-    scrollerProperties2.setScrollMetric(QScrollerProperties::MinimumVelocity, 0.0);
-    scrollerProperties2.setScrollMetric(QScrollerProperties::MaximumVelocity, 0.6);
-    scrollerProperties2.setScrollMetric(QScrollerProperties::AcceleratingFlickMaximumTime, 0.4);
-    scrollerProperties2.setScrollMetric(QScrollerProperties::HorizontalOvershootPolicy, QScrollerProperties::OvershootAlwaysOff);
-    QScroller::scroller(ui->protocol_fields->viewport())->setScrollerProperties(scrollerProperties2);
+    QScrollerProperties scrollerProperties = QScroller::scroller(ui->protocol_fields->viewport())
+                                                 ->scrollerProperties();
+    scrollerProperties.setScrollMetric(QScrollerProperties::DragVelocitySmoothingFactor, 0.6);
+    scrollerProperties.setScrollMetric(QScrollerProperties::MinimumVelocity, 0.0);
+    scrollerProperties.setScrollMetric(QScrollerProperties::MaximumVelocity, 0.6);
+    scrollerProperties.setScrollMetric(QScrollerProperties::AcceleratingFlickMaximumTime, 0.4);
+    scrollerProperties.setScrollMetric(QScrollerProperties::HorizontalOvershootPolicy,
+                                       QScrollerProperties::OvershootAlwaysOff);
+    QScroller::scroller(ui->protocol_fields->viewport())->setScrollerProperties(scrollerProperties);
 
-
+    QGraphicsDropShadowEffect *shadowEffect = new QGraphicsDropShadowEffect;
+    shadowEffect->setBlurRadius(20);
+    shadowEffect->setColor(QColor(0, 0, 0, 80));
+    shadowEffect->setOffset(0, 0);
+    ui->protocol_fields->setGraphicsEffect(shadowEffect);
 }
 
 ProtocolForm::~ProtocolForm()

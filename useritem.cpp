@@ -1,4 +1,5 @@
 #include "useritem.h"
+#include <QGraphicsDropShadowEffect>
 #include "ui_useritem.h"
 
 UserItem::UserItem(QWidget *parent) :
@@ -8,6 +9,12 @@ UserItem::UserItem(QWidget *parent) :
     ui->setupUi(this);
 
     user = new FinelogUser();
+
+    QGraphicsDropShadowEffect *shadowEffect = new QGraphicsDropShadowEffect;
+    shadowEffect->setBlurRadius(20);
+    shadowEffect->setColor(QColor(0, 0, 0, 80));
+    shadowEffect->setOffset(0, 0);
+    ui->frame->setGraphicsEffect(shadowEffect);
 }
 
 UserItem::~UserItem()
@@ -60,11 +67,10 @@ bool UserItem::gestureEvent(QGestureEvent *event)
 {
     if (QGesture *gesture = event->gesture(Qt::TapGesture)) {
         if (QTapGesture *tapGesture = static_cast<QTapGesture *>(gesture)) {
-            //            if (tapGesture->state() == Qt::GestureFinished) {
-            //                emit clicked(
-            //                    this->contentName); // Emit the clicked signal when the tap gesture is finished
-            //                return true;
-            //            }
+            if (tapGesture->state() == Qt::GestureFinished) {
+                emit clicked(user); // Emit the clicked signal when the tap gesture is finished
+                return true;
+            }
         }
     }
     return false;

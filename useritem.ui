@@ -19,6 +19,12 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">#UserItem {
+background: rgb(195, 195, 195);
+padding-bottom: 3px;
+}</string>
+  </property>
   <layout class="QVBoxLayout" name="verticalLayout_5">
    <property name="spacing">
     <number>0</number>
@@ -33,7 +39,7 @@
     <number>0</number>
    </property>
    <property name="bottomMargin">
-    <number>0</number>
+    <number>10</number>
    </property>
    <item>
     <widget class="QFrame" name="frame">
