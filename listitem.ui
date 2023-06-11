@@ -42,7 +42,7 @@ padding-bottom: 3px;
     <number>10</number>
    </property>
    <item>
-    <widget class="QFrame" name="frame">
+    <widget class="QFrame" name="contentFrame">
      <property name="styleSheet">
       <string notr="true">QFrame {
     background-color: white;
@@ -90,7 +90,8 @@ padding-bottom: 3px;
              <widget class="QLabel" name="dateLabel">
               <property name="styleSheet">
                <string notr="true">QLabel {
-color:  black;
+color: black;
+background: transparent;
 }</string>
               </property>
               <property name="text">
@@ -102,7 +103,8 @@ color:  black;
              <widget class="QLabel" name="timeLabel">
               <property name="styleSheet">
                <string notr="true">QLabel {
-color:  black;
+color: black;
+background: transparent;
 }</string>
               </property>
               <property name="text">
@@ -125,7 +127,8 @@ color:  black;
               </property>
               <property name="styleSheet">
                <string notr="true">QLabel {
-color:  rgb(249, 115, 22);
+color: rgb(249, 115, 22);
+background: transparent;
 }</string>
               </property>
               <property name="text">
@@ -143,7 +146,8 @@ color:  rgb(249, 115, 22);
               </property>
               <property name="styleSheet">
                <string notr="true">QLabel {
-color:  rgb(102, 102, 102);
+color: rgb(102, 102, 102);
+background: transparent;
 }</string>
               </property>
               <property name="text">

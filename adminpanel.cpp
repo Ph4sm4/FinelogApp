@@ -74,7 +74,7 @@ AdminPanel::~AdminPanel()
     delete ui;
 }
 
-void AdminPanel::clickedOnUser(FinelogUser *user)
+void AdminPanel::clickedOnUser(FinelogUser *user, QVector<QString> *unreadProtocols)
 {
     previewUser = user;
     QVector<ReportHeadline> reports = user->getHeadlines();
@@ -130,6 +130,15 @@ void AdminPanel::clickedOnUser(FinelogUser *user)
             newItem->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
             newItem->setParent(ui->scrollAreaWidgetContents);
             newItem->setContentName(headline.contentName);
+            newItem->setUnreadProtocolsForUser(unreadProtocols);
+
+            if (unreadProtocols->contains(headline.contentName)) {
+                newItem->setStyleSheet(
+                    "QFrame#contentFrame { background-color: white; padding: 5px 5px; "
+                    "border: 2px solid #68C668; }");
+            } else {
+                newItem->setHasBeenRead(true);
+            }
 
             connect(newItem, &ListItem::clicked, this, &AdminPanel::projectDetailsRequested);
 
@@ -153,6 +162,13 @@ void AdminPanel::formReadyForDeletion()
 
 void AdminPanel::projectDetailsRequested(const QString &contentName)
 {
+    QString deletePath = "Admin/Unread/" + contentName;
+    bool success = dbHandler.deleteDatabaseEntry(deletePath, adminUser->getIdToken());
+    if (!success) {
+        qDebug() << "could not delete from unread: " << contentName;
+        return;
+    }
+
     form = new ProtocolForm();
     form->setCurrentUser(previewUser);
     form->initializeFormData(contentName, ui->protocolTitle);
@@ -198,6 +214,7 @@ void AdminPanel::initializeDashboard()
         delete item;
     }
 
+    // displaying a proper label if there are no users registered
     if (usersObject.keys().size() == 0) {
         QLabel *noUsers = new QLabel();
         QFont font;
@@ -216,6 +233,7 @@ void AdminPanel::initializeDashboard()
         return;
     }
 
+    // initializing the user list
     for (const QString &userId : usersObject.keys()) {
         QJsonObject userObject = usersObject.value(userId).toObject();
 
@@ -236,6 +254,12 @@ void AdminPanel::initializeDashboard()
                                                                         adminUser->getIdToken(),
                                                                         queryParams);
 
+        qDebug() << unreadProtocols;
+        QVector<QString> temp = unreadProtocols.keys();
+
+        QVector<QString> *unreadReportsName = &temp;
+
+        item->unreadProtocolsForUser = unreadReportsName;
         if (unreadProtocols.keys().size() > 0) {
             item->setNewUpload(true);
         } else {

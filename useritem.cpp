@@ -1,5 +1,6 @@
 #include "useritem.h"
 #include <QGraphicsDropShadowEffect>
+#include "stylesheetmanipulator.h"
 #include "ui_useritem.h"
 
 UserItem::UserItem(QWidget *parent) :
@@ -14,7 +15,9 @@ UserItem::UserItem(QWidget *parent) :
     shadowEffect->setBlurRadius(20);
     shadowEffect->setColor(QColor(0, 0, 0, 80));
     shadowEffect->setOffset(0, 0);
-    ui->frame->setGraphicsEffect(shadowEffect);
+    ui->contentFrame->setGraphicsEffect(shadowEffect);
+
+    unreadProtocolsForUser = new QVector<QString>();
 }
 
 UserItem::~UserItem()
@@ -27,6 +30,8 @@ void UserItem::setNewUpload(bool upload)
     newUpload = upload;
     if (newUpload) {
         ui->newUpload->setText("NEW UPLOAD");
+        ui->contentFrame->setStyleSheet("QFrame#contentFrame {background-color: white;padding: 5px "
+                                        "5px;border: 2px solid #68C668;}");
     } else {
         ui->newUpload->setText("");
     }
@@ -68,7 +73,9 @@ bool UserItem::gestureEvent(QGestureEvent *event)
     if (QGesture *gesture = event->gesture(Qt::TapGesture)) {
         if (QTapGesture *tapGesture = static_cast<QTapGesture *>(gesture)) {
             if (tapGesture->state() == Qt::GestureFinished) {
-                emit clicked(user); // Emit the clicked signal when the tap gesture is finished
+                emit clicked(
+                    user,
+                    unreadProtocolsForUser); // Emit the clicked signal when the tap gesture is finished
                 return true;
             }
         }
@@ -79,7 +86,7 @@ bool UserItem::gestureEvent(QGestureEvent *event)
 void UserItem::mousePressEvent(QMouseEvent *event)
 {
     if (event->button() == Qt::LeftButton) {
-        emit clicked(user);
+        emit clicked(user, unreadProtocolsForUser);
     }
     QWidget::mousePressEvent(event); // Call the base class implementation
 }

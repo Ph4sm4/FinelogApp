@@ -1,13 +1,14 @@
 #ifndef LISTITEM_H
 #define LISTITEM_H
 
-#include <QWidget>
-#include <QTime>
 #include <QDate>
-#include <QTouchEvent>
-#include <QGestureEvent>
 #include <QGesture>
+#include <QGestureEvent>
 #include <QTapGesture>
+#include <QTime>
+#include <QTouchEvent>
+#include <QWidget>
+#include "databasehandler.h"
 
 namespace Ui {
 class ListItem;
@@ -27,9 +28,10 @@ public:
     void setCarName(const QString& newCarName);
     void setContentName(const QString& newContentName) { contentName = newContentName; }
 
-    bool operator==(const ListItem& other) {
-        return contentName == other.contentName;
-    }
+    bool operator==(const ListItem &other) { return contentName == other.contentName; }
+
+    void setUnreadProtocolsForUser(QVector<QString> *unread) { unreadProtocols = unread; }
+    void setHasBeenRead(bool val) { hasBeenRead = val; }
 
 signals:
     void clicked(const QString& contentName);
@@ -52,6 +54,11 @@ private:
     QString projectName;
     QString carName;
     QString contentName; // required to properly display newly created items
+
+    QVector<QString> *unreadProtocols;
+    bool hasBeenRead = false;
+
+    DatabaseHandler dbHandler;
 };
 
 #endif // LISTITEM_H

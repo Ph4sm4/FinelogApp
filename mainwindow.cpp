@@ -166,6 +166,7 @@ void MainWindow::on_loginButton_clicked()
         aPanel = new AdminPanel();
         aPanel->setUser(loggedInUser);
         ui->pagination->insertWidget(5, aPanel);
+        InputManager::clearInputs(ui->emailEdit, ui->passwordEdit);
     }
 
     ui->pagination->setCurrentIndex(5);

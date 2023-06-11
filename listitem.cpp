@@ -14,7 +14,7 @@ ListItem::ListItem(QWidget *parent) :
     shadowEffect->setBlurRadius(20);
     shadowEffect->setColor(QColor(0, 0, 0, 80));
     shadowEffect->setOffset(0, 0);
-    ui->frame->setGraphicsEffect(shadowEffect);
+    ui->contentFrame->setGraphicsEffect(shadowEffect);
 }
 
 ListItem::~ListItem()
@@ -59,6 +59,12 @@ bool ListItem::gestureEvent(QGestureEvent* event) {
     if (QGesture* gesture = event->gesture(Qt::TapGesture)) {
         if (QTapGesture* tapGesture = static_cast<QTapGesture*>(gesture)) {
             if (tapGesture->state() == Qt::GestureFinished) {
+                if (!hasBeenRead) {
+                    auto ind = std::find(unreadProtocols->begin(),
+                                         unreadProtocols->end(),
+                                         contentName);
+                    unreadProtocols->erase(ind);
+                }
                 emit clicked(this->contentName); // Emit the clicked signal when the tap gesture is finished
                 return true;
             }

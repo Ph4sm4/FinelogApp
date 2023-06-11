@@ -42,12 +42,14 @@ padding-bottom: 3px;
     <number>10</number>
    </property>
    <item>
-    <widget class="QFrame" name="frame">
+    <widget class="QFrame" name="contentFrame">
      <property name="styleSheet">
-      <string notr="true">QFrame {
-    background-color: white;
-    padding: 5px 5px;
-  }</string>
+      <string notr="true">#contentFrame{
+background-color: white;
+padding: 5px 5px;
+border: none;
+}
+</string>
      </property>
      <property name="frameShape">
       <enum>QFrame::StyledPanel</enum>
@@ -98,6 +100,7 @@ padding-bottom: 3px;
               <property name="styleSheet">
                <string notr="true">QLabel {
 color:  rgb(249, 115, 22);
+background: transparent;
 }</string>
               </property>
               <property name="text">
@@ -116,10 +119,14 @@ color:  rgb(249, 115, 22);
               <property name="styleSheet">
                <string notr="true">QLabel {
 color:  rgb(102, 102, 102);
+background: transparent;
 }</string>
               </property>
               <property name="text">
                <string>{ email }</string>
+              </property>
+              <property name="wordWrap">
+               <bool>true</bool>
               </property>
              </widget>
             </item>
@@ -132,6 +139,9 @@ color:  rgb(102, 102, 102);
               <property name="styleSheet">
                <string notr="true">QLabel {
 color:  black;
+padding: 5px 5px;
+border: none;
+background: transparent;
 }</string>
               </property>
               <property name="text">
@@ -150,6 +160,9 @@ color:  black;
               <property name="styleSheet">
                <string notr="true">QLabel {
 color:  #68C668;
+padding: 5px 5px;
+border: none;
+background: transparent;
 }</string>
               </property>
               <property name="text">

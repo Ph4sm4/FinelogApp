@@ -31,13 +31,16 @@ public:
     void setEmailVerified(const bool verified) { user->setEmailVerified(verified); }
     void setIdToken(const QString &token) { user->setIdToken(token); }
 
+    // used when inside user preview
+    QVector<QString> *unreadProtocolsForUser;
+
 protected:
     bool event(QEvent *event) override;
     bool gestureEvent(QGestureEvent *event);
     void mousePressEvent(QMouseEvent *event) override;
 
 signals:
-    void clicked(FinelogUser *clickedUser);
+    void clicked(FinelogUser *clickedUser, QVector<QString> *unreadProtocols);
 
 private:
     Ui::UserItem *ui;
