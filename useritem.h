@@ -32,7 +32,7 @@ public:
     void setIdToken(const QString &token) { user->setIdToken(token); }
 
     // used when inside user preview
-    QVector<QString> *unreadProtocolsForUser;
+    QVector<QString> unreadProtocolsForUser;
 
 protected:
     bool event(QEvent *event) override;
@@ -40,7 +40,7 @@ protected:
     void mousePressEvent(QMouseEvent *event) override;
 
 signals:
-    void clicked(FinelogUser *clickedUser, QVector<QString> *unreadProtocols);
+    void clicked(FinelogUser *clickedUser);
 
 private:
     Ui::UserItem *ui;

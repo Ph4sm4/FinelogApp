@@ -60,10 +60,10 @@ bool ListItem::gestureEvent(QGestureEvent* event) {
         if (QTapGesture* tapGesture = static_cast<QTapGesture*>(gesture)) {
             if (tapGesture->state() == Qt::GestureFinished) {
                 if (!hasBeenRead) {
-                    auto ind = std::find(unreadProtocols->begin(),
-                                         unreadProtocols->end(),
-                                         contentName);
-                    unreadProtocols->erase(ind);
+                    const QString path = "Admin/Unread" + contentName;
+                    dbHandler.deleteDatabaseEntry(path, adminIdToken);
+
+                    qDebug() << "database entry deleted: " << contentName;
                 }
                 emit clicked(this->contentName); // Emit the clicked signal when the tap gesture is finished
                 return true;

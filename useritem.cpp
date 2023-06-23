@@ -16,8 +16,6 @@ UserItem::UserItem(QWidget *parent) :
     shadowEffect->setColor(QColor(0, 0, 0, 80));
     shadowEffect->setOffset(0, 0);
     ui->contentFrame->setGraphicsEffect(shadowEffect);
-
-    unreadProtocolsForUser = new QVector<QString>();
 }
 
 UserItem::~UserItem()
@@ -73,9 +71,7 @@ bool UserItem::gestureEvent(QGestureEvent *event)
     if (QGesture *gesture = event->gesture(Qt::TapGesture)) {
         if (QTapGesture *tapGesture = static_cast<QTapGesture *>(gesture)) {
             if (tapGesture->state() == Qt::GestureFinished) {
-                emit clicked(
-                    user,
-                    unreadProtocolsForUser); // Emit the clicked signal when the tap gesture is finished
+                emit clicked(user); // Emit the clicked signal when the tap gesture is finished
                 return true;
             }
         }
@@ -86,7 +82,7 @@ bool UserItem::gestureEvent(QGestureEvent *event)
 void UserItem::mousePressEvent(QMouseEvent *event)
 {
     if (event->button() == Qt::LeftButton) {
-        emit clicked(user, unreadProtocolsForUser);
+        emit clicked(user);
     }
     QWidget::mousePressEvent(event); // Call the base class implementation
 }

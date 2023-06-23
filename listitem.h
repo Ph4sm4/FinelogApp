@@ -27,10 +27,10 @@ public:
     void setProjectName(const QString& newName);
     void setCarName(const QString& newCarName);
     void setContentName(const QString& newContentName) { contentName = newContentName; }
+    void setAdminIdToken(const QString &token) { adminIdToken = token; }
 
     bool operator==(const ListItem &other) { return contentName == other.contentName; }
 
-    void setUnreadProtocolsForUser(QVector<QString> *unread) { unreadProtocols = unread; }
     void setHasBeenRead(bool val) { hasBeenRead = val; }
 
 signals:
@@ -55,8 +55,8 @@ private:
     QString carName;
     QString contentName; // required to properly display newly created items
 
-    QVector<QString> *unreadProtocols;
     bool hasBeenRead = false;
+    QString adminIdToken;
 
     DatabaseHandler dbHandler;
 };

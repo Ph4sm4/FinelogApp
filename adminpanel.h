@@ -22,7 +22,7 @@ public:
         initializeDashboard();
     }
 public slots:
-    void clickedOnUser(class FinelogUser *user, QVector<QString> *unreadProtocols);
+    void initializeUserPreview(class FinelogUser *user);
 
     void formReadyForDeletion();
 

@@ -74,10 +74,11 @@ AdminPanel::~AdminPanel()
     delete ui;
 }
 
-void AdminPanel::clickedOnUser(FinelogUser *user, QVector<QString> *unreadProtocols)
+void AdminPanel::initializeUserPreview(FinelogUser *user)
 {
     previewUser = user;
     QVector<ReportHeadline> reports = user->getHeadlines();
+    QVector<QString> unreadProtocols = user->getUnreadProtocols();
 
     ui->fullNameLabel->setText(user->getName() + " " + user->getSurname());
     ui->phoneNumberLabel->setText("Phone number: " + user->getPhoneNumber());
@@ -130,9 +131,10 @@ void AdminPanel::clickedOnUser(FinelogUser *user, QVector<QString> *unreadProtoc
             newItem->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
             newItem->setParent(ui->scrollAreaWidgetContents);
             newItem->setContentName(headline.contentName);
-            newItem->setUnreadProtocolsForUser(unreadProtocols);
+            newItem->setHasBeenRead(unreadProtocols.contains(headline.contentName));
+            newItem->setAdminIdToken(adminUser->getIdToken());
 
-            if (unreadProtocols->contains(headline.contentName)) {
+            if (unreadProtocols.contains(headline.contentName)) {
                 newItem->setStyleSheet(
                     "QFrame#contentFrame { background-color: white; padding: 5px 5px; "
                     "border: 2px solid #68C668; }");
@@ -255,11 +257,8 @@ void AdminPanel::initializeDashboard()
                                                                         queryParams);
 
         qDebug() << unreadProtocols;
-        QVector<QString> temp = unreadProtocols.keys();
 
-        QVector<QString> *unreadReportsName = &temp;
-
-        item->unreadProtocolsForUser = unreadReportsName;
+        item->unreadProtocolsForUser = unreadProtocols.keys();
         if (unreadProtocols.keys().size() > 0) {
             item->setNewUpload(true);
         } else {
@@ -273,7 +272,7 @@ void AdminPanel::initializeDashboard()
 
         item->setNumberOfUploads(uploadedHeadlines.keys().size());
 
-        connect(item, &UserItem::clicked, this, &AdminPanel::clickedOnUser);
+        connect(item, &UserItem::clicked, this, &AdminPanel::initializeUserPreview);
 
         existingLayout->addWidget(item);
     }
@@ -283,11 +282,16 @@ void AdminPanel::initializeDashboard()
 
 void AdminPanel::on_backToPanel_clicked()
 {
+    previewUser = nullptr;
+    delete previewUser;
     ui->pagination->setCurrentIndex(0);
 }
 
 void AdminPanel::on_backToPreview_clicked()
 {
+    // we want to initialize and update the dashboard once more as we might have made changes to the database
+    initializeUserPreview(previewUser);
     formReadyForDeletion();
+
     ui->pagination->setCurrentIndex(1);
 }

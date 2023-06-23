@@ -82,7 +82,7 @@ padding-right: 20px;
 </string>
      </property>
      <property name="currentIndex">
-      <number>1</number>
+      <number>2</number>
      </property>
      <widget class="QWidget" name="dashboard">
       <property name="styleSheet">
@@ -321,7 +321,7 @@ QScrollBar:vertical {
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>419</width>
+            <width>100</width>
             <height>250</height>
            </rect>
           </property>

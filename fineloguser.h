@@ -23,6 +23,7 @@ public:
     bool getEmailVerified() const { return emailVerified; }
     QDate getAccountCreatedAt() const { return accountCreatedAt; }
     bool getIsAdmin() const { return isAdmin; }
+    QVector<QString> getUnreadProtocols();
 
     void setName(const QString& newName) { name = newName; }
     void setEmail(const QString& newEmail) { email = newEmail; }
