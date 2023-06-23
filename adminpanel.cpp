@@ -12,6 +12,8 @@
 #include "protocolform.h"
 #include "ui_adminpanel.h"
 #include "useritem.h"
+#include <algorithm>
+#include <queue>
 
 AdminPanel::AdminPanel(QWidget *parent) :
     QWidget(parent),
@@ -122,6 +124,11 @@ void AdminPanel::initializeUserPreview(FinelogUser *user)
 
         existingLayout->addWidget(reportsEmpty);
     } else {
+        auto compare = [](const ListItem *item1, const ListItem *item2) {
+            return item1->getHasBeenRead() > item2->getHasBeenRead();
+        };
+        std::priority_queue<ListItem *, QVector<ListItem *>, decltype(compare)> items(compare);
+
         foreach (ReportHeadline headline, reports) {
             ListItem *newItem = new ListItem();
             newItem->setCarName(headline.carName);
@@ -131,20 +138,22 @@ void AdminPanel::initializeUserPreview(FinelogUser *user)
             newItem->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
             newItem->setParent(ui->scrollAreaWidgetContents);
             newItem->setContentName(headline.contentName);
-            newItem->setHasBeenRead(unreadProtocols.contains(headline.contentName));
+            newItem->setHasBeenRead(!unreadProtocols.contains(headline.contentName));
             newItem->setAdminIdToken(adminUser->getIdToken());
 
             if (unreadProtocols.contains(headline.contentName)) {
                 newItem->setStyleSheet(
                     "QFrame#contentFrame { background-color: white; padding: 5px 5px; "
                     "border: 2px solid #68C668; }");
-            } else {
-                newItem->setHasBeenRead(true);
             }
-
             connect(newItem, &ListItem::clicked, this, &AdminPanel::projectDetailsRequested);
 
-            existingLayout->addWidget(newItem);
+            items.push(newItem);
+        }
+
+        while (!items.empty()) {
+            existingLayout->addWidget(items.top());
+            items.pop();
         }
         // Add a stretch at the end to push the widgets to the top
         existingLayout->addStretch();

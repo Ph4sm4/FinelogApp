@@ -227,10 +227,13 @@ QDateEdit::up-button {
         <x>0</x>
         <y>0</y>
         <width>455</width>
-        <height>4617</height>
+        <height>4708</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_4">
+       <property name="bottomMargin">
+        <number>100</number>
+       </property>
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_3">
          <item>

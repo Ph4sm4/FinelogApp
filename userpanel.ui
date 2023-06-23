@@ -453,6 +453,9 @@ QScrollBar:vertical {
            <property name="rightMargin">
             <number>20</number>
            </property>
+           <property name="bottomMargin">
+            <number>100</number>
+           </property>
           </layout>
          </widget>
         </widget>

@@ -33,6 +33,8 @@ public:
 
     void setHasBeenRead(bool val) { hasBeenRead = val; }
 
+    bool getHasBeenRead() const { return hasBeenRead; }
+
 signals:
     void clicked(const QString& contentName);
 

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>419</width>
-    <height>601</height>
+    <width>374</width>
+    <height>599</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -82,7 +82,7 @@ padding-right: 20px;
 </string>
      </property>
      <property name="currentIndex">
-      <number>2</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="dashboard">
       <property name="styleSheet">
@@ -321,7 +321,7 @@ QScrollBar:vertical {
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>100</width>
+            <width>419</width>
             <height>250</height>
            </rect>
           </property>
@@ -334,6 +334,9 @@ QScrollBar:vertical {
            </property>
            <property name="rightMargin">
             <number>20</number>
+           </property>
+           <property name="bottomMargin">
+            <number>100</number>
            </property>
           </layout>
          </widget>
@@ -574,6 +577,83 @@ background: transparent;
         </spacer>
        </item>
        <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_6">
+         <property name="leftMargin">
+          <number>20</number>
+         </property>
+         <property name="topMargin">
+          <number>10</number>
+         </property>
+         <property name="rightMargin">
+          <number>20</number>
+         </property>
+         <property name="bottomMargin">
+          <number>10</number>
+         </property>
+         <item>
+          <spacer name="horizontalSpacer_3">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QComboBox" name="comboBox">
+           <property name="styleSheet">
+            <string notr="true">QComboBox {
+        /* Background and border */
+        background-color: #FFDFAF;
+        border: 2px solid #F97316;
+        border-radius: 5px;
+        padding: 6px;
+        color: #FFFFFF;
+    }
+QComboBox::down-arrow {
+    image: url(:/icons/content/chevron-down.svg);
+    width: 10px;
+    height: 10px;
+}
+
+    QComboBox::drop-down {
+        /* Dropdown arrow */
+        width: 20px;
+        border: none;
+        background: transparent;
+    }
+
+    QComboBox::drop-down:hover {
+        /* Dropdown arrow hover effect */
+        background-color: #FFBE68;
+    }
+
+    QComboBox QAbstractItemView {
+        /* Dropdown menu */
+        border: 2px solid #F97316;
+        background-color: #FFDFAF;
+        selection-background-color: #F97316;
+    }
+
+    QComboBox QAbstractItemView::item {
+        /* Individual items in the dropdown menu */
+        padding: 6px;
+    }
+
+    QComboBox QAbstractItemView::item:selected {
+        /* Selected item in the dropdown menu */
+        background-color: #F97316;
+    }</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
         <widget class="QScrollArea" name="scrollArea_2">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
@@ -651,7 +731,7 @@ QScrollBar:vertical {
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>419</width>
+            <width>374</width>
             <height>250</height>
            </rect>
           </property>
@@ -664,6 +744,9 @@ QScrollBar:vertical {
            </property>
            <property name="rightMargin">
             <number>20</number>
+           </property>
+           <property name="bottomMargin">
+            <number>100</number>
            </property>
           </layout>
          </widget>
