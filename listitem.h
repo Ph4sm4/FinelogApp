@@ -34,6 +34,8 @@ public:
     void setHasBeenRead(bool val) { hasBeenRead = val; }
 
     bool getHasBeenRead() const { return hasBeenRead; }
+    QDateTime getDateTime() const { return QDateTime(protocolDate, protocolTime); }
+    QString getCarName() const { return carName; }
 
 signals:
     void clicked(const QString& contentName);

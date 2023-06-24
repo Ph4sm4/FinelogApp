@@ -82,7 +82,7 @@ padding-right: 20px;
 </string>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="dashboard">
       <property name="styleSheet">
@@ -651,7 +651,7 @@ background: transparent;
           <number>10</number>
          </property>
          <property name="rightMargin">
-          <number>20</number>
+          <number>30</number>
          </property>
          <property name="bottomMargin">
           <number>10</number>
@@ -670,7 +670,21 @@ background: transparent;
           </spacer>
          </item>
          <item>
-          <widget class="QComboBox" name="comboBox">
+          <widget class="QComboBox" name="sortHeadlinesCombo">
+           <property name="minimumSize">
+            <size>
+             <width>150</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="font">
+            <font>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="layoutDirection">
+            <enum>Qt::LeftToRight</enum>
+           </property>
            <property name="styleSheet">
             <string notr="true">QComboBox {
         /* Background and border */
@@ -678,13 +692,10 @@ background: transparent;
         border: 2px solid #F97316;
         border-radius: 5px;
         padding: 6px;
-        color: #FFFFFF;
+        color: black;
+        selection-background-color: #F97316;
+
     }
-QComboBox::down-arrow {
-    image: url(:/icons/content/chevron-down.svg);
-    width: 10px;
-    height: 10px;
-}
 
     QComboBox::drop-down {
         /* Dropdown arrow */
@@ -698,11 +709,21 @@ QComboBox::down-arrow {
         background-color: #FFBE68;
     }
 
+    QComboBox::down-arrow {
+        /* Custom dropdown arrow icon */
+        image: url(:/icons/content/chevron-down.svg);
+        width: 12px;
+        height: 12px;
+    }
+
     QComboBox QAbstractItemView {
         /* Dropdown menu */
         border: 2px solid #F97316;
         background-color: #FFDFAF;
         selection-background-color: #F97316;
+        outline: none;
+        padding-top: 0;
+        padding-bottom: 0;
     }
 
     QComboBox QAbstractItemView::item {
@@ -713,7 +734,27 @@ QComboBox::down-arrow {
     QComboBox QAbstractItemView::item:selected {
         /* Selected item in the dropdown menu */
         background-color: #F97316;
+    }
+
+    QComboBox QAbstractItemView::item:hover {
+        /* Hover effect on items in the dropdown menu */
+        background-color: #FFBE68;
     }</string>
+           </property>
+           <property name="editable">
+            <bool>false</bool>
+           </property>
+           <property name="currentText">
+            <string/>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>20</width>
+             <height>20</height>
+            </size>
+           </property>
+           <property name="placeholderText">
+            <string>Sortuj</string>
            </property>
           </widget>
          </item>
@@ -797,7 +838,7 @@ QScrollBar:vertical {
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>374</width>
+            <width>420</width>
             <height>250</height>
            </rect>
           </property>

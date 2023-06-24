@@ -38,6 +38,8 @@ private slots:
 
     void on_logOutButton_clicked();
 
+    void on_sortHeadlinesCombo_currentTextChanged(const QString &arg1);
+
 signals:
     void logOutButtonClicked();
 

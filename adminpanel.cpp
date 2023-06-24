@@ -69,6 +69,12 @@ AdminPanel::AdminPanel(QWidget *parent) :
     scrollerProperties.setScrollMetric(QScrollerProperties::HorizontalOvershootPolicy,
                                        QScrollerProperties::OvershootAlwaysOff);
     QScroller::scroller(ui->scrollArea_2->viewport())->setScrollerProperties(scrollerProperties);
+
+    ui->sortHeadlinesCombo->addItem("-- Sortuj --");
+    ui->sortHeadlinesCombo->addItem("Nieprzeczytane");
+    ui->sortHeadlinesCombo->addItem("Najnowsze");
+    ui->sortHeadlinesCombo->addItem("Najstarsze");
+    ui->sortHeadlinesCombo->addItem("Numer rejestracyjny");
 }
 
 AdminPanel::~AdminPanel()
@@ -130,11 +136,6 @@ void AdminPanel::initializeUserPreview(FinelogUser *user)
 
         existingLayout->addWidget(reportsEmpty);
     } else {
-        auto compare = [](const ListItem *item1, const ListItem *item2) {
-            return item1->getHasBeenRead() > item2->getHasBeenRead();
-        };
-        std::priority_queue<ListItem *, QVector<ListItem *>, decltype(compare)> items(compare);
-
         foreach (ReportHeadline headline, reports) {
             ListItem *newItem = new ListItem();
             newItem->setCarName(headline.carName);
@@ -154,12 +155,7 @@ void AdminPanel::initializeUserPreview(FinelogUser *user)
             }
             connect(newItem, &ListItem::clicked, this, &AdminPanel::projectDetailsRequested);
 
-            items.push(newItem);
-        }
-
-        while (!items.empty()) {
-            existingLayout->addWidget(items.top());
-            items.pop();
+            existingLayout->addWidget(newItem);
         }
         // Add a stretch at the end to push the widgets to the top
         existingLayout->addStretch();
@@ -300,6 +296,7 @@ void AdminPanel::on_backToPanel_clicked()
     previewUser = nullptr;
     delete previewUser;
     ui->pagination->setCurrentIndex(0);
+    initializeDashboard();
 }
 
 void AdminPanel::on_backToPreview_clicked()
@@ -314,4 +311,63 @@ void AdminPanel::on_backToPreview_clicked()
 void AdminPanel::on_logOutButton_clicked()
 {
     emit logOutButtonClicked();
+}
+
+void AdminPanel::on_sortHeadlinesCombo_currentTextChanged(const QString &arg1)
+{
+    qDebug() << "sort text changed to: " << arg1;
+
+    QWidget *w = ui->scrollAreaWidgetContents_2;
+    if (!w) {
+        qCritical() << "SCROLL AREA widget DOES NOT EXIST";
+        return;
+    }
+    QVBoxLayout *existingLayout = qobject_cast<QVBoxLayout *>(w->layout());
+    if (!existingLayout) {
+        qCritical() << "SCROLL AREA LAYOUT DOES NOT EXIST";
+        return;
+    }
+    QVector<ListItem *> items;
+
+    // clearing out any remaining widgets and adding them to the sort list
+    while (QLayoutItem *item = existingLayout->takeAt(0)) {
+        if (QWidget *widget = item->widget()) {
+            if (ListItem *tempItem = qobject_cast<ListItem *>(widget)) {
+                items.push_back(tempItem);
+            }
+            existingLayout->removeWidget(widget);
+        }
+    }
+
+    if (arg1 == "Nieprzeczytane") {
+        std::sort(items.begin(), items.end(), [](const ListItem *item1, const ListItem *item2) {
+            return item1->getHasBeenRead() < item2->getHasBeenRead();
+        });
+
+    } else if (arg1 == "Najnowsze") {
+        std::sort(items.begin(), items.end(), [](const ListItem *item1, const ListItem *item2) {
+            return item1->getDateTime() > item2->getDateTime();
+        });
+    } else if (arg1 == "Najstarsze") {
+        std::sort(items.begin(), items.end(), [](const ListItem *item1, const ListItem *item2) {
+            return item1->getDateTime() < item2->getDateTime();
+        });
+    } else if (arg1 == "Numer rejestracyjny") {
+        std::sort(items.begin(), items.end(), [](const ListItem *item1, const ListItem *item2) {
+            return item1->getCarName() < item2->getCarName();
+        });
+    }
+    // default - no sort filter, e.g. sort by oldest date
+    else {
+        std::sort(items.begin(), items.end(), [](const ListItem *item1, const ListItem *item2) {
+            return item1->getDateTime() < item2->getDateTime();
+        });
+    }
+
+    // add all the widgets back (but now they are in the desired sort order)
+    foreach (ListItem *item, items) {
+        existingLayout->addWidget(item);
+    }
+    // Add a stretch at the end to push the widgets to the top
+    existingLayout->addStretch();
 }
