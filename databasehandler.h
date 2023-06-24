@@ -5,7 +5,6 @@
 #include <QNetworkAccessManager>
 #include <QNetworkReply>
 
-
 class DatabaseHandler : public QObject
 {
     Q_OBJECT
