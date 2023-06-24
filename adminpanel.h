@@ -21,6 +21,9 @@ public:
         adminUser = user;
         initializeDashboard();
     }
+
+    void clearUser();
+
 public slots:
     void initializeUserPreview(class FinelogUser *user);
 
@@ -32,6 +35,11 @@ private slots:
     void on_backToPanel_clicked();
 
     void on_backToPreview_clicked();
+
+    void on_logOutButton_clicked();
+
+signals:
+    void logOutButtonClicked();
 
 private:
     Ui::AdminPanel *ui;

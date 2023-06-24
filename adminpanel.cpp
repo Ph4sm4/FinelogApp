@@ -76,6 +76,12 @@ AdminPanel::~AdminPanel()
     delete ui;
 }
 
+void AdminPanel::clearUser()
+{
+    adminUser = nullptr;
+    delete adminUser;
+}
+
 void AdminPanel::initializeUserPreview(FinelogUser *user)
 {
     previewUser = user;
@@ -303,4 +309,9 @@ void AdminPanel::on_backToPreview_clicked()
     formReadyForDeletion();
 
     ui->pagination->setCurrentIndex(1);
+}
+
+void AdminPanel::on_logOutButton_clicked()
+{
+    emit logOutButtonClicked();
 }

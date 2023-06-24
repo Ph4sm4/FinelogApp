@@ -74,6 +74,16 @@ void MainWindow::loggedOutOfUserPanel()
     ui->pagination->setCurrentIndex(0);
 }
 
+void MainWindow::loggedOutOfAdminPanel()
+{
+    aPanel->clearUser();
+    ui->pagination->removeWidget(aPanel);
+    aPanel->deleteLater();
+    aPanel = nullptr;
+
+    ui->pagination->setCurrentIndex(0);
+}
+
 void MainWindow::showUserPanel()
 {
     // show the settings panel widget here cause we need the whole window height
@@ -167,6 +177,8 @@ void MainWindow::on_loginButton_clicked()
         aPanel->setUser(loggedInUser);
         ui->pagination->insertWidget(5, aPanel);
         InputManager::clearInputs(ui->emailEdit, ui->passwordEdit);
+
+        connect(aPanel, &AdminPanel::logOutButtonClicked, this, &MainWindow::loggedOutOfAdminPanel);
     }
 
     ui->pagination->setCurrentIndex(5);

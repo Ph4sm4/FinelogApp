@@ -22,6 +22,8 @@ public:
 public slots:
     void loggedOutOfUserPanel();
 
+    void loggedOutOfAdminPanel();
+
     void showUserPanel();
 
     void displaySuccessBox();

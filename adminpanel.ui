@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>374</width>
+    <width>420</width>
     <height>599</height>
    </rect>
   </property>
@@ -82,7 +82,7 @@ padding-right: 20px;
 </string>
      </property>
      <property name="currentIndex">
-      <number>1</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="dashboard">
       <property name="styleSheet">
@@ -120,29 +120,95 @@ background-color: white;
             <number>0</number>
            </property>
            <item>
-            <widget class="QLabel" name="hiLabel">
-             <property name="font">
-              <font>
-               <family>Microsoft JhengHei</family>
-               <pointsize>36</pointsize>
-              </font>
-             </property>
+            <widget class="QFrame" name="frame">
              <property name="styleSheet">
-              <string notr="true">QLabel {
-background: transparent;
-color: rgb(102, 102, 102);
+              <string notr="true">QFrame {
 border-bottom: 2px solid rgb(249, 115, 22);
 border-top: 2px solid rgb(249, 115, 22);
 border-right: 2px solid rgb(249, 115, 22);
-padding: 5px 0;
 }</string>
              </property>
-             <property name="text">
-              <string>Admin Panel</string>
+             <property name="frameShape">
+              <enum>QFrame::StyledPanel</enum>
              </property>
-             <property name="alignment">
-              <set>Qt::AlignJustify|Qt::AlignVCenter</set>
+             <property name="frameShadow">
+              <enum>QFrame::Plain</enum>
              </property>
+             <property name="lineWidth">
+              <number>0</number>
+             </property>
+             <layout class="QHBoxLayout" name="horizontalLayout_7">
+              <property name="spacing">
+               <number>0</number>
+              </property>
+              <property name="leftMargin">
+               <number>0</number>
+              </property>
+              <property name="topMargin">
+               <number>0</number>
+              </property>
+              <property name="rightMargin">
+               <number>0</number>
+              </property>
+              <property name="bottomMargin">
+               <number>0</number>
+              </property>
+              <item>
+               <widget class="QLabel" name="hiLabel">
+                <property name="font">
+                 <font>
+                  <family>Microsoft JhengHei</family>
+                  <pointsize>36</pointsize>
+                 </font>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">QLabel {
+background: transparent;
+color: rgb(102, 102, 102);
+padding: 5px 0;
+border: none;
+}</string>
+                </property>
+                <property name="text">
+                 <string>Admin Panel</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignJustify|Qt::AlignVCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="logOutButton">
+                <property name="maximumSize">
+                 <size>
+                  <width>36</width>
+                  <height>16777215</height>
+                 </size>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">QPushButton {
+background-color: transparent;
+border: none;
+outline: none;
+padding-right: 5px;
+}</string>
+                </property>
+                <property name="text">
+                 <string/>
+                </property>
+                <property name="icon">
+                 <iconset resource="Images.qrc">
+                  <normaloff>:/icons/content/log_out.svg</normaloff>:/icons/content/log_out.svg</iconset>
+                </property>
+                <property name="iconSize">
+                 <size>
+                  <width>36</width>
+                  <height>36</height>
+                 </size>
+                </property>
+               </widget>
+              </item>
+             </layout>
             </widget>
            </item>
            <item>
@@ -321,7 +387,7 @@ QScrollBar:vertical {
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>419</width>
+            <width>420</width>
             <height>250</height>
            </rect>
           </property>

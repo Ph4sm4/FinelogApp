@@ -179,7 +179,7 @@ background: rgb(243, 244, 246);
 }</string>
         </property>
         <property name="currentIndex">
-         <number>2</number>
+         <number>6</number>
         </property>
         <widget class="QWidget" name="emailVerify1">
          <layout class="QVBoxLayout" name="verticalLayout_4">

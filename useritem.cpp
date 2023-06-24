@@ -1,6 +1,5 @@
 #include "useritem.h"
 #include <QGraphicsDropShadowEffect>
-#include "stylesheetmanipulator.h"
 #include "ui_useritem.h"
 
 UserItem::UserItem(QWidget *parent) :
