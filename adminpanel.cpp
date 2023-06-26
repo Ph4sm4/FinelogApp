@@ -296,13 +296,15 @@ void AdminPanel::on_backToPanel_clicked()
     previewUser = nullptr;
     delete previewUser;
     ui->pagination->setCurrentIndex(0);
+    ui->sortHeadlinesCombo->setCurrentIndex(0);
     initializeDashboard();
 }
 
 void AdminPanel::on_backToPreview_clicked()
 {
     // we want to initialize and update the dashboard once more as we might have made changes to the database
-    initializeUserPreview(previewUser);
+    // e.g. read a previously unread protocol
+    //initializeUserPreview(previewUser);
     formReadyForDeletion();
 
     ui->pagination->setCurrentIndex(1);
