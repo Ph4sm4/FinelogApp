@@ -1,26 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>UserItem</class>
- <widget class="QWidget" name="UserItem">
+ <class>UserDeleteItem</class>
+ <widget class="QWidget" name="UserDeleteItem">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
     <width>400</width>
-    <height>130</height>
+    <height>115</height>
    </rect>
-  </property>
-  <property name="maximumSize">
-   <size>
-    <width>16777215</width>
-    <height>130</height>
-   </size>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">#UserItem {
+   <string notr="true">#UserDeleteItem {
 background: rgb(195, 195, 195);
 padding-bottom: 3px;
 }</string>
@@ -146,44 +140,27 @@ background: transparent;
            </spacer>
           </item>
           <item>
-           <layout class="QVBoxLayout" name="verticalLayout">
-            <item>
-             <widget class="QLabel" name="numberOfUploads">
-              <property name="styleSheet">
-               <string notr="true">QLabel {
-color:  black;
-padding: 5px 5px;
-border: none;
-background: transparent;
+           <widget class="QPushButton" name="deleteButton">
+            <property name="styleSheet">
+             <string notr="true">QPushButton {
+	background-color: red;
+	border-radius: 5px;
 }</string>
-              </property>
-              <property name="text">
-               <string>Uploads: { number }</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="newUpload">
-              <property name="font">
-               <font>
-                <pointsize>10</pointsize>
-                <bold>true</bold>
-               </font>
-              </property>
-              <property name="styleSheet">
-               <string notr="true">QLabel {
-color:  #68C668;
-padding: 5px 5px;
-border: none;
-background: transparent;
-}</string>
-              </property>
-              <property name="text">
-               <string>{ NEW UPLOAD } ?</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+            <property name="icon">
+             <iconset resource="Images.qrc">
+              <normaloff>:/icons/content/x-white.svg</normaloff>:/icons/content/x-white.svg</iconset>
+            </property>
+            <property name="iconSize">
+             <size>
+              <width>32</width>
+              <height>48</height>
+             </size>
+            </property>
+           </widget>
           </item>
          </layout>
         </item>
@@ -194,6 +171,8 @@ background: transparent;
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="Images.qrc"/>
+ </resources>
  <connections/>
 </ui>

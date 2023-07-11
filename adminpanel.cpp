@@ -7,10 +7,13 @@
 #include <QScroller>
 #include <QScrollerProperties>
 #include <QVariantMap>
+#include "confirmationmodal.h"
 #include "fineloguser.h"
 #include "listitem.h"
+#include "overlaywidget.h"
 #include "protocolform.h"
 #include "ui_adminpanel.h"
+#include "userdeleteitem.h"
 #include "useritem.h"
 #include <algorithm>
 #include <queue>
@@ -49,6 +52,12 @@ AdminPanel::AdminPanel(QWidget *parent) :
     shadowEffect2->setOffset(0, 0);
     ui->scrollArea_2->setGraphicsEffect(shadowEffect2);
 
+    QGraphicsDropShadowEffect *shadowEffect3 = new QGraphicsDropShadowEffect;
+    shadowEffect3->setBlurRadius(20);
+    shadowEffect3->setColor(QColor(0, 0, 0, 80));
+    shadowEffect3->setOffset(0, 0);
+    ui->scrollArea_3->setGraphicsEffect(shadowEffect3);
+
     // Configure the scrolling behavior
     QScrollerProperties scrollerProperties = QScroller::scroller(ui->scrollArea->viewport())
                                                  ->scrollerProperties();
@@ -69,6 +78,16 @@ AdminPanel::AdminPanel(QWidget *parent) :
     scrollerProperties.setScrollMetric(QScrollerProperties::HorizontalOvershootPolicy,
                                        QScrollerProperties::OvershootAlwaysOff);
     QScroller::scroller(ui->scrollArea_2->viewport())->setScrollerProperties(scrollerProperties);
+
+    // Configure the scrolling behavior
+    scrollerProperties = QScroller::scroller(ui->scrollArea_3->viewport())->scrollerProperties();
+    scrollerProperties.setScrollMetric(QScrollerProperties::DragVelocitySmoothingFactor, 0.6);
+    scrollerProperties.setScrollMetric(QScrollerProperties::MinimumVelocity, 0.0);
+    scrollerProperties.setScrollMetric(QScrollerProperties::MaximumVelocity, 0.6);
+    scrollerProperties.setScrollMetric(QScrollerProperties::AcceleratingFlickMaximumTime, 0.4);
+    scrollerProperties.setScrollMetric(QScrollerProperties::HorizontalOvershootPolicy,
+                                       QScrollerProperties::OvershootAlwaysOff);
+    QScroller::scroller(ui->scrollArea_3->viewport())->setScrollerProperties(scrollerProperties);
 
     ui->sortHeadlinesCombo->addItem("-- Sortuj --");
     ui->sortHeadlinesCombo->addItem("Nieprzeczytane");
@@ -198,13 +217,35 @@ void AdminPanel::projectDetailsRequested(const QString &contentName)
     }
 }
 
+void AdminPanel::userDeleteTriggered(QString userId)
+{
+    OverlayWidget *overlay = new OverlayWidget(window);
+    if (!overlay) {
+        qCritical() << "USER DELETE OVERLAY NOT SET CORRECTLY";
+        return;
+    }
+    ConfirmationModal *modal = new ConfirmationModal(window);
+    if (!modal) {
+        qCritical() << "USER DELETE CONFIRMATION MODAL NOT SET CORRECTLY";
+        return;
+    }
+
+    overlay->show();
+
+    modal->raise();
+    modal->show();
+}
+
 void AdminPanel::initializeDashboard()
 {
     QString usersPath = "Users";
     QString queryParams = "orderBy=\"isAdmin\"&equalTo=false";
-    QJsonObject usersObject = dbHandler.performAuthenticatedGET(usersPath,
-                                                                adminUser->getIdToken(),
-                                                                queryParams);
+    if (usersObject.isEmpty()) {
+        usersObject = dbHandler.performAuthenticatedGET(usersPath,
+                                                        adminUser->getIdToken(),
+                                                        queryParams);
+        qDebug() << "initial user fetch performed";
+    }
 
     ui->usersNumberLabel->setText("Current users: " + QString::number(usersObject.keys().size()));
 
@@ -269,7 +310,6 @@ void AdminPanel::initializeDashboard()
 
         qDebug() << unreadProtocols;
 
-        item->unreadProtocolsForUser = unreadProtocols.keys();
         if (unreadProtocols.keys().size() > 0) {
             item->setNewUpload(true);
         } else {
@@ -291,20 +331,63 @@ void AdminPanel::initializeDashboard()
     existingLayout->addStretch();
 }
 
+void AdminPanel::initializeUserDeletion()
+{
+    ui->usersNumberLabel2->setText("Current users: " + QString::number(usersObject.keys().size()));
+
+    QWidget *w = ui->scrollAreaWidgetContents_3;
+    if (!w) {
+        qCritical() << "SCROLL AREA widget DOES NOT EXIST";
+        return;
+    }
+    QVBoxLayout *existingLayout = qobject_cast<QVBoxLayout *>(w->layout());
+    if (!existingLayout) {
+        qCritical() << "SCROLL AREA LAYOUT DOES NOT EXIST";
+        return;
+    }
+
+    // clearing out any remaining widgets
+    while (QLayoutItem *item = existingLayout->takeAt(0)) {
+        if (QWidget *widget = item->widget())
+            widget->deleteLater();
+
+        delete item;
+    }
+
+    for (const QString &userId : usersObject.keys()) {
+        QJsonObject userObject = usersObject.value(userId).toObject();
+
+        UserDeleteItem *item = new UserDeleteItem();
+        item->userId = userId;
+        item->setEmail(userObject.value("email").toString());
+        item->setFullName(userObject.value("name").toString() + " "
+                          + userObject.value("surname").toString());
+
+        connect(item, &UserDeleteItem::deleteClicked, this, &AdminPanel::userDeleteTriggered);
+
+        existingLayout->addWidget(item);
+    }
+    // Add a stretch at the end to push the widgets to the top
+    existingLayout->addStretch();
+}
+
 void AdminPanel::on_backToPanel_clicked()
 {
     previewUser = nullptr;
     delete previewUser;
-    ui->pagination->setCurrentIndex(0);
     ui->sortHeadlinesCombo->setCurrentIndex(0);
     initializeDashboard();
+    ui->pagination->setCurrentIndex(0);
 }
 
 void AdminPanel::on_backToPreview_clicked()
 {
     // we want to initialize and update the dashboard once more as we might have made changes to the database
     // e.g. read a previously unread protocol
-    //initializeUserPreview(previewUser);
+    // decided to stick to this approach as it supports fetching data in real-time
+    // for instance when we are inspecting a certain protocol and a new one has been uploaded
+    // -> the list is going to get updated
+    initializeUserPreview(previewUser);
     formReadyForDeletion();
 
     ui->pagination->setCurrentIndex(1);
@@ -372,4 +455,16 @@ void AdminPanel::on_sortHeadlinesCombo_currentTextChanged(const QString &arg1)
     }
     // Add a stretch at the end to push the widgets to the top
     existingLayout->addStretch();
+}
+
+void AdminPanel::on_backToPanel_2_clicked()
+{
+    initializeDashboard();
+    ui->pagination->setCurrentIndex(0);
+}
+
+void AdminPanel::on_deleteAccountButton_clicked()
+{
+    initializeUserDeletion();
+    ui->pagination->setCurrentIndex(3);
 }

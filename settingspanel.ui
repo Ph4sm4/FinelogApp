@@ -179,7 +179,7 @@ background: rgb(243, 244, 246);
 }</string>
         </property>
         <property name="currentIndex">
-         <number>6</number>
+         <number>0</number>
         </property>
         <widget class="QWidget" name="emailVerify1">
          <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -265,7 +265,7 @@ background: transparent;
              <string notr="true">QPushButton {
 background-color:  rgb(249, 115, 22);
 height: 30px;
-border-radius: 10px;
+border-radius: 5px;
 color: white;
 margin: 0 10%;
 padding: 4px 0;
@@ -922,7 +922,7 @@ margin-top: 5px;
                <string notr="true">QPushButton {
 background-color:  rgb(249, 115, 22);
 height: 30px;
-border-radius: 10px;
+border-radius: 5px;
 color: white;
 padding: 4px 0;
 }</string>
@@ -1236,7 +1236,7 @@ color: rgb(63, 56, 68);
                <string notr="true">QPushButton {
 background-color:  rgb(249, 115, 22);
 height: 30px;
-border-radius: 10px;
+border-radius: 5px;
 color: white;
 padding: 4px 0;
 }</string>
@@ -1472,7 +1472,7 @@ text-align: right;
                <string notr="true">QPushButton {
 background-color:  rgb(249, 115, 22);
 height: 30px;
-border-radius: 10px;
+border-radius: 5px;
 color: white;
 padding: 4px 0;
 }</string>
@@ -1739,7 +1739,7 @@ text-align: right;
                <string notr="true">QPushButton {
 background-color:  rgb(249, 115, 22);
 height: 30px;
-border-radius: 10px;
+border-radius: 5px;
 color: white;
 padding: 4px 0;
 }</string>

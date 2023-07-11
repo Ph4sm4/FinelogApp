@@ -30,9 +30,10 @@ public:
     void setFinelogId(const QString &id) { user->setFinelogId(id); }
     void setEmailVerified(const bool verified) { user->setEmailVerified(verified); }
     void setIdToken(const QString &token) { user->setIdToken(token); }
-
-    // used when inside user preview
-    QVector<QString> unreadProtocolsForUser;
+    void setUnreadProtocolsForUser(const QVector<QString> &protocols)
+    {
+        user->setUnreadProtocols(protocols);
+    }
 
 protected:
     bool event(QEvent *event) override;

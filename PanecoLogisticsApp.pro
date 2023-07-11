@@ -15,6 +15,7 @@ RC_ICONS = app_icon.ico
 
 SOURCES += \
     adminpanel.cpp \
+    confirmationmodal.cpp \
     databasehandler.cpp \
     fineloguser.cpp \
     inputmanager.cpp \
@@ -26,12 +27,14 @@ SOURCES += \
     reportheadline.cpp \
     settingspanel.cpp \
     stylesheetmanipulator.cpp \
+    userdeleteitem.cpp \
     useritem.cpp \
     userpanel.cpp \
     userreport.cpp
 
 HEADERS += \
     adminpanel.h \
+    confirmationmodal.h \
     databasehandler.h \
     fineloguser.h \
     inputmanager.h \
@@ -42,16 +45,19 @@ HEADERS += \
     reportheadline.h \
     settingspanel.h \
     stylesheetmanipulator.h \
+    userdeleteitem.h \
     useritem.h \
     userpanel.h \
     userreport.h
 
 FORMS += \
     adminpanel.ui \
+    confirmationmodal.ui \
     listitem.ui \
     mainwindow.ui \
     protocolform.ui \
     settingspanel.ui \
+    userdeleteitem.ui \
     useritem.ui \
     userpanel.ui
 

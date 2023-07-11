@@ -225,14 +225,14 @@ QDateEdit::up-button {
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>0</y>
+        <y>-4149</y>
         <width>455</width>
-        <height>4708</height>
+        <height>4618</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_4">
        <property name="bottomMargin">
-        <number>100</number>
+        <number>50</number>
        </property>
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_3">
@@ -2770,7 +2770,7 @@ QDateEdit::up-button {
          <property name="sizeHint" stdset="0">
           <size>
            <width>20</width>
-           <height>100</height>
+           <height>60</height>
           </size>
          </property>
         </spacer>
@@ -2879,7 +2879,7 @@ max-width: 9999px;
             <string notr="true">QPushButton {
 background-color:  rgb(249, 115, 22);
 height: 30px;
-border-radius: 10px;
+border-radius: 5px;
 color: white;
 padding: 4px 0;
 }</string>

@@ -23,7 +23,7 @@ public:
     bool getEmailVerified() const { return emailVerified; }
     QDate getAccountCreatedAt() const { return accountCreatedAt; }
     bool getIsAdmin() const { return isAdmin; }
-    QVector<QString> getUnreadProtocols();
+    QVector<QString> getUnreadProtocols() const { return unreadProtocols; }
 
     void setName(const QString& newName) { name = newName; }
     void setEmail(const QString& newEmail) { email = newEmail; }
@@ -40,6 +40,7 @@ public:
     void setAccountCreatedAt(QDate creation) { accountCreatedAt = creation; }
     void setEmailVerified(bool verified) { emailVerified = verified; }
     void setIsAdmin(bool admin) { isAdmin = admin; }
+    void setUnreadProtocols(const QVector<QString> &protocols) { unreadProtocols = protocols; }
 
 private:
     QString name;
@@ -57,6 +58,8 @@ private:
     QString userId;
     QVector<ReportHeadline> headlines;
     DatabaseHandler dbHandler;
+
+    QVector<QString> unreadProtocols;
 };
 
 #endif // FINELOGUSER_H

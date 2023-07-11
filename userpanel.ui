@@ -336,7 +336,7 @@ background-color:  rgb(249, 115, 22);
 height: 50px;
 margin-left: 50%;
 margin-right: 50%;
-border-radius: 10px;
+border-radius: 5px;
 color: white;
 }</string>
          </property>

@@ -242,8 +242,8 @@ void MainWindow::on_idNext_clicked()
 
 void MainWindow::on_nextName_clicked()
 {
-    QString name = ui->nameRegister->text().toLower();
-    QString surname = ui->surnameRegister->text().toLower();
+    QString name = ui->nameRegister->text().toLower().trimmed();
+    QString surname = ui->surnameRegister->text().toLower().trimmed();
 
     bool result = InputManager::validateInputs(ui->nameRegister, ui->surnameRegister);
     if(!result) return;
@@ -260,8 +260,8 @@ void MainWindow::on_nextName_clicked()
 
 void MainWindow::on_nextEmail_clicked()
 {
-    QString email = ui->emailRegister->text().toLower();
-    QString phoneNumber = ui->phoneNumberRegister->text();
+    QString email = ui->emailRegister->text().toLower().trimmed();
+    QString phoneNumber = ui->phoneNumberRegister->text().trimmed();
 
     bool result = InputManager::validateInputs(ui->emailRegister, ui->phoneNumberRegister);
     if(!result) return;
@@ -393,7 +393,7 @@ void MainWindow::on_backName_clicked()
 
 void MainWindow::on_sendPasswordReset_clicked()
 {
-    QString email = ui->passwordForgotEdit->text();
+    QString email = ui->passwordForgotEdit->text().trimmed();
 
     if(!InputManager::validateInputs(ui->passwordForgotEdit)) {
          return;

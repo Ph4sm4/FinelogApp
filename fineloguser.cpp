@@ -8,17 +8,6 @@ FinelogUser::FinelogUser() {
     
 }
 
-QVector<QString> FinelogUser::getUnreadProtocols()
-{
-    const QString endPoint = "Admin/Unread";
-    const QString queryParams = "orderBy=\"owner_id\"&equalTo=\"" + userId + "\"";
-    QJsonObject unreadData = dbHandler.performAuthenticatedGET(endPoint, idToken, queryParams);
-
-    //qDebug() << "unread data: " << unreadData;
-
-    return unreadData.keys();
-}
-
 void FinelogUser::fetchHeadlines()
 {
     const QString endPoint = "Reports/Headlines";

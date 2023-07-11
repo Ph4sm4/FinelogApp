@@ -3,6 +3,8 @@
 
 #include <QWidget>
 #include "databasehandler.h"
+#include "qjsonobject.h"
+#include "qmainwindow.h"
 
 namespace Ui {
 class AdminPanel;
@@ -22,6 +24,9 @@ public:
         initializeDashboard();
     }
 
+    void setMainWindow(QMainWindow *w) { window = w; }
+    QMainWindow *getMainWindow() const { return window; }
+
     void clearUser();
 
 public slots:
@@ -30,6 +35,8 @@ public slots:
     void formReadyForDeletion();
 
     void projectDetailsRequested(const QString &contentName);
+
+    void userDeleteTriggered(QString userId);
 
 private slots:
     void on_backToPanel_clicked();
@@ -40,6 +47,10 @@ private slots:
 
     void on_sortHeadlinesCombo_currentTextChanged(const QString &arg1);
 
+    void on_backToPanel_2_clicked();
+
+    void on_deleteAccountButton_clicked();
+
 signals:
     void logOutButtonClicked();
 
@@ -49,9 +60,13 @@ private:
     class FinelogUser *adminUser = nullptr;
     class FinelogUser *previewUser = nullptr;
     class ProtocolForm *form = nullptr;
+    QMainWindow *window = nullptr;
 
     DatabaseHandler dbHandler;
     void initializeDashboard();
+    void initializeUserDeletion();
+
+    QJsonObject usersObject;
 };
 
 #endif // ADMINPANEL_H
