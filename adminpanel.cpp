@@ -230,6 +230,8 @@ void AdminPanel::userDeleteTriggered(QString userId)
         return;
     }
 
+    overlay->setStyleSheet("background-color: rgba(0, 0, 0, 0.5);");
+    overlay->setGeometry(0, 0, window->width(), window->height());
     overlay->show();
 
     modal->raise();

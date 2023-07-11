@@ -163,7 +163,7 @@ void MainWindow::on_loginButton_clicked()
     }
 
     if (loggedInUser->getIsAdmin() == false) { // change to user panel
-        uPanel = new UserPanel();
+        uPanel = new UserPanel(this);
         ui->pagination->insertWidget(5, uPanel);
         uPanel->setCurrentUser(loggedInUser);
         InputManager::clearInputs(ui->emailEdit, ui->passwordEdit);
@@ -173,8 +173,9 @@ void MainWindow::on_loginButton_clicked()
         connect(uPanel, &UserPanel::successBoxDisplayNeeded, this, &MainWindow::displaySuccessBox);
 
     } else { // change to admin panel
-        aPanel = new AdminPanel();
+        aPanel = new AdminPanel(this);
         aPanel->setUser(loggedInUser);
+        aPanel->setMainWindow(this);
         ui->pagination->insertWidget(5, aPanel);
         InputManager::clearInputs(ui->emailEdit, ui->passwordEdit);
 
@@ -204,7 +205,7 @@ void MainWindow::on_registerButton_clicked()
                               ui->idRegistration);
 
     // change to user panel
-    uPanel = new UserPanel();
+    uPanel = new UserPanel(this);
     ui->pagination->insertWidget(5, uPanel);
     uPanel->setCurrentUser(registrationUser);
 

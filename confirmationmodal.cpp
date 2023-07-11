@@ -12,9 +12,9 @@ ConfirmationModal::ConfirmationModal(QWidget *parent) :
         return;
     }
 
-    this->setGeometry(0, 0, 2 * parent->width() / 3, 400);
-    // Set the initial position of the panel outside the visible area
-    this->move(parent->width(), 0);
+    int w = parent->width();
+    int h = parent->height();
+    this->setGeometry(w / 2 - this->width() / 2, h / 2 - this->height() / 2, 2 * w / 3, 400);
     // Add the panel to the window
     this->show();
 }
