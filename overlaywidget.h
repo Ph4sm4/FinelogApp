@@ -3,28 +3,32 @@
 
 #include <QObject>
 #include <QWidget>
-#include "settingspanel.h"
 
 class OverlayWidget : public QWidget
 {
+    Q_OBJECT
 public:
-    explicit OverlayWidget(QWidget* parent = nullptr);
+    explicit OverlayWidget(QWidget *parent);
 
-    void setPanel(SettingsPanel* panel) { settingsPanel = panel; }
-    void closeSettingsPanel();
+signals:
+    void clicked();
+
+public slots:
+    void exitFromView();
 
 protected:
     void mousePressEvent(QMouseEvent* event) override
     {
         qDebug() << "Widget clicked!";
-        closeSettingsPanel();
+        this->hide();
+
+        emit clicked();
 
         // Let the base class handle the event as well
         QWidget::mousePressEvent(event);
     }
 
 private:
-    SettingsPanel* settingsPanel = nullptr;
 };
 
 #endif // OVERLAYWIDGET_H

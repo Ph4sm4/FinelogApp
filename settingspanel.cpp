@@ -1,7 +1,6 @@
 #include "settingspanel.h"
 #include "ui_settingspanel.h"
 #include <QPropertyAnimation>
-#include "overlaywidget.h"
 #include "fineloguser.h"
 #include "inputmanager.h"
 #include <QJsonObject>
@@ -14,10 +13,6 @@ SettingsPanel::SettingsPanel(QWidget *parent) :
     ui(new Ui::SettingsPanel)
 {
     ui->setupUi(this);
-    if(!parent) {
-        qWarning() << "NO PARENT FOR THE SETTINGS PANEL, COULD NOT INITIALIZE GEOMETRY";
-        return;
-    }
 
     this->setGeometry(0, 0, 2 * parent->width() / 3, parent->height());
     // Set the initial position of the panel outside the visible area
@@ -40,6 +35,7 @@ SettingsPanel::SettingsPanel(QWidget *parent) :
 void SettingsPanel::performAnimation(const int& duration, const QPoint& endPoint, QObject* parent)
 {
     // Create a property animation for the panel's position
+    qDebug() << "performing animation to: " << endPoint;
     QPropertyAnimation *animation = new QPropertyAnimation(this, "pos", parent);
     animation->setDuration(duration);
     animation->setEasingCurve(QEasingCurve::InOutQuad);
@@ -60,6 +56,16 @@ void SettingsPanel::setCurrentUser(FinelogUser *user)
     }
 }
 
+void SettingsPanel::comeIntoView()
+{
+    performAnimation(200, QPoint(parentWidget()->width() - width(), 0), parent());
+}
+
+void SettingsPanel::exitFromView()
+{
+    performAnimation(200, QPoint(parentWidget()->width(), 0), parent());
+}
+
 SettingsPanel::~SettingsPanel()
 {
     delete ui;
@@ -67,11 +73,10 @@ SettingsPanel::~SettingsPanel()
 
 void SettingsPanel::on_logoutButton_clicked()
 {
-    overlay->closeSettingsPanel(); // it will also hide the settings panel with the proper animation
-
+    exitFromView();
     emit logOutButtonClicked();
+    emit settingsPanelClosed();
 }
-
 
 void SettingsPanel::on_sendVerifyEmail_clicked()
 {
@@ -87,7 +92,8 @@ void SettingsPanel::on_sendVerifyEmail_clicked()
 
 void SettingsPanel::on_closePanel_clicked()
 {
-    overlay->closeSettingsPanel(); // it will also hide the settings panel with the proper animation
+    exitFromView();
+    emit settingsPanelClosed();
 }
 
 

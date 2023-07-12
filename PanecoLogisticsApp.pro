@@ -27,6 +27,7 @@ SOURCES += \
     reportheadline.cpp \
     settingspanel.cpp \
     stylesheetmanipulator.cpp \
+    successbox.cpp \
     userdeleteitem.cpp \
     useritem.cpp \
     userpanel.cpp \
@@ -45,6 +46,7 @@ HEADERS += \
     reportheadline.h \
     settingspanel.h \
     stylesheetmanipulator.h \
+    successbox.h \
     userdeleteitem.h \
     useritem.h \
     userpanel.h \
@@ -57,6 +59,7 @@ FORMS += \
     mainwindow.ui \
     protocolform.ui \
     settingspanel.ui \
+    successbox.ui \
     userdeleteitem.ui \
     useritem.ui \
     userpanel.ui

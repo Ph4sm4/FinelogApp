@@ -10,6 +10,7 @@
 #include "overlaywidget.h"
 #include "settingspanel.h"
 #include "stylesheetmanipulator.h"
+#include "successbox.h"
 #include "ui_mainwindow.h"
 #include "userpanel.h"
 #include <type_traits>
@@ -43,20 +44,6 @@ MainWindow::MainWindow(QWidget *parent)
     shadowEffect->setColor(QColor(0, 0, 0, 50));
     shadowEffect->setOffset(0, 1);
     ui->finelogLogo->setGraphicsEffect(shadowEffect);
-
-    timer = new QTimer(this);
-
-    connect(timer, &QTimer::timeout, this, [this]()->void {
-        QPropertyAnimation *animationBack = new QPropertyAnimation(successBox, "pos", this);
-        animationBack->setDuration(300);
-        animationBack->setEasingCurve(QEasingCurve::InOutQuad);
-        animationBack->setEndValue(QPoint(-140, 40));
-        animationBack->start();
-
-        connect(animationBack, &QPropertyAnimation::finished, successBox, [this]()->void {
-            successBox->hide();
-        });
-    });
 }
 
 MainWindow::~MainWindow()
@@ -84,55 +71,44 @@ void MainWindow::loggedOutOfAdminPanel()
     ui->pagination->setCurrentIndex(0);
 }
 
-void MainWindow::showUserPanel()
+void MainWindow::showSettingsPanel()
 {
     // show the settings panel widget here cause we need the whole window height
     // if we were to do this in the constructor it would not work
     // because at the constructor stage the mainwindow size is not yet defined
     settingsPanel = new SettingsPanel(this);
     overlay = new OverlayWidget(this);
-    settingsPanel->setOverlayWidget(overlay);
-    connect(settingsPanel, &SettingsPanel::logOutButtonClicked, this, &MainWindow::loggedOutOfUserPanel);
 
-    if(!uPanel) return;
+    connect(settingsPanel,
+            &SettingsPanel::logOutButtonClicked,
+            this,
+            &MainWindow::loggedOutOfUserPanel);
+
+    connect(overlay, &OverlayWidget::clicked, settingsPanel, &SettingsPanel::exitFromView);
+    connect(settingsPanel,
+            &SettingsPanel::settingsPanelClosed,
+            overlay,
+            &OverlayWidget::exitFromView);
+
+    if (!uPanel)
+        return;
 
     uPanel->setSettingsPanel(settingsPanel);
-
-    overlay->setStyleSheet("background-color: rgba(0, 0, 0, 0.5);");
+    overlay->setStyleSheet("QWidget { background: red; }");
     overlay->setGeometry(0, 0, this->width(), this->height());
-    overlay->setPanel(settingsPanel);
-
     overlay->show();
+
     settingsPanel->raise();
     settingsPanel->setCurrentUser(uPanel->getCurrentUser());
-    settingsPanel->performAnimation(200, QPoint(width() - settingsPanel->width(), 0), this);
+    settingsPanel->comeIntoView();
 }
 
 void MainWindow::displaySuccessBox()
 {
     QTimer::singleShot(1000, successBox, [this]() {
-        successBox = new QLabel(this);
-        successBox->setFixedSize(140, 40);
-        successBox->setText("Success!");
-        successBox->setStyleSheet("QLabel { padding: 5px 10px; background: rgb(80, 200, 120); color: white; border: none; border-radius: 6px; font-size: 18px; font-weight: bold}");
-        successBox->raise();
-        successBox->show();
-        successBox->move(-140, 40);
-
-        QPropertyAnimation *animation = new QPropertyAnimation(successBox, "pos", this);
-        animation->setDuration(300);
-        animation->setEasingCurve(QEasingCurve::InOutQuad);
-        animation->setEndValue(QPoint(0, 40));
-        animation->start();
-        // CODE FOR ANIMATING THE SLIDE OF THE SUCCESS BOX IN AND OUT
-        //
-        //
-
-        connect(animation, &QPropertyAnimation::finished, this, [this]()->void {
-            // after 3 seconds we would like to animate back
-            timer->stop();
-            timer->start(3000);
-        });
+        successBox = new SuccessBox(this);
+        successBox->setMessage("Success");
+        successBox->comeIntoView();
     });
 }
 
@@ -169,7 +145,7 @@ void MainWindow::on_loginButton_clicked()
         InputManager::clearInputs(ui->emailEdit, ui->passwordEdit);
 
         connect(uPanel, &UserPanel::logOutButtonClicked, this, &MainWindow::loggedOutOfUserPanel);
-        connect(uPanel, &UserPanel::settingsButtonClicked, this, &MainWindow::showUserPanel);
+        connect(uPanel, &UserPanel::settingsButtonClicked, this, &MainWindow::showSettingsPanel);
         connect(uPanel, &UserPanel::successBoxDisplayNeeded, this, &MainWindow::displaySuccessBox);
 
     } else { // change to admin panel
@@ -210,7 +186,7 @@ void MainWindow::on_registerButton_clicked()
     uPanel->setCurrentUser(registrationUser);
 
     connect(uPanel, &UserPanel::logOutButtonClicked, this, &MainWindow::loggedOutOfUserPanel);
-    connect(uPanel, &UserPanel::settingsButtonClicked, this, &MainWindow::showUserPanel);
+    connect(uPanel, &UserPanel::settingsButtonClicked, this, &MainWindow::showSettingsPanel);
     connect(uPanel, &UserPanel::successBoxDisplayNeeded, this, &MainWindow::displaySuccessBox);
 
     ui->pagination->setCurrentIndex(5);

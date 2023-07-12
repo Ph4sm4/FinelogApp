@@ -230,12 +230,16 @@ void AdminPanel::userDeleteTriggered(QString userId)
         return;
     }
 
+    int w = window->width();
+    int h = window->height();
+
     overlay->setStyleSheet("background-color: rgba(0, 0, 0, 0.5);");
-    overlay->setGeometry(0, 0, window->width(), window->height());
+    overlay->setGeometry(0, 0, w, h);
     overlay->show();
 
-    modal->raise();
+    modal->setGeometry(h / 2, w / 2, 2 * w / 3, 400);
     modal->show();
+    modal->raise();
 }
 
 void AdminPanel::initializeDashboard()

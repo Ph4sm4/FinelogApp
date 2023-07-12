@@ -24,7 +24,7 @@ public slots:
 
     void loggedOutOfAdminPanel();
 
-    void showUserPanel();
+    void showSettingsPanel();
 
     void displaySuccessBox();
 
@@ -84,7 +84,7 @@ private:
     class OverlayWidget *overlay = nullptr;
     class AdminPanel *aPanel = nullptr;
 
-    class QLabel* successBox = nullptr;
+    class SuccessBox *successBox = nullptr;
     class QTimer* timer = nullptr;
 };
 #endif // MAINWINDOW_H

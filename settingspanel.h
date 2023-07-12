@@ -13,17 +13,23 @@ class SettingsPanel : public QWidget
     Q_OBJECT
 
 public:
-    explicit SettingsPanel(QWidget *parent = nullptr);
+    explicit SettingsPanel(QWidget *parent);
     ~SettingsPanel();
 
     void performAnimation(const int& duration, const QPoint& endPoint, QObject* parent);
-    void setOverlayWidget(class OverlayWidget* newOverlay) { overlay = newOverlay; }
-    void setCurrentUser(class FinelogUser* user);
+    void setCurrentUser(class FinelogUser *user);
+
+    void comeIntoView();
 
 signals:
     void logOutButtonClicked();
 
     void userDetailsChange();
+
+    void settingsPanelClosed();
+
+public slots:
+    void exitFromView();
 
 private slots:
     void on_logoutButton_clicked();
@@ -72,7 +78,6 @@ private slots:
 
 private:
     Ui::SettingsPanel *ui;
-    class OverlayWidget* overlay = nullptr;
     class FinelogUser* currentUser = nullptr;
     DatabaseHandler dbHandler;
 };
