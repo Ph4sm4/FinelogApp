@@ -94,8 +94,7 @@ void MainWindow::showSettingsPanel()
         return;
 
     uPanel->setSettingsPanel(settingsPanel);
-    overlay->setStyleSheet("QWidget { background: red; }");
-    overlay->setGeometry(0, 0, this->width(), this->height());
+    overlay->raise();
     overlay->show();
 
     settingsPanel->raise();

@@ -1,14 +1,20 @@
 #ifndef OVERLAYWIDGET_H
 #define OVERLAYWIDGET_H
 
-#include <QObject>
 #include <QWidget>
+
+namespace Ui {
+class OverlayWidget;
+}
 
 class OverlayWidget : public QWidget
 {
     Q_OBJECT
+
 public:
     explicit OverlayWidget(QWidget *parent);
+
+    ~OverlayWidget();
 
 signals:
     void clicked();
@@ -17,7 +23,7 @@ public slots:
     void exitFromView();
 
 protected:
-    void mousePressEvent(QMouseEvent* event) override
+    void mousePressEvent(QMouseEvent *event) override
     {
         qDebug() << "Widget clicked!";
         this->hide();
@@ -29,6 +35,7 @@ protected:
     }
 
 private:
+    Ui::OverlayWidget *ui;
 };
 
 #endif // OVERLAYWIDGET_H

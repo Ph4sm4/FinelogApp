@@ -57,6 +57,7 @@ FORMS += \
     confirmationmodal.ui \
     listitem.ui \
     mainwindow.ui \
+    overlaywidget.ui \
     protocolform.ui \
     settingspanel.ui \
     successbox.ui \
