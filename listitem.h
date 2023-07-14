@@ -37,18 +37,15 @@ public:
     QDateTime getDateTime() const { return QDateTime(protocolDate, protocolTime); }
     QString getCarName() const { return carName; }
 
+    void setOwner(class FinelogUser *user) { owner = user; }
+
 signals:
     void clicked(const QString& contentName);
 
 protected:
     bool event(QEvent* event) override;
     bool gestureEvent(QGestureEvent* event);
-    void mousePressEvent(QMouseEvent* event) override {
-        if (event->button() == Qt::LeftButton) {
-            emit clicked(this->contentName);
-        }
-        QWidget::mousePressEvent(event); // Call the base class implementation
-    }
+    void mousePressEvent(QMouseEvent *event) override;
 
 private:
     Ui::ListItem *ui;
@@ -63,6 +60,9 @@ private:
     QString adminIdToken;
 
     DatabaseHandler dbHandler;
+
+    class FinelogUser *owner
+        = nullptr; // used in the admin panel, in order to delete contentName from unreadProtocols list for that user
 };
 
 #endif // LISTITEM_H

@@ -1,8 +1,9 @@
 #include "listitem.h"
-#include "ui_listitem.h"
 #include <QDate>
-#include <QTime>
 #include <QGraphicsDropShadowEffect>
+#include <QTime>
+#include "fineloguser.h"
+#include "ui_listitem.h"
 
 ListItem::ListItem(QWidget *parent) :
     QWidget(parent),
@@ -65,10 +66,30 @@ bool ListItem::gestureEvent(QGestureEvent* event) {
 
                     qDebug() << "database entry deleted: " << contentName;
                 }
+                if (owner) {
+                    owner->readAProtocol(contentName);
+                }
                 emit clicked(this->contentName); // Emit the clicked signal when the tap gesture is finished
                 return true;
             }
         }
     }
     return false;
+}
+
+void ListItem::mousePressEvent(QMouseEvent *event)
+{
+    if (event->button() == Qt::LeftButton) {
+        if (!hasBeenRead) {
+            const QString path = "Admin/Unread" + contentName;
+            dbHandler.deleteDatabaseEntry(path, adminIdToken);
+
+            qDebug() << "database entry deleted: " << contentName;
+        }
+        if (owner) {
+            owner->readAProtocol(contentName);
+        }
+        emit clicked(this->contentName);
+    }
+    QWidget::mousePressEvent(event); // Call the base class implementation
 }

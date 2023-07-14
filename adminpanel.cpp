@@ -166,11 +166,14 @@ void AdminPanel::initializeUserPreview(FinelogUser *user)
             newItem->setContentName(headline.contentName);
             newItem->setHasBeenRead(!unreadProtocols.contains(headline.contentName));
             newItem->setAdminIdToken(adminUser->getIdToken());
+            newItem->setOwner(previewUser);
 
             if (unreadProtocols.contains(headline.contentName)) {
                 newItem->setStyleSheet(
                     "QFrame#contentFrame { background-color: white; padding: 5px 5px; "
                     "border: 2px solid #68C668; }");
+
+                qDebug() << "trying to apply stylesheet";
             }
             connect(newItem, &ListItem::clicked, this, &AdminPanel::projectDetailsRequested);
 
@@ -230,16 +233,10 @@ void AdminPanel::userDeleteTriggered(QString userId)
         return;
     }
 
-    int w = window->width();
-    int h = window->height();
-
-    overlay->setStyleSheet("background-color: rgba(0, 0, 0, 0.5);");
-    overlay->setGeometry(0, 0, w, h);
     overlay->show();
-
-    modal->setGeometry(h / 2, w / 2, 2 * w / 3, 400);
     modal->show();
-    modal->raise();
+
+    connect(modal, &ConfirmationModal::cancelAction, overlay, &OverlayWidget::exitFromView);
 }
 
 void AdminPanel::initializeDashboard()
@@ -314,7 +311,12 @@ void AdminPanel::initializeDashboard()
                                                                         adminUser->getIdToken(),
                                                                         queryParams);
 
-        qDebug() << unreadProtocols;
+        QVector<QString> unreadStrings;
+        foreach (const QString &key, unreadProtocols.keys()) {
+            unreadStrings.push_back(key);
+        }
+        qDebug() << "unread strings: " << unreadStrings;
+        item->setUnreadProtocolsForUser(unreadStrings);
 
         if (unreadProtocols.keys().size() > 0) {
             item->setNewUpload(true);
@@ -395,6 +397,7 @@ void AdminPanel::on_backToPreview_clicked()
     // -> the list is going to get updated
     initializeUserPreview(previewUser);
     formReadyForDeletion();
+    ui->sortHeadlinesCombo->setCurrentIndex(0);
 
     ui->pagination->setCurrentIndex(1);
 }

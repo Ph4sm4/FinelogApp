@@ -42,6 +42,8 @@ public:
     void setIsAdmin(bool admin) { isAdmin = admin; }
     void setUnreadProtocols(const QVector<QString> &protocols) { unreadProtocols = protocols; }
 
+    void readAProtocol(const QString &protocol);
+
 private:
     QString name;
     QString surname;

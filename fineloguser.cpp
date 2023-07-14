@@ -32,3 +32,13 @@ void FinelogUser::fetchHeadlines()
     }
     qDebug() << "headlines size: " << headlines.size();
 }
+
+void FinelogUser::readAProtocol(const QString &protocol)
+{
+    for (int i = 0; i < unreadProtocols.size(); i++) {
+        if (unreadProtocols[i] == protocol) {
+            unreadProtocols.removeAt(i);
+            return;
+        }
+    }
+}
