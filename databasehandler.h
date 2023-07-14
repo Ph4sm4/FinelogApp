@@ -27,6 +27,7 @@ public:
     QJsonObject sendPasswordResetLink(const QString& email);
     bool uploadProtocol(const class FinelogUser* user, const class UserReport& report);
     bool deleteUserAccount(const QString& idToken);
+    bool adminDeleteUserAccount(const QString &userId, const QString &adminIdToken);
     bool deleteDatabaseEntry(const QString &databasePath, const QString &idToken);
     QJsonObject getAuthAccountInfo(const QString &idToken);
 

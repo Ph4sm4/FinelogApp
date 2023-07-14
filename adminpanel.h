@@ -38,6 +38,8 @@ public slots:
 
     void userDeleteTriggered(QString userId);
 
+    void deleteUserAccount(const QString &userId);
+
 private slots:
     void on_backToPanel_clicked();
 

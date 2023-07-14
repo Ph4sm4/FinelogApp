@@ -564,6 +564,23 @@ bool DatabaseHandler::deleteUserAccount(const QString &idToken)
     return res.contains("error") == false;
 }
 
+bool DatabaseHandler::adminDeleteUserAccount(const QString &userId, const QString &adminIdToken)
+{
+    const QString deleteEndpoint = "https://identitytoolkit.googleapis.com/v1/accounts:delete?key="
+                                   + api_key;
+
+    QVariantMap authPayload;
+    authPayload["localId"] = userId;
+    authPayload["targetProjectId"] = "finelogapp";
+
+    QJsonObject res = performPOST(deleteEndpoint, QJsonDocument::fromVariant(authPayload));
+    if (res.contains("error"))
+        return false;
+
+    const QString deletePath = "Users/" + userId;
+    return deleteDatabaseEntry(deletePath, adminIdToken);
+}
+
 bool DatabaseHandler::deleteDatabaseEntry(const QString &databasePath, const QString &idToken)
 {
     QString endPoint = dbBaseUrl + databasePath + ".json?auth=" + idToken;

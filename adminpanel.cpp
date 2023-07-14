@@ -234,9 +234,17 @@ void AdminPanel::userDeleteTriggered(QString userId)
     }
 
     overlay->show();
+    modal->setDeleteUserId(userId);
     modal->show();
 
     connect(modal, &ConfirmationModal::cancelAction, overlay, &OverlayWidget::exitFromView);
+    connect(overlay, &OverlayWidget::clicked, modal, &ConfirmationModal::exitFromView);
+    connect(modal, &ConfirmationModal::acceptAction, this, &AdminPanel::deleteUserAccount);
+}
+
+void AdminPanel::deleteUserAccount(const QString &userId)
+{
+    dbHandler.adminDeleteUserAccount(userId, adminUser->getIdToken());
 }
 
 void AdminPanel::initializeDashboard()

@@ -15,10 +15,15 @@ public:
     explicit ConfirmationModal(QWidget *parent);
     ~ConfirmationModal();
 
+    void setDeleteUserId(const QString &id) { userId = id; }
+
+public slots:
+    void exitFromView();
+
 signals:
     void cancelAction();
 
-    void acceptAction();
+    void acceptAction(const QString &id);
 
 private slots:
     void on_cancelButton_clicked();
@@ -27,6 +32,8 @@ private slots:
 
 private:
     Ui::ConfirmationModal *ui;
+
+    QString userId;
 };
 
 #endif // CONFIRMATIONMODAL_H
