@@ -566,17 +566,13 @@ bool DatabaseHandler::deleteUserAccount(const QString &idToken)
 
 bool DatabaseHandler::adminDeleteUserAccount(const QString &userId, const QString &adminIdToken)
 {
-    const QString deleteEndpoint = "https://identitytoolkit.googleapis.com/v1/accounts:delete?key="
-                                   + api_key;
+    // we gotta use ngrok for it, right now only tho
+    const QString deleteEndpoint = "https://16b8-77-252-47-143.ngrok-free.app/adminDeleteUser";
 
     QVariantMap authPayload;
     authPayload["localId"] = userId;
 
     QJsonObject res = performPOST(deleteEndpoint, QJsonDocument::fromVariant(authPayload));
-    if (res.contains("error")) {
-        qDebug() << res;
-        return false;
-    }
 
     const QString deletePath = "Users/" + userId;
     return deleteDatabaseEntry(deletePath, adminIdToken);
