@@ -6,8 +6,6 @@ const cors = require('cors');
 const server = express();
 const port = 4000;
 
-const api_key = 'AIzaSyA--DNxqDYjviNPHl7qrZ0GiQM9A5c2_Bg';
-
 var serviceAccount = require('./firebase-admin-sdk.json');
 
 admin.initializeApp({

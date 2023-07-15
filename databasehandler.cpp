@@ -567,7 +567,7 @@ bool DatabaseHandler::deleteUserAccount(const QString &idToken)
 bool DatabaseHandler::adminDeleteUserAccount(const QString &userId, const QString &adminIdToken)
 {
     // we gotta use ngrok for it, right now only tho
-    const QString deleteEndpoint = "https://16b8-77-252-47-143.ngrok-free.app/adminDeleteUser";
+    const QString deleteEndpoint = "https://b027-77-252-47-143.ngrok-free.app/adminDeleteUser";
 
     QVariantMap authPayload;
     authPayload["localId"] = userId;
