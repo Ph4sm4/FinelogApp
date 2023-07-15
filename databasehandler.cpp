@@ -571,11 +571,12 @@ bool DatabaseHandler::adminDeleteUserAccount(const QString &userId, const QStrin
 
     QVariantMap authPayload;
     authPayload["localId"] = userId;
-    authPayload["targetProjectId"] = "finelogapp";
 
     QJsonObject res = performPOST(deleteEndpoint, QJsonDocument::fromVariant(authPayload));
-    if (res.contains("error"))
+    if (res.contains("error")) {
+        qDebug() << res;
         return false;
+    }
 
     const QString deletePath = "Users/" + userId;
     return deleteDatabaseEntry(deletePath, adminIdToken);

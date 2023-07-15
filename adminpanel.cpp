@@ -238,6 +238,8 @@ void AdminPanel::userDeleteTriggered(QString userId)
     modal->show();
 
     connect(modal, &ConfirmationModal::cancelAction, overlay, &OverlayWidget::exitFromView);
+    connect(modal, &ConfirmationModal::acceptAction, overlay, &OverlayWidget::exitFromView);
+
     connect(overlay, &OverlayWidget::clicked, modal, &ConfirmationModal::exitFromView);
     connect(modal, &ConfirmationModal::acceptAction, this, &AdminPanel::deleteUserAccount);
 }

@@ -32,5 +32,6 @@ void ConfirmationModal::on_cancelButton_clicked()
 
 void ConfirmationModal::on_confirmButton_clicked()
 {
+    this->hide();
     emit acceptAction(userId);
 }
