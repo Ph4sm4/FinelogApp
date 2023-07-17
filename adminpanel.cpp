@@ -247,6 +247,9 @@ void AdminPanel::userDeleteTriggered(QString userId)
 void AdminPanel::deleteUserAccount(const QString &userId)
 {
     dbHandler.adminDeleteUserAccount(userId, adminUser->getIdToken());
+
+    usersObject.remove(userId);
+    initializeUserDeletion();
 }
 
 void AdminPanel::initializeDashboard()
