@@ -102,7 +102,7 @@ background: rgb(230, 230, 230);
 }</string>
       </property>
       <property name="currentIndex">
-       <number>5</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="login_page">
        <property name="styleSheet">
