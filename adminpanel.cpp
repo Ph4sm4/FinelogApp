@@ -375,6 +375,25 @@ void AdminPanel::initializeUserDeletion()
         delete item;
     }
 
+    // displaying a proper label if there are no users registered
+    if (usersObject.keys().size() == 0) {
+        QLabel *noUsers = new QLabel();
+        QFont font;
+        font.setBold(true);
+        font.capitalization();
+        font.setFamily("Microsoft JhengHei");
+        font.setPointSize(36);
+        font.setItalic(true);
+        font.setLetterSpacing(QFont::AbsoluteSpacing, 5);
+        noUsers->setFont(font);
+        noUsers->setText("NO USERS");
+        noUsers->setStyleSheet("QLabel {background: transparent;color: rgb(102, 102, 102);}");
+        noUsers->setAlignment(Qt::AlignCenter);
+
+        existingLayout->addWidget(noUsers);
+        return;
+    }
+
     for (const QString &userId : usersObject.keys()) {
         QJsonObject userObject = usersObject.value(userId).toObject();
 
@@ -406,7 +425,7 @@ void AdminPanel::on_backToPreview_clicked()
     // we want to initialize and update the dashboard once more as we might have made changes to the database
     // e.g. read a previously unread protocol
     // decided to stick to this approach as it supports fetching data in real-time
-    // for instance when we are inspecting a certain protocol and a new one has been uploaded
+    // for instance when during our inspection of a certain protocol a new one has been uploaded
     // -> the list is going to get updated
     initializeUserPreview(previewUser);
     formReadyForDeletion();
