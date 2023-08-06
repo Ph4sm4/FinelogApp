@@ -77,6 +77,8 @@ private:
 
     DatabaseHandler dbHandler;
 
+    void goToLogin();
+
     class FinelogUser* registrationUser = nullptr;
 
     class UserPanel *uPanel = nullptr;

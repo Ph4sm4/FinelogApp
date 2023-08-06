@@ -262,41 +262,25 @@ void MainWindow::on_nextEmail_clicked()
 
 void MainWindow::on_loginGoTo_clicked()
 {
-    delete registrationUser;
-    InputManager::clearInputs(ui->idRegistration, ui->emailRegister,
-                              ui->nameRegister, ui->surnameRegister, ui->phoneNumberRegister,
-                              ui->passwordRegister, ui->confirmPassword);
-    ui->pagination->setCurrentIndex(0);
+    goToLogin();
 }
 
 
 void MainWindow::on_loginGoTo_3_clicked()
 {
-    delete registrationUser;
-    InputManager::clearInputs(ui->idRegistration, ui->emailRegister,
-                              ui->nameRegister, ui->surnameRegister, ui->phoneNumberRegister,
-                              ui->passwordRegister, ui->confirmPassword);
-    ui->pagination->setCurrentIndex(0);
+    goToLogin();
 }
 
 
 void MainWindow::on_loginGoTo_4_clicked()
 {
-    delete registrationUser;
-    InputManager::clearInputs(ui->idRegistration, ui->emailRegister,
-                              ui->nameRegister, ui->surnameRegister, ui->phoneNumberRegister,
-                              ui->passwordRegister, ui->confirmPassword);
-    ui->pagination->setCurrentIndex(0);
+    goToLogin();
 }
 
 
 void MainWindow::on_loginGoTo_5_clicked()
 {
-    delete registrationUser;
-    InputManager::clearInputs(ui->idRegistration, ui->emailRegister,
-                              ui->nameRegister, ui->surnameRegister, ui->phoneNumberRegister,
-                              ui->passwordRegister, ui->confirmPassword);
-    ui->pagination->setCurrentIndex(0);
+    goToLogin();
 }
 
 void MainWindow::on_confirmPassword_textChanged(const QString &arg1)
@@ -422,5 +406,15 @@ void MainWindow::on_backToLogin_clicked()
 void MainWindow::on_pagination_currentChanged(int arg1)
 {
     ui->loginErrorLabel->setText("");
+}
+
+void MainWindow::goToLogin()
+{
+    delete registrationUser;
+    registrationUser = nullptr;
+    InputManager::clearInputs(ui->idRegistration, ui->emailRegister,
+                              ui->nameRegister, ui->surnameRegister, ui->phoneNumberRegister,
+                              ui->passwordRegister, ui->confirmPassword);
+    ui->pagination->setCurrentIndex(0);
 }
 
