@@ -509,3 +509,13 @@ void AdminPanel::on_deleteAccountButton_clicked()
     initializeUserDeletion();
     ui->pagination->setCurrentIndex(3);
 }
+
+void AdminPanel::on_manageFormData_clicked()
+{
+    ui->pagination->setCurrentIndex(4);
+}
+
+void AdminPanel::on_backToPanel_3_clicked()
+{
+    ui->pagination->setCurrentIndex(0);
+}

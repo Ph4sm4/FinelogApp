@@ -53,6 +53,10 @@ private slots:
 
     void on_deleteAccountButton_clicked();
 
+    void on_manageFormData_clicked();
+
+    void on_backToPanel_3_clicked();
+
 signals:
     void logOutButtonClicked();
 

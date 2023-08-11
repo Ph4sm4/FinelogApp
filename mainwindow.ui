@@ -148,79 +148,6 @@ background-color: white;
            </spacer>
           </item>
           <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_2">
-            <item>
-             <widget class="QLabel" name="label">
-              <property name="font">
-               <font>
-                <italic>false</italic>
-               </font>
-              </property>
-              <property name="styleSheet">
-               <string notr="true">QLabel {
-margin-left: 20px;
-color: black;
-background: transparent;
-}</string>
-              </property>
-              <property name="text">
-               <string>Don't have an account? </string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QPushButton" name="registerGoTo">
-              <property name="font">
-               <font>
-                <italic>true</italic>
-               </font>
-              </property>
-              <property name="styleSheet">
-               <string notr="true">QPushButton {
-height: 30px;
-color: rgb(249, 115, 22);
-}
-
-QPushButton:pressed,
-QPushButton:focus {
-outline: none;
-background: white;
-}</string>
-              </property>
-              <property name="text">
-               <string>Register</string>
-              </property>
-              <property name="flat">
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QPushButton" name="pushButton_3">
-              <property name="text">
-               <string>srodkowy</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <spacer name="horizontalSpacer">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-              <property name="sizeType">
-               <enum>QSizePolicy::Expanding</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>60</width>
-                <height>20</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-           </layout>
-          </item>
-          <item>
            <widget class="QLabel" name="welcomeLabel">
             <property name="font">
              <font>
@@ -485,6 +412,79 @@ background: white;
              </size>
             </property>
            </spacer>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_2">
+            <item>
+             <widget class="QLabel" name="label">
+              <property name="font">
+               <font>
+                <italic>false</italic>
+               </font>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QLabel {
+margin-left: 20px;
+color: black;
+background: transparent;
+}</string>
+              </property>
+              <property name="text">
+               <string>Don't have an account? </string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="registerGoTo">
+              <property name="font">
+               <font>
+                <italic>true</italic>
+               </font>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QPushButton {
+height: 30px;
+color: rgb(249, 115, 22);
+}
+
+QPushButton:pressed,
+QPushButton:focus {
+outline: none;
+background: white;
+}</string>
+              </property>
+              <property name="text">
+               <string>Register</string>
+              </property>
+              <property name="flat">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="pushButton_3">
+              <property name="text">
+               <string>srodkowy</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="horizontalSpacer">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeType">
+               <enum>QSizePolicy::Expanding</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>60</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+           </layout>
           </item>
           <item>
            <spacer name="verticalSpacer_2">
