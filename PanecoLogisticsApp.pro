@@ -25,6 +25,8 @@ SOURCES += \
     overlaywidget.cpp \
     protocolform.cpp \
     reportheadline.cpp \
+    selectcontentmanager.cpp \
+    selectdeleteitem.cpp \
     settingspanel.cpp \
     stylesheetmanipulator.cpp \
     successbox.cpp \
@@ -44,6 +46,8 @@ HEADERS += \
     overlaywidget.h \
     protocolform.h \
     reportheadline.h \
+    selectcontentmanager.h \
+    selectdeleteitem.h \
     settingspanel.h \
     stylesheetmanipulator.h \
     successbox.h \
@@ -59,6 +63,8 @@ FORMS += \
     mainwindow.ui \
     overlaywidget.ui \
     protocolform.ui \
+    selectcontentmanager.ui \
+    selectdeleteitem.ui \
     settingspanel.ui \
     successbox.ui \
     userdeleteitem.ui \
