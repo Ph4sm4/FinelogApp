@@ -213,6 +213,14 @@ QJsonObject DatabaseHandler::getAuthAccountInfo(const QString &idToken)
     return ourUser;
 }
 
+QJsonObject DatabaseHandler::getFormInputData(const QString &idToken)
+{
+    QString endPoint = "Reports/Inputs";
+    QJsonObject inputsData = performAuthenticatedGET(endPoint, idToken);
+
+    return inputsData;
+}
+
 QJsonObject DatabaseHandler::performPOST(const QString &url, const QJsonDocument &payload)
 {
     QNetworkRequest newReq((QUrl(url)));

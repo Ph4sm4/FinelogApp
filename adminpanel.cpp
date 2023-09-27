@@ -1,5 +1,6 @@
 #include "adminpanel.h"
 #include <QGraphicsDropShadowEffect>
+#include <QJsonArray>
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QPropertyAnimation>
@@ -12,6 +13,8 @@
 #include "listitem.h"
 #include "overlaywidget.h"
 #include "protocolform.h"
+#include "qtimer.h"
+#include "selectcontentmanager.h"
 #include "ui_adminpanel.h"
 #include "userdeleteitem.h"
 #include "useritem.h"
@@ -411,6 +414,43 @@ void AdminPanel::initializeUserDeletion()
     existingLayout->addStretch();
 }
 
+void AdminPanel::initializeManageData()
+{
+    inputsData = dbHandler.getFormInputData(adminUser->getIdToken());
+
+    QWidget *w = ui->selectManagerWidgets;
+    if (!w) {
+        qCritical() << "SCROLL AREA widget DOES NOT EXIST";
+        return;
+    }
+    QVBoxLayout *existingLayout = qobject_cast<QVBoxLayout *>(w->layout());
+    if (!existingLayout) {
+        qCritical() << "SCROLL AREA LAYOUT DOES NOT EXIST";
+        return;
+    }
+
+    // clearing out any remaining widgets
+    while (QLayoutItem *item = existingLayout->takeAt(0)) {
+        if (QWidget *widget = item->widget())
+            widget->deleteLater();
+
+        delete item;
+    }
+
+    // need to somehow modify the json array which is stored in the inputsData QJSonObject
+    // passing by reference does not work dunno
+    foreach (const QString &key, inputsData.keys()) {
+        QJsonArray *fields = &inputsData.value(key).toArray();
+        SelectContentManager *fieldManager = new SelectContentManager();
+        fieldManager->setTitle(key);
+        fieldManager->setItems(fields);
+
+        QTimer::singleShot(5000, [fields]() -> void { qDebug() << "json array: " << fields; });
+
+        existingLayout->addWidget(fieldManager);
+    }
+}
+
 void AdminPanel::on_backToPanel_clicked()
 {
     previewUser = nullptr;
@@ -512,6 +552,7 @@ void AdminPanel::on_deleteAccountButton_clicked()
 
 void AdminPanel::on_manageFormData_clicked()
 {
+    initializeManageData();
     ui->pagination->setCurrentIndex(4);
 }
 

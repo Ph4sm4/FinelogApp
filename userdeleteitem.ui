@@ -141,6 +141,12 @@ background: transparent;
           </item>
           <item>
            <widget class="QPushButton" name="deleteButton">
+            <property name="maximumSize">
+             <size>
+              <width>40</width>
+              <height>40</height>
+             </size>
+            </property>
             <property name="styleSheet">
              <string notr="true">QPushButton {
 	background-color: red;

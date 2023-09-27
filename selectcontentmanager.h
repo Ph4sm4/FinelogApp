@@ -1,6 +1,7 @@
 #ifndef SELECTCONTENTMANAGER_H
 #define SELECTCONTENTMANAGER_H
 
+#include <QJsonArray>
 #include <QWidget>
 
 namespace Ui {
@@ -15,8 +16,13 @@ public:
     explicit SelectContentManager(QWidget *parent = nullptr);
     ~SelectContentManager();
 
+    void setTitle(const QString &newTitle);
+    void setItems(QJsonArray *newFields);
+
 private:
     Ui::SelectContentManager *ui;
+
+    QJsonArray *fieldsArray = nullptr;
 };
 
 #endif // SELECTCONTENTMANAGER_H

@@ -30,6 +30,7 @@ public:
     bool adminDeleteUserAccount(const QString &userId, const QString &adminIdToken);
     bool deleteDatabaseEntry(const QString &databasePath, const QString &idToken);
     QJsonObject getAuthAccountInfo(const QString &idToken);
+    QJsonObject getFormInputData(const QString &idToken);
 
 public slots:
     //void networkReplyReadyRead();

@@ -71,8 +71,10 @@ private:
     DatabaseHandler dbHandler;
     void initializeDashboard();
     void initializeUserDeletion();
+    void initializeManageData();
 
     QJsonObject usersObject;
+    QJsonObject inputsData;
 };
 
 #endif // ADMINPANEL_H
