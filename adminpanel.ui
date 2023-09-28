@@ -6,14 +6,14 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>583</width>
+    <width>857</width>
     <height>642</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout_13">
+  <layout class="QVBoxLayout" name="verticalLayout_18">
    <property name="spacing">
     <number>0</number>
    </property>
@@ -400,7 +400,7 @@ QScrollBar:vertical {
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>583</width>
+            <width>857</width>
             <height>400</height>
            </rect>
           </property>
@@ -874,7 +874,7 @@ QScrollBar:vertical {
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>583</width>
+            <width>100</width>
             <height>350</height>
            </rect>
           </property>
@@ -1306,7 +1306,7 @@ QScrollBar:vertical {
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>583</width>
+            <width>839</width>
             <height>400</height>
            </rect>
           </property>
@@ -1352,17 +1352,23 @@ background-color: white;
         <number>0</number>
        </property>
        <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_11">
+        <layout class="QVBoxLayout" name="verticalLayout_19">
          <property name="leftMargin">
-          <number>20</number>
+          <number>0</number>
          </property>
          <property name="rightMargin">
-          <number>20</number>
+          <number>0</number>
          </property>
          <item>
           <layout class="QVBoxLayout" name="verticalLayout_14">
            <property name="spacing">
             <number>9</number>
+           </property>
+           <property name="leftMargin">
+            <number>20</number>
+           </property>
+           <property name="rightMargin">
+            <number>20</number>
            </property>
            <item>
             <widget class="QFrame" name="frame_2">
@@ -1425,6 +1431,49 @@ padding: 5px 0;
                 </property>
                </spacer>
               </item>
+              <item>
+               <layout class="QVBoxLayout" name="verticalLayout_13">
+                <item>
+                 <widget class="QPushButton" name="backToPanel_3">
+                  <property name="font">
+                   <font>
+                    <pointsize>12</pointsize>
+                   </font>
+                  </property>
+                  <property name="layoutDirection">
+                   <enum>Qt::RightToLeft</enum>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">QPushButton {
+background: transparent;
+color: black;
+border-radius: 8px;
+height: 30px;
+}
+
+QPushButton:pressed,
+QPushButton:focus {
+outline: none;
+background: transparent;
+}</string>
+                  </property>
+                  <property name="text">
+                   <string/>
+                  </property>
+                  <property name="icon">
+                   <iconset resource="Images.qrc">
+                    <normaloff>:/icons/content/arrow_back.svg</normaloff>:/icons/content/arrow_back.svg</iconset>
+                  </property>
+                  <property name="iconSize">
+                   <size>
+                    <width>40</width>
+                    <height>40</height>
+                   </size>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
              </layout>
             </widget>
            </item>
@@ -1462,9 +1511,77 @@ margin-top: 5px;
             </spacer>
            </item>
            <item>
-            <widget class="QScrollArea" name="scrollArea_4">
+            <widget class="QPushButton" name="saveChanges">
+             <property name="minimumSize">
+              <size>
+               <width>200</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>200</width>
+               <height>16777215</height>
+              </size>
+             </property>
+             <property name="font">
+              <font>
+               <family>Microsoft JhengHei</family>
+               <pointsize>12</pointsize>
+               <italic>false</italic>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="layoutDirection">
+              <enum>Qt::RightToLeft</enum>
+             </property>
              <property name="styleSheet">
-              <string notr="true">QScrollArea {
+              <string notr="true">QPushButton {
+background-color:  rgb(249, 115, 22);
+height: 30px;
+border-radius: 5px;
+color: white;
+padding: 4px 0;
+}</string>
+             </property>
+             <property name="text">
+              <string>Save</string>
+             </property>
+             <property name="icon">
+              <iconset resource="Images.qrc">
+               <normaloff>:/icons/content/check-circle.svg</normaloff>
+               <disabledoff>:/icons/content/check-circle-grayed.svg</disabledoff>:/icons/content/check-circle.svg</iconset>
+             </property>
+             <property name="iconSize">
+              <size>
+               <width>22</width>
+               <height>22</height>
+              </size>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <spacer name="verticalSpacer_9">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeType">
+              <enum>QSizePolicy::Fixed</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>10</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <widget class="QScrollArea" name="scrollArea_4">
+           <property name="styleSheet">
+            <string notr="true">QScrollArea {
     background-color: transparent;
     border: none;
      border-radius: 5px;
@@ -1503,84 +1620,26 @@ QScrollBar:vertical {
     QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical {
         background: none;
     }</string>
+           </property>
+           <property name="widgetResizable">
+            <bool>true</bool>
+           </property>
+           <widget class="QWidget" name="selectManagerWidgets">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>0</y>
+              <width>855</width>
+              <height>371</height>
+             </rect>
+            </property>
+            <layout class="QVBoxLayout" name="verticalLayout_17">
+             <property name="spacing">
+              <number>20</number>
              </property>
-             <property name="widgetResizable">
-              <bool>true</bool>
-             </property>
-             <widget class="QWidget" name="selectManagerWidgets">
-              <property name="geometry">
-               <rect>
-                <x>0</x>
-                <y>0</y>
-                <width>487</width>
-                <height>434</height>
-               </rect>
-              </property>
-              <layout class="QVBoxLayout" name="verticalLayout_17"/>
-             </widget>
-            </widget>
-           </item>
-          </layout>
-         </item>
-         <item>
-          <layout class="QVBoxLayout" name="verticalLayout_15">
-           <item>
-            <layout class="QHBoxLayout" name="horizontalLayout_12">
-             <item>
-              <widget class="QPushButton" name="backToPanel_3">
-               <property name="font">
-                <font>
-                 <pointsize>12</pointsize>
-                </font>
-               </property>
-               <property name="layoutDirection">
-                <enum>Qt::RightToLeft</enum>
-               </property>
-               <property name="styleSheet">
-                <string notr="true">QPushButton {
-background: transparent;
-color: black;
-border-radius: 8px;
-height: 30px;
-}
-
-QPushButton:pressed,
-QPushButton:focus {
-outline: none;
-background: transparent;
-}</string>
-               </property>
-               <property name="text">
-                <string/>
-               </property>
-               <property name="icon">
-                <iconset resource="Images.qrc">
-                 <normaloff>:/icons/content/arrow_back.svg</normaloff>:/icons/content/arrow_back.svg</iconset>
-               </property>
-               <property name="iconSize">
-                <size>
-                 <width>40</width>
-                 <height>40</height>
-                </size>
-               </property>
-              </widget>
-             </item>
             </layout>
-           </item>
-           <item>
-            <spacer name="verticalSpacer_9">
-             <property name="orientation">
-              <enum>Qt::Vertical</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>20</width>
-               <height>40</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-          </layout>
+           </widget>
+          </widget>
          </item>
         </layout>
        </item>

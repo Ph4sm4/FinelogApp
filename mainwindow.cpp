@@ -155,6 +155,7 @@ void MainWindow::on_loginButton_clicked()
         InputManager::clearInputs(ui->emailEdit, ui->passwordEdit);
 
         connect(aPanel, &AdminPanel::logOutButtonClicked, this, &MainWindow::loggedOutOfAdminPanel);
+        connect(aPanel, &AdminPanel::successBoxNeeded, this, &MainWindow::displaySuccessBox);
     }
 
     ui->pagination->setCurrentIndex(5);

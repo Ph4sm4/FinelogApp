@@ -17,12 +17,19 @@ public:
     ~SelectContentManager();
 
     void setTitle(const QString &newTitle);
-    void setItems(QJsonArray *newFields);
+    void setItems(QJsonObject *newFields);
+
+public slots:
+
+private slots:
+    void on_addField_clicked();
 
 private:
     Ui::SelectContentManager *ui;
 
-    QJsonArray *fieldsArray = nullptr;
+    QJsonObject *dataObject = nullptr;
+    QString key;
+    class QVBoxLayout *existingLayout = nullptr;
 };
 
 #endif // SELECTCONTENTMANAGER_H

@@ -14,17 +14,20 @@ class SelectDeleteItem : public QWidget
 
 public:
     explicit SelectDeleteItem(QWidget *parent = nullptr);
-    explicit SelectDeleteItem(QJsonArray *val, int index);
+    explicit SelectDeleteItem(QJsonObject *val, const QString &key, int index);
     ~SelectDeleteItem();
 
 private slots:
-    void on_passwordEdit_textChanged(const QString &arg1);
+    void on_fieldEdit_textChanged(const QString &arg1);
+
+    void on_deleteButton_clicked();
 
 private:
     Ui::SelectDeleteItem *ui;
 
     int itemIndex;
-    QJsonArray *controlledValue = nullptr;
+    QJsonObject *controlledValue = nullptr;
+    QString selectKey;
 };
 
 #endif // SELECTDELETEITEM_H

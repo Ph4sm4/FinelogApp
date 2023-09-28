@@ -31,6 +31,7 @@ public:
     bool deleteDatabaseEntry(const QString &databasePath, const QString &idToken);
     QJsonObject getAuthAccountInfo(const QString &idToken);
     QJsonObject getFormInputData(const QString &idToken);
+    bool uploadFormInputData(const QString &idToken, const QJsonObject &data);
 
 public slots:
     //void networkReplyReadyRead();

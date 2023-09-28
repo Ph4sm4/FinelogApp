@@ -437,15 +437,25 @@ void AdminPanel::initializeManageData()
         delete item;
     }
 
+    if (!inputsData.contains("Kierowca")) {
+        inputsData["Kierowca"] = QJsonArray();
+    }
+    if (!inputsData.contains("Auto")) {
+        inputsData["Auto"] = QJsonArray();
+    }
+    if (!inputsData.contains("Naczepa")) {
+        inputsData["Naczepa"] = QJsonArray();
+    }
+    if (!inputsData.contains("Projekt")) {
+        inputsData["Projekt"] = QJsonArray();
+    }
+
     // need to somehow modify the json array which is stored in the inputsData QJSonObject
     // passing by reference does not work dunno
     foreach (const QString &key, inputsData.keys()) {
-        QJsonArray *fields = &inputsData.value(key).toArray();
         SelectContentManager *fieldManager = new SelectContentManager();
         fieldManager->setTitle(key);
-        fieldManager->setItems(fields);
-
-        QTimer::singleShot(5000, [fields]() -> void { qDebug() << "json array: " << fields; });
+        fieldManager->setItems(&inputsData);
 
         existingLayout->addWidget(fieldManager);
     }
@@ -558,5 +568,25 @@ void AdminPanel::on_manageFormData_clicked()
 
 void AdminPanel::on_backToPanel_3_clicked()
 {
+    ui->pagination->setCurrentIndex(0);
+}
+
+void AdminPanel::on_saveChanges_clicked()
+{
+    foreach (const QString &key, inputsData.keys()) {
+        QJsonArray fieldsArr = inputsData[key].toArray();
+        QJsonArray withNoEmpties;
+        for (QJsonValueRef x : fieldsArr) {
+            if (x.toString().length()) {
+                withNoEmpties.push_back(x);
+                qDebug() << "adding not empty item";
+            }
+        }
+        inputsData[key] = withNoEmpties;
+    }
+    bool res = dbHandler.uploadFormInputData(adminUser->getIdToken(), inputsData);
+    if (res) {
+        emit successBoxNeeded();
+    }
     ui->pagination->setCurrentIndex(0);
 }

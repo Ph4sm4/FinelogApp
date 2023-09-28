@@ -21,5 +21,6 @@
         <file>content/chevron-down.svg</file>
         <file>content/log_out.svg</file>
         <file>content/x-white.svg</file>
+        <file>content/plus-icon.svg</file>
     </qresource>
 </RCC>

@@ -1,19 +1,20 @@
 #include "protocolform.h"
-#include "ui_protocolform.h"
-#include "inputmanager.h"
-#include "fineloguser.h"
-#include "userreport.h"
 #include <QDate>
-#include <QTime>
+#include <QGraphicsDropShadowEffect>
+#include <QGroupBox>
+#include <QJsonArray>
 #include <QJsonDocument>
+#include <QJsonObject>
+#include <QPropertyAnimation>
+#include <QScrollBar>
 #include <QScroller>
 #include <QScrollerProperties>
-#include <QJsonObject>
-#include <QScrollBar>
-#include <QGraphicsDropShadowEffect>
-#include <QPropertyAnimation>
+#include <QTime>
 #include <QTimer>
-#include <QGroupBox>
+#include "fineloguser.h"
+#include "inputmanager.h"
+#include "ui_protocolform.h"
+#include "userreport.h"
 #define ipcs isPositiveChoiseSelected
 #define mprb markProperRadioButton
 
@@ -81,26 +82,32 @@ void ProtocolForm::prepareForm()
     ui->emailEdit->setText(currentUser->getEmail());
     ui->phoneEdit->setText(currentUser->getPhoneNumber());
 
-    // temporary data, later we wanna get them from db, and upload them via admin
-    ui->driverCombo->addItem("Kierowca 1");
-    ui->driverCombo->addItem("Kierowca 2");
-    ui->driverCombo->addItem("Kierowca 3");
-    ui->driverCombo->addItem("Kierowca 4");
+    QJsonObject inputsData = dbHandler.getFormInputData(currentUser->getIdToken());
 
-    ui->carCombo->addItem("Numer rejestracyjny 1");
-    ui->carCombo->addItem("Numer rejestracyjny 2");
-    ui->carCombo->addItem("Numer rejestracyjny 3");
-    ui->carCombo->addItem("Numer rejestracyjny 4");
-
-    ui->trailerCombo->addItem("Numer rejestracyjny naczepa 1");
-    ui->trailerCombo->addItem("Numer rejestracyjny naczepa 2");
-    ui->trailerCombo->addItem("Numer rejestracyjny naczepa 3");
-    ui->trailerCombo->addItem("Numer rejestracyjny naczepa 4");
-
-    ui->projectCombo->addItem("Projekt 1");
-    ui->projectCombo->addItem("Projekt 2");
-    ui->projectCombo->addItem("Projekt 3");
-    ui->projectCombo->addItem("Projekt 4");
+    // need to somehow modify the json array which is stored in the inputsData QJSonObject
+    // passing by reference does not work dunno
+    foreach (const QString &key, inputsData.keys()) {
+        if (key == "Kierowca") {
+            for (int i = 0; i < inputsData.value(key).toArray().count(); i++) {
+                ui->driverCombo->addItem(inputsData.value(key).toArray()[i].toString());
+            }
+        }
+        if (key == "Auto") {
+            for (int i = 0; i < inputsData.value(key).toArray().count(); i++) {
+                ui->carCombo->addItem(inputsData.value(key).toArray()[i].toString());
+            }
+        }
+        if (key == "Naczepa") {
+            for (int i = 0; i < inputsData.value(key).toArray().count(); i++) {
+                ui->trailerCombo->addItem(inputsData.value(key).toArray()[i].toString());
+            }
+        }
+        if (key == "Projekt") {
+            for (int i = 0; i < inputsData.value(key).toArray().count(); i++) {
+                ui->projectCombo->addItem(inputsData.value(key).toArray()[i].toString());
+            }
+        }
+    }
 
     // blocking all edits
     for(QLineEdit* edit : ui->protocol_fields->findChildren<QLineEdit*>()) {

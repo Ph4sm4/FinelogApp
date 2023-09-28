@@ -57,8 +57,12 @@ private slots:
 
     void on_backToPanel_3_clicked();
 
+    void on_saveChanges_clicked();
+
 signals:
     void logOutButtonClicked();
+
+    void successBoxNeeded();
 
 private:
     Ui::AdminPanel *ui;

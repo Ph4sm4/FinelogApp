@@ -221,6 +221,16 @@ QJsonObject DatabaseHandler::getFormInputData(const QString &idToken)
     return inputsData;
 }
 
+bool DatabaseHandler::uploadFormInputData(const QString &idToken, const QJsonObject &data)
+{
+    QString endPoint = "Reports/Inputs";
+    QJsonObject res = performAuthenticatedPUT(endPoint,
+                                              QJsonDocument::fromVariant(data.toVariantMap()),
+                                              idToken);
+
+    return res.contains("error") == false;
+}
+
 QJsonObject DatabaseHandler::performPOST(const QString &url, const QJsonDocument &payload)
 {
     QNetworkRequest newReq((QUrl(url)));
