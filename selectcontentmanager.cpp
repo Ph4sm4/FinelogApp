@@ -85,6 +85,8 @@ void SelectContentManager::on_addField_clicked()
     jsonArray.push_back("");
     (*dataObject)[key] = jsonArray;
 
+    qDebug() << "adding field";
+
     // clearing out any remaining widgets
     while (QLayoutItem *item = existingLayout->takeAt(0)) {
         if (QWidget *widget = item->widget())
@@ -94,6 +96,8 @@ void SelectContentManager::on_addField_clicked()
     }
 
     for (int i = 0; i < dataObject->value(key).toArray().size(); i++) {
+        if (dataObject->value(key).toArray()[i].isUndefined()) // we dont want to add deleted inputs
+            continue;
         SelectDeleteItem *fieldItem = new SelectDeleteItem(dataObject, key, i);
 
         existingLayout->addWidget(fieldItem);

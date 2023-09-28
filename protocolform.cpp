@@ -322,11 +322,11 @@ void ProtocolForm::on_sendForm_clicked()
 
     // check for the combo boxes and start setting up the admin panel!!!
 
-    //    if(!allFilled) {
-    //        ui->formErrorLabel->setText("Nie wszystkie pola zostały wypełnione");
-    //        return;
-    //    }
-    //    ui->formErrorLabel->setText("");
+    if (!allFilled) {
+        ui->formErrorLabel->setText("Nie wszystkie pola zostały wypełnione");
+        return;
+    }
+    ui->formErrorLabel->setText("");
 
     UserReport report;
     // #define ipcs isPositiveChoiseSelected (there is this define on top)

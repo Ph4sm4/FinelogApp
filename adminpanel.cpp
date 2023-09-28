@@ -37,10 +37,17 @@ AdminPanel::AdminPanel(QWidget *parent) :
     ui->scrollArea_2->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     ui->scrollArea_2->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
 
+    ui->scrollArea_4->setWidgetResizable(true);
+    ui->scrollArea_4->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    ui->scrollArea_4->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+
     QScroller::grabGesture(ui->scrollArea->viewport(),
                            QScroller::TouchGesture); // Enable touch scrolling
 
     QScroller::grabGesture(ui->scrollArea_2->viewport(),
+                           QScroller::TouchGesture); // Enable touch scrolling
+
+    QScroller::grabGesture(ui->scrollArea_4->viewport(),
                            QScroller::TouchGesture); // Enable touch scrolling
 
     QGraphicsDropShadowEffect *shadowEffect = new QGraphicsDropShadowEffect;
@@ -60,6 +67,12 @@ AdminPanel::AdminPanel(QWidget *parent) :
     shadowEffect3->setColor(QColor(0, 0, 0, 80));
     shadowEffect3->setOffset(0, 0);
     ui->scrollArea_3->setGraphicsEffect(shadowEffect3);
+
+    QGraphicsDropShadowEffect *shadowEffect4 = new QGraphicsDropShadowEffect;
+    shadowEffect4->setBlurRadius(20);
+    shadowEffect4->setColor(QColor(0, 0, 0, 80));
+    shadowEffect4->setOffset(0, 0);
+    ui->scrollArea_4->setGraphicsEffect(shadowEffect4);
 
     // Configure the scrolling behavior
     QScrollerProperties scrollerProperties = QScroller::scroller(ui->scrollArea->viewport())
@@ -91,6 +104,16 @@ AdminPanel::AdminPanel(QWidget *parent) :
     scrollerProperties.setScrollMetric(QScrollerProperties::HorizontalOvershootPolicy,
                                        QScrollerProperties::OvershootAlwaysOff);
     QScroller::scroller(ui->scrollArea_3->viewport())->setScrollerProperties(scrollerProperties);
+
+    // Configure the scrolling behavior
+    scrollerProperties = QScroller::scroller(ui->scrollArea_4->viewport())->scrollerProperties();
+    scrollerProperties.setScrollMetric(QScrollerProperties::DragVelocitySmoothingFactor, 0.6);
+    scrollerProperties.setScrollMetric(QScrollerProperties::MinimumVelocity, 0.0);
+    scrollerProperties.setScrollMetric(QScrollerProperties::MaximumVelocity, 0.6);
+    scrollerProperties.setScrollMetric(QScrollerProperties::AcceleratingFlickMaximumTime, 0.4);
+    scrollerProperties.setScrollMetric(QScrollerProperties::HorizontalOvershootPolicy,
+                                       QScrollerProperties::OvershootAlwaysOff);
+    QScroller::scroller(ui->scrollArea_4->viewport())->setScrollerProperties(scrollerProperties);
 
     ui->sortHeadlinesCombo->addItem("-- Sortuj --");
     ui->sortHeadlinesCombo->addItem("Nieprzeczytane");
