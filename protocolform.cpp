@@ -84,8 +84,6 @@ void ProtocolForm::prepareForm()
 
     QJsonObject inputsData = dbHandler.getFormInputData(currentUser->getIdToken());
 
-    // need to somehow modify the json array which is stored in the inputsData QJSonObject
-    // passing by reference does not work dunno
     foreach (const QString &key, inputsData.keys()) {
         if (key == "Kierowca") {
             for (int i = 0; i < inputsData.value(key).toArray().count(); i++) {
